@@ -1,0 +1,15 @@
+main {
+  width: 100%;
+  display: flex;
+
+  .page-content {
+    margin: auto auto;
+    width: calc(100% - 30px);
+    height: 80%;
+    display: flex;
+    background-color: #f7f7f7;
+    border-radius: 9px;
+    box-shadow: 2px 0px 10px #a1a1a1;
+    padding: 20px;
+  }
+}

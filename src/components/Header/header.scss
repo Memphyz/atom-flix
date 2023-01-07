@@ -1,0 +1,53 @@
+header {
+  min-width: 160px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 2px 0px 9px #00000080;
+  overflow: hidden;
+
+  .navigations {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    overflow: auto;
+    max-height: calc(100% - 215px);
+  }
+
+  .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    a {
+      text-decoration: unset;
+      color: #4c4c4c;
+      font-weight: 700;
+    }
+
+    .icon {
+      min-width: 60px;
+      min-height: 60px;
+      background-color: #00d0f1;
+      mask-image: url(./../../assets/icons/favorite.svg);
+      mask-size: cover;
+      mask-position: center;
+    }
+
+    .logo {
+      margin: 30px 0px;
+
+      .logo-image {
+        width: 100%;
+        min-width: 125px;
+        min-height: 125px;
+        margin: auto;
+        background-image: url(./../../assets/logo.svg);
+        background-size: cover;
+        background-position: center;
+      }
+    }
+  }
+}
