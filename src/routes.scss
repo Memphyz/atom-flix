@@ -11,5 +11,7 @@ main {
     border-radius: 9px;
     box-shadow: 2px 0px 10px #a1a1a1;
     padding: 20px;
+    max-height: 100vh;
+    overflow: auto;
   }
 }

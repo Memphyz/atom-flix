@@ -1,12 +1,13 @@
 import './routes.scss';
 import Header from './components/Header/header';
-import Filme from './pages/Filme/filme';
-import Home from './pages/Home/Home';
-import { Component } from 'react';
+import Home from './pages/home/Home';
+import Filme from './pages/movie/Movie';
+import { Component, ReactNode } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-class RoutesApp extends Component {
-     render() {
+export default class RoutesApp extends Component {
+
+     public render(): ReactNode {
           return (
                <BrowserRouter>
                     <Header />
@@ -14,7 +15,7 @@ class RoutesApp extends Component {
                          <div className="page-content">
                               <Routes>
                                    <Route path='/' element={<Home />} />
-                                   <Route path='/filme/:id' element={<Filme />} />
+                                   <Route path='/movie/:id' element={<Filme />} />
                               </Routes>
                          </div>
                     </main>
@@ -22,5 +23,3 @@ class RoutesApp extends Component {
           )
      }
 }
-
-export default RoutesApp;
