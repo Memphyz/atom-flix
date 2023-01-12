@@ -1,6 +1,6 @@
 import './App.css';
 import RoutesApp from './routes';
-import React, { Component, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 
 export default class App extends Component {
 

@@ -1,16 +1,29 @@
 import './Home.scss';
 import { getLang } from '../..';
 import { IMovie } from '../../core/models/Movie';
+import { IResponse } from '../../core/models/Response';
 import { MovieService } from '../../core/services/movie';
+import { handleScroll } from '../../shared/infinity-scroll';
 import { Component, ReactNode } from 'react';
+import { Observable } from 'rxjs';
+
 
 export default class Home extends Component {
 
+     private page = 1;
      private readonly movieService = new MovieService();
-     private movies: IMovie[] = [];
+     public movies: IMovie[] = [];
+     public findAll = this.requisitions.topRating;
+
+     private get requisitions() {
+          return {
+               topRating: (page: number): Observable<IResponse<IMovie>> => this.movieService.getAllTopRating({ page }),
+               nowPlaying: (page: number): Observable<IResponse<IMovie>> => this.movieService.getAllPlaying({ page })
+          }
+     }
 
      public componentDidMount(): void {
-          this.fetchPlaying();
+          this.fetch();
      }
 
      private averageColor(average: number): string {
@@ -21,9 +34,14 @@ export default class Home extends Component {
           return average < 80 ? 'orange' : 'green'
      }
 
-     private fetchPlaying(): void {
-          this.movieService.getAllTopRating().subscribe((response) =>
-               this.setState(() => this.movies = response.results));
+     private fetch(): void {
+          this.findAll && this.findAll(this.page).subscribe((response) =>
+               this.setState(() => this.movies.push(...response.results)));;
+     }
+
+     private handlePage(): void {
+          this.page++;
+          this.fetch();
      }
 
      public render(): ReactNode {
@@ -32,9 +50,9 @@ export default class Home extends Component {
                     <div className="filters">
 
                     </div>
-                    <div className="catalog">
+                    <div className="catalog" onScroll={handleScroll.bind(this, this.handlePage.bind(this))}>
                          {this.movies.map(movie => (
-                              <div className='card'>
+                              <div className='card' key={movie.id} id={movie.id + ''}>
                                    <a href={'movie/' + movie.id}>
                                         <img src={'https://www.themoviedb.org/t/p/w220_and_h330_face' + movie.backdrop_path} alt={movie.title.replace(' ', '_').toLocaleLowerCase() + '_backdrop'} />
                                    </a>
