@@ -2,7 +2,7 @@ header {
   min-width: 160px;
   height: 100vh;
   background-color: white;
-  box-shadow: 2px 0px 9px var(--disabled-200);
+  box-shadow: 2px 0px 9px #00000080;
   overflow: hidden;
 
   .navigations {
@@ -30,7 +30,8 @@ header {
     .icon {
       min-width: 60px;
       min-height: 60px;
-      background-color: var(--brand-color-1);
+      background-color: #00d0f1;
+      mask-image: url(./../../assets/icons/favorite.svg);
       mask-size: cover;
       mask-position: center;
     }
@@ -43,13 +44,9 @@ header {
         min-width: 125px;
         min-height: 125px;
         margin: auto;
-        mask-image: url(./../../assets/logo.svg);
-        mask-size: cover;
-        mask-position: center;
-        -webkit-mask-image: url(./../../assets/logo.svg);
-        -webkit-mask-size: cover;
-        -webkit-mask-position: center;
-        background: var(--brand-color-1);
+        background-image: url(./../../assets/logo.svg);
+        background-size: cover;
+        background-position: center;
       }
     }
   }
