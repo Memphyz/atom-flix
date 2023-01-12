@@ -19,9 +19,9 @@
 
     .card {
       border-radius: 15px;
-      border: 1px solid #ddd8d8;
+      border: 1px solid var(--disabled-300);
       overflow: hidden;
-      box-shadow: 5px 0px 6px #d5d5d5;
+      box-shadow: 5px 0px 6px var(--disabled-100);
       position: relative;
       max-width: 220px;
 
@@ -68,7 +68,7 @@
 
           .indicator {
             @extend .track;
-            stroke-dasharray: 251.2px; /* DashArray = Track's or indicator's Circumference */
+            stroke-dasharray: 251.2px;
             stroke-linecap: round;
           }
         }
@@ -82,13 +82,13 @@
 
         label {
           font-weight: 600;
-          color: #726c6c;
+          color: var(--text-color);
           font-size: 15px;
         }
 
         span {
           font-size: 13px;
-          color: #9d9d9d;
+          color: var(--disabled);
         }
       }
     }

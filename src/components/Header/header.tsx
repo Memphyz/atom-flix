@@ -1,8 +1,10 @@
 import './header.scss';
-import { Component } from 'react';
+import { icons } from '../../assets/icons/icons';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
+
      render() {
           return (
                <header>
@@ -14,7 +16,9 @@ class Header extends Component {
 
                     <div className="navigations">
                          <div className="item">
-                              <div className="icon" icon='/../../assets/icons/favorite.svg' />
+                              <div className="icon" style={{
+                                   WebkitMaskImage: `url(${icons.favorite})`
+                              }} />
                               <Link to='/favoritos' className='link'>Favoritos</Link>
                          </div>
                     </div>
