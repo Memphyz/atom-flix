@@ -10,8 +10,9 @@ export const API_TOKEN = process.env.REACT_APP_API_TOKEN!;
 
 export const getLang = () => {
   const current = window?.navigator.language;
-  changeLanguage(LANG_IDENTIFYER[current])
-  return localStorage.getItem('lang') || current;
+  const lang = localStorage.getItem('lang') || current;
+  changeLanguage(LANG_IDENTIFYER[lang]);
+  return lang;
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
