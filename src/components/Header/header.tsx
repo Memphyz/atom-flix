@@ -1,5 +1,6 @@
-import './header.scss';
+import './Header.scss';
 import { icons } from '../../assets/icons/icons';
+import { Language } from '../../assets/langs/lang';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +20,7 @@ class Header extends Component {
                               <div className="icon" style={{
                                    WebkitMaskImage: `url(${icons.favorite})`
                               }} />
-                              <Link to='/favoritos' className='link'>Favoritos</Link>
+                              <Link to='/favoritos' className='link'>{Language.LANG.FAVORITES}</Link>
                          </div>
                     </div>
                </header>

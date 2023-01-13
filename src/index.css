@@ -1,4 +1,5 @@
 @import url(./assets/styles/_colors.scss);
+@import url(./assets/styles/_global.scss);
 
 * {
   padding: 0px;
@@ -9,17 +10,17 @@
 body {
   font-family: sans-serif;
   color: #4c4c4c;
-     background: rgb(233 233 233);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    width: 100%;
+  background: rgb(233 233 233);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
 }
 
 div#root {
   display: flex;
-  gap: 10px;
+  max-height: 100vh;
 }
 
 *::-webkit-scrollbar {

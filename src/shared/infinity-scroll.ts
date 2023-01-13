@@ -7,3 +7,14 @@ export const handleScroll = (next: (...args) => void, event: SyntheticEvent): vo
      const scrollTop = element.scrollTop;
      next && scrollHeight < scrollTop && next();
 }
+
+export const scrollToTop = (seletor: string) => {
+     const element: Element = document.querySelector(seletor)!;
+     if (!element) {
+          return undefined;
+     }
+     element.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+     })
+}

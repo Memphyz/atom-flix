@@ -1,9 +1,10 @@
 import './Home.scss';
 import { getLang } from '../..';
+import { Language } from '../../assets/langs/lang';
 import { IMovie } from '../../core/models/Movie';
 import { IResponse } from '../../core/models/Response';
 import { MovieService } from '../../core/services/movie';
-import { handleScroll } from '../../shared/infinity-scroll';
+import { handleScroll, scrollToTop } from '../../shared/infinity-scroll';
 import { Component, ReactNode } from 'react';
 import { Observable } from 'rxjs';
 
@@ -23,6 +24,7 @@ export default class Home extends Component {
      }
 
      public componentDidMount(): void {
+          Language.onChange.subscribe(() => this.fetch(true))
           this.fetch();
      }
 
@@ -34,9 +36,18 @@ export default class Home extends Component {
           return average < 80 ? 'orange' : 'green'
      }
 
-     private fetch(): void {
+     private fetch(reset = false): void {
+          if (reset) {
+               this.page = 1;
+          }
           this.findAll && this.findAll(this.page).subscribe((response) =>
-               this.setState(() => this.movies.push(...response.results)));;
+               this.setState(() => {
+                    if (reset) {
+                         this.movies = [];
+                         scrollToTop('div.page-content > div > div.catalog')
+                    }
+                    return this.movies.push(...response.results)
+               }));;
      }
 
      private handlePage(): void {

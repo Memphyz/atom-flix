@@ -15,6 +15,6 @@ export abstract class AbstractService<Model> {
      protected readonly http = axios.create(this.baseConfig)
 
      public getAll(url: string, params = { page: 1 }): Observable<IResponse<Model>> {
-          return from(this.http.get(url, { params })).pipe(map((res) => res.data as IResponse<Model>))
+          return from(this.http.get(url, { params: { ...params, language: getLang() } })).pipe(map((res) => res.data as IResponse<Model>))
      }
 }

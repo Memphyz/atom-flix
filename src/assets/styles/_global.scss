@@ -1,0 +1,35 @@
+.ant-select {
+  width: 100%;
+  max-width: 180px;
+  height: 32px;
+}
+
+#root > main > div.top-content > div > div > span.ant-select-selection-item {
+  padding-left: 30px !important;
+  position: relative !important;
+}
+
+#root
+  > main
+  > div.top-content
+  > div
+  > div
+  > span.ant-select-selection-item::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  left: 0;
+  top: 5px;
+  position: absolute;
+  background-size: contain;
+  background-image: url(./../icons/us-icon.png);
+}
+
+#root
+  > main
+  > div.top-content
+  > div
+  > div
+  > span.ant-select-selection-item[title="Português"]::before {
+  background-image: url(./../icons/brazil-icon.png);
+}
