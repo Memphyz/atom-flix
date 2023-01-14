@@ -4,5 +4,6 @@ export const EN_LANGUAGE: typeof PT_LANG = {
      FAVORITES: 'Favorites',
      LOADING_NEW_ITEMS: 'Loading new items',
      PORTUGUESE: 'Portuguese',
-     ENGLISH: 'English'
+     ENGLISH: 'English',
+     ADD_TO_FAVORITES: 'Add to Favorites'
 }

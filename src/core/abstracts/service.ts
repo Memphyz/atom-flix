@@ -5,7 +5,7 @@ import { from, map, Observable } from 'rxjs';
 
 export abstract class AbstractService<Model> {
 
-     private readonly baseConfig = {
+     protected readonly baseConfig = {
           baseURL: BASE_URL,
           params: {
                api_key: API_KEY,
@@ -13,8 +13,17 @@ export abstract class AbstractService<Model> {
           }
      }
      protected readonly http = axios.create(this.baseConfig)
+     protected readonly httpNoParams = axios.create()
 
      public getAll(url: string, params = { page: 1 }): Observable<IResponse<Model>> {
           return from(this.http.get(url, { params: { ...params, language: getLang() } })).pipe(map((res) => res.data as IResponse<Model>))
+     }
+
+     public getWithBaseConfig<T>(url: string, params?: { [x: string]: any }): Observable<T> {
+          return from(this.http.get(url, { params })).pipe(map(data => data.data))
+     }
+
+     public get<T>(url: string, params?: { [x: string]: any }): Observable<T> {
+          return from(this.httpNoParams.get(url, { params })).pipe(map(data => data.data))
      }
 }
