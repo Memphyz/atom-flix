@@ -1,8 +1,11 @@
 import { AbstractService } from '../abstracts/service';
+import { AccountSession } from '../models/AccountSession';
 import { API_KEY, BASE_URL } from './../..';
+import { decrypt, encrypt } from './../../shared/crypto';
+import { AccountDetails } from './../models/AccountDetails';
 import { AccountLoginBody } from './../models/AccountLoginBody';
 import { AccountRequestToken } from './../models/AccountRequestToken';
-import { Observable } from 'rxjs';
+import { mergeMap, Observable, of, tap } from 'rxjs';
 
 export class AccountService extends AbstractService<any> {
 
@@ -11,10 +14,36 @@ export class AccountService extends AbstractService<any> {
      }
 
      public getRequestToken(): Observable<AccountRequestToken> {
-          return this.get<AccountRequestToken, unknown>(BASE_URL + 'authentication/token/new', { api_key: API_KEY })
+          return this.get<AccountRequestToken>(BASE_URL + 'authentication/token/new', { api_key: API_KEY })
      }
 
-     public login(body: AccountLoginBody): Observable<AccountRequestToken> {
-          return this.get<AccountRequestToken, AccountLoginBody>(BASE_URL + 'authentication/token/validate_with_login', { api_key: API_KEY }, body)
+     public self() {
+          const session_id: string = decrypt(sessionStorage.getItem('session_id')!);
+          return this.get<AccountDetails>(BASE_URL + 'account', { api_key: API_KEY, session_id })
+     }
+
+     public login(body: AccountLoginBody): Observable<AccountDetails> {
+          const loginObservable = (token: AccountRequestToken) =>
+               this.post<AccountRequestToken, AccountLoginBody>(BASE_URL + 'authentication/token/validate_with_login', { api_key: API_KEY }, { ...body, request_token: token.request_token })
+
+          const createSession = (token: string) => this.post<AccountSession, { request_token: string }>(BASE_URL + 'authentication/session/new', { api_key: API_KEY }, { request_token: token })
+
+          return this.getRequestToken().pipe(
+               mergeMap((token) => loginObservable(token)),
+               tap((token) => sessionStorage.setItem('expires_at', encrypt(token.expires_at))),
+               mergeMap((token) => createSession(token.request_token)),
+               tap((session) => sessionStorage.setItem('session_id', encrypt(session.session_id))),
+               mergeMap(() => this.self())
+          )
+     }
+
+     public logout(): Observable<{ success: boolean }> {
+          if (!sessionStorage.getItem('session_id')) {
+               return of({ success: false });
+          }
+          const session_id = decrypt(sessionStorage.getItem('session_id')!);
+          sessionStorage.removeItem('session_id');
+          sessionStorage.removeItem('expires_at');
+          return this.delete<{ success: boolean }, { session_id: string }>(BASE_URL + 'authentication/session', { api_key: API_KEY }, { session_id })
      }
 }

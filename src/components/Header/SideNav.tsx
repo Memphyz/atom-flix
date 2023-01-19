@@ -1,14 +1,14 @@
-import './Header.scss';
+import './SideNav.scss';
 import { icons } from '../../assets/icons/icons';
 import { Language } from '../../assets/langs/lang';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class Header extends Component {
+class SideNav extends Component {
 
      render() {
           return (
-               <header>
+               <div className='sidenav-content'>
                     <div className="item">
                          <Link className='logo' to='/'>
                               <div className='logo-image' />
@@ -23,9 +23,9 @@ class Header extends Component {
                               <Link to='/favoritos' className='link'>{Language.LANG.FAVORITES}</Link>
                          </div>
                     </div>
-               </header>
+               </div>
           )
      }
 }
 
-export default Header;
+export default SideNav;

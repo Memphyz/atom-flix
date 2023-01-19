@@ -1,4 +1,5 @@
 export interface AccountLoginBody {
      username: string,
-     password: string
+     password: string,
+     request_token?: string
 }
