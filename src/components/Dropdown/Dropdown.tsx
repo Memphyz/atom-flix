@@ -1,12 +1,15 @@
+import './Dropdown.scss';
+import { icons } from '../../assets/icons/icons';
 import { DropdownItem } from '../../core/models/DropdownItem';
 import classNames from 'classnames';
-import { Component, ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { noop } from 'rxjs';
 
 export class Dropdown extends Component<{ items: DropdownItem[], children?: any }> {
 
      public isOpen: boolean;
      public items: DropdownItem[];
+     public elementRef = React.createRef<HTMLDivElement>();
 
      public toggle(): void {
           this.setState(() => this.isOpen = !this.isOpen);
@@ -24,14 +27,17 @@ export class Dropdown extends Component<{ items: DropdownItem[], children?: any 
           return (
                <div className={classNames({
                     menu: true,
-                    open: this.isOpen
+                    open: this.isOpen,
                })}
+                    ref={this.elementRef}
                     onClick={this.toggle.bind(this)}>
-                    {this.props.children}
                     <div className="dropdown">
                          <div className="items">
-                              {this.items?.map(item => (
-                                   <div className="item-content" onClick={item.onClick ? item.onClick : noop}>
+                              {this.items?.map((item, index) => (
+                                   <div key={index} className="item-content" onClick={item.onClick ? item.onClick : noop}>
+                                        {item.icon && <div className="icon" style={{
+                                             WebkitMaskImage: `url(${icons[item.icon]})`
+                                        }}></div>}
                                         <span>{item.text}</span>
                                    </div>
                               ))}

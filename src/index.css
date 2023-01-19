@@ -10,7 +10,7 @@
 body {
   font-family: sans-serif;
   color: #4c4c4c;
-  background: rgb(233 233 233);
+  background: var(--background-2);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

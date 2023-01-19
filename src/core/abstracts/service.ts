@@ -23,7 +23,7 @@ export abstract class AbstractService<Model> {
           return from(this.http.get(url, { params })).pipe(map(data => data.data))
      }
 
-     public get<T>(url: string, params?: { [x: string]: any }): Observable<T> {
-          return from(this.httpNoParams.get(url, { params })).pipe(map(data => data.data))
+     public get<T, B>(url: string, params?: { [x: string]: any }, body?: B): Observable<T> {
+          return from(this.httpNoParams.get(url, { params, data: body })).pipe(map(data => data.data))
      }
 }

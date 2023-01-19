@@ -33,7 +33,7 @@ export default class Home extends Component {
      public componentDidMount(): void {
           Language.onChange.subscribe(() => this.fetch(true));
           this.fetch();
-          this.accountService.getFavorites().subscribe(console.log)
+          this.accountService.getRequestToken().subscribe(console.log)
      }
 
      private averageColor(average: number): string {
