@@ -4,6 +4,7 @@ import dotIcon from './dot-icon.svg';
 import favorite from './favorite.svg';
 import favoriteFilled from './favorite_filled.svg';
 import favoriteOutline from './favorite_outline.svg';
+import off from './off.svg';
 
 export const icons = {
      favorite,
@@ -11,5 +12,6 @@ export const icons = {
      bookmarkOutline,
      favoriteFilled,
      favoriteOutline,
-     dotIcon
+     dotIcon,
+     off
 }

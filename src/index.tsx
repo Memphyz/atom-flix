@@ -4,13 +4,14 @@ import { changeLanguage, LANG_IDENTIFYER } from './assets/langs/lang';
 import { LoaderService } from './core/services/loader';
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom/client';
+import { BehaviorSubject } from 'rxjs';
 
 export const BASE_URL = process.env.REACT_APP_API_URL!;
 export const API_KEY = process.env.REACT_APP_API_KEY!;
 export const API_TOKEN = process.env.REACT_APP_API_TOKEN!;
 export const CRYPT_KEY = process.env.REACT_APP_CRYPT_KEY;
-
 export const loaderService = new LoaderService();
+export const routerEvents = new BehaviorSubject('')
 
 export const getLang = () => {
   const current = window?.navigator.language;

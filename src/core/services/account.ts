@@ -1,3 +1,4 @@
+import { user } from '../../shared/utils';
 import { AbstractService } from '../abstracts/service';
 import { AccountSession } from '../models/AccountSession';
 import { API_KEY, BASE_URL } from './../..';
@@ -33,7 +34,8 @@ export class AccountService extends AbstractService<any> {
                tap((token) => sessionStorage.setItem('expires_at', encrypt(token.expires_at))),
                mergeMap((token) => createSession(token.request_token)),
                tap((session) => sessionStorage.setItem('session_id', encrypt(session.session_id))),
-               mergeMap(() => this.self())
+               mergeMap(() => this.self()),
+               tap((account) => user(account))
           )
      }
 
@@ -44,6 +46,7 @@ export class AccountService extends AbstractService<any> {
           const session_id = decrypt(sessionStorage.getItem('session_id')!);
           sessionStorage.removeItem('session_id');
           sessionStorage.removeItem('expires_at');
+          sessionStorage.removeItem('me');
           return this.delete<{ success: boolean }, { session_id: string }>(BASE_URL + 'authentication/session', { api_key: API_KEY }, { session_id })
      }
 }

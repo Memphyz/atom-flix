@@ -3,5 +3,8 @@ export const PT_LANG = {
      LOADING_NEW_ITEMS: 'Carregando novos itens',
      PORTUGUESE: 'Português',
      ENGLISH: 'Inglês',
-     ADD_TO_FAVORITES: 'Adicionar aos Favoritos'
+     ADD_TO_FAVORITES: 'Adicionar aos Favoritos',
+     SIGN_IN: 'Entrar',
+     SIGN_UP: 'Cadastrar',
+     LOGOUT: 'Sair'
 }

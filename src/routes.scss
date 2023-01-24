@@ -3,16 +3,6 @@ main {
   display: flex;
   flex-direction: column;
 
-  .top-content {
-    min-height: 90px;
-    background-color: white;
-    box-shadow: 10px 0px 9px var(--disabled-200);
-    display: flex;
-    justify-content: flex-end;
-    padding: 18px;
-    align-items: center;
-  }
-
   .page-content {
     margin: auto auto;
     width: calc(100% - 80px);

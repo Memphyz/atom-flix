@@ -16,6 +16,10 @@
     cursor: pointer;
   }
 
+  &:not(.default)::before {
+    content: unset;
+  }
+
   &:not(.open) .dropdown {
     height: 0px;
     padding: 0px;

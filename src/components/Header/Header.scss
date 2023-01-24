@@ -1,0 +1,44 @@
+.top-content {
+  min-height: 90px;
+  background-color: white;
+  box-shadow: 10px 0px 9px var(--disabled-200);
+  display: flex;
+  justify-content: flex-end;
+  padding: 18px;
+  gap: 15px;
+  align-items: center;
+
+  .item {
+    min-width: 42px;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.user {
+      .login-out {
+        display: flex;
+        gap: 15px;
+      }
+
+      .user-round {
+        .avatar-placeholder {
+          min-width: 42px;
+          min-height: 42px;
+          border-radius: 84px;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          &::before {
+            content: attr(avatar-name);
+            position: absolute;
+            color: white;
+            font-weight: bolder;
+          }
+        }
+      }
+    }
+  }
+}
