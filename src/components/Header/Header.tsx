@@ -1,5 +1,4 @@
 import './Header.scss';
-import { routerEvents } from '../..';
 import { Language } from '../../assets/langs/lang';
 import { DropdownItem } from '../../core/models/DropdownItem';
 import { AccountService } from '../../core/services/account';
@@ -16,7 +15,6 @@ export class Header extends Component {
      private readonly accountService = new AccountService();
 
      private user = user();
-     public isLogin = this.hideHeaders;
      private dropdownItems: DropdownItem[] = [
           { text: Language.LANG.LOGOUT, icon: 'off', onClick: this.handleLogout.bind(this) }
      ]
@@ -35,22 +33,9 @@ export class Header extends Component {
           return upperFirstLetter(this.user.username).replace(/[^A-Z]/g, '')
      }
 
-     public get hideHeaders(): boolean {
-          return !!HIDE_HEADERS.some((url) => window.location.pathname.split('/').filter((path) => path).shift()?.includes(url)!);
-     }
-
-     componentDidMount(): void {
-          routerEvents.subscribe(() => {
-               this.setState(() => {
-                    this.isLogin = this.hideHeaders;
-               });
-          })
-     }
-
      public render(): ReactNode {
           return (
                <div className="top-content">
-                    log{this.isLogin}
                     <div className="item">
                          <Select
                               onSelect={this.handleLang.bind(this) as any}

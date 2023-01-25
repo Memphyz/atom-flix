@@ -9,6 +9,21 @@
   position: relative !important;
 }
 
+input {
+  padding: 5px 14px;
+  margin: 15px 0px;
+  font-size: 15px;
+  width: 100%;
+  border: 1px solid var(--disabled-200);
+  border-radius: 5px;
+  min-height: 40px;
+  color: var(--tex-primary);
+}
+input:focus-visible {
+  outline: unset;
+  border: 1px solid var(--disabled-500);
+}
+
 #root
   > main
   > div.top-content

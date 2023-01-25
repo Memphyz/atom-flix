@@ -5,6 +5,7 @@ import SideNav from './components/SideNav/SideNav';
 import { Login } from './pages/account/login/Login';
 import Home from './pages/home/Home';
 import Filme from './pages/movie/Movie';
+import classNames from 'classnames';
 import { Component, ReactNode } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { filter, interval } from 'rxjs';
@@ -13,16 +14,13 @@ const HIDE_HEADERS = ['login', 'register', 'recovery']
 
 export default class RoutesApp extends Component {
 
-     public isLogin = this.hideHeaders;
+     public isLogin = Boolean(this.hideHeaders);
      public currentPath = '';
 
      public componentDidMount(): void {
           interval().pipe(filter(() => this.currentPath !== window.location.pathname)).subscribe(() => {
                this.currentPath = window.location.pathname;
-               this.setState(() => {
-                    this.isLogin = this.hideHeaders;
-                    console.log(this)
-               });
+               this.setState(() => this.isLogin = Boolean(this.hideHeaders))
                routerEvents.next(this.currentPath);
           })
      }
@@ -34,11 +32,13 @@ export default class RoutesApp extends Component {
      public render(): ReactNode {
           return (
                <BrowserRouter>
-                    <SideNav />
+                    {!this.isLogin ? <SideNav /> : null}
                     <main>
-                         <Header />
-                         <div className="page-content">
-                              login: {this.isLogin}
+                         {!this.isLogin ? <Header /> : null}
+
+                         <div className={classNames({
+                              'page-content': !this.isLogin
+                         })}>
                               <Routes>
                                    <Route path='/' element={<Home />} />
                                    <Route path='/movie/:id' element={<Filme />} />
