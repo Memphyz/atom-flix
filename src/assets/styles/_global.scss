@@ -18,6 +18,10 @@ input {
   border-radius: 5px;
   min-height: 40px;
   color: var(--tex-primary);
+  transition: border 0.5s;
+}
+input.touched.invalid {
+  border: 1px solid var(--danger-500);
 }
 input:focus-visible {
   outline: unset;

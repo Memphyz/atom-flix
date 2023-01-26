@@ -2,26 +2,23 @@ import './Panda.scss';
 import classNames from 'classnames';
 import { Component, ReactNode } from 'react';
 
-export class Panda extends Component<{ children?: ReactNode, hide?: boolean }> {
+export class Panda extends Component<{ children?: ReactNode, hide?: boolean, eyeDown?: boolean }> {
 
      public render(): ReactNode {
           return (
                <div className={classNames({
                     'panda-container': true,
-                    hide: this.props.hide
+                    hide: this.props.hide,
+                    down: this.props.eyeDown
                })}>
                     <div className="face">
                          <div className="face-container">
                               <div className="eyes">
                                    <div className="eye-detail">
-                                        <div className="eye-radius">
-                                             <div className="eye"></div>
-                                        </div>
+                                        <div className="eye"></div>
                                    </div>
                                    <div className="eye-detail">
-                                        <div className="eye-radius">
-                                             <div className="eye"></div>
-                                        </div>
+                                        <div className="eye"></div>
                                    </div>
                               </div>
                               <div className="nose"></div>

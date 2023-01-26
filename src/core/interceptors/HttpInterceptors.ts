@@ -12,4 +12,7 @@ export const httpResponseInterceptor = (config) => {
 }
 
 
-export const httpErrorInterceptor = (error) => Promise.reject(error)
+export const httpErrorInterceptor = (error) => {
+     loaderService.hide();
+     return Promise.reject(error)
+}

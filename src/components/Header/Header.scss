@@ -42,3 +42,11 @@
     }
   }
 }
+
+.hide-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 21px;
+  width: 100%;
+  position: absolute;
+}

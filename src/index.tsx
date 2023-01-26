@@ -11,7 +11,7 @@ export const API_KEY = process.env.REACT_APP_API_KEY!;
 export const API_TOKEN = process.env.REACT_APP_API_TOKEN!;
 export const CRYPT_KEY = process.env.REACT_APP_CRYPT_KEY;
 export const loaderService = new LoaderService();
-export const routerEvents = new BehaviorSubject('')
+export const routerEvents = new BehaviorSubject('');
 
 export const getLang = () => {
   const current = window?.navigator.language;
