@@ -16,9 +16,10 @@ export const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/
  * @param {AccountDetails} [user]
  * @return {*}  {AccountDetails}
  */
-export function user(user?: AccountDetails): AccountDetails {
+export const user = (user?: AccountDetails, guest?: boolean): AccountDetails => {
      if (user) {
           sessionStorage.setItem('me', encrypt(user));
+          sessionStorage.setItem('ROLE', encrypt(guest ? 'GUEST' : 'USER'))
      }
      return decrypt(sessionStorage.getItem('me')!);
 }

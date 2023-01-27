@@ -16,9 +16,9 @@ export function changeLanguage(lang: typeof PT_LANG): void {
 
 export class Language {
 
-     public static onChange = new Subject<'pt-BR' | 'en-US'>();
+     public static onChange = new Subject<LangSupportType>();
 
-     public static getCurrentLang = (lang?: 'pt-BR' | 'en-US') => {
+     public static getCurrentLang = (lang?: LangSupportType) => {
           const current = window?.navigator.language;
           const langSystem = localStorage.getItem('lang') || current;
           const langAllowed = ALLOWED_LANGS.includes(langSystem) ? langSystem : 'en-US';
@@ -33,3 +33,5 @@ export class Language {
 
      public static LANG: typeof PT_LANG = Language.getCurrentLang();
 }
+
+export type LangSupportType = 'pt-BR' | 'en-US';

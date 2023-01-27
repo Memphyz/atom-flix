@@ -11,9 +11,12 @@ export const EN_LANGUAGE: typeof PT_LANG = {
      LOGOUT: 'Logout',
      USERNAME: 'Username',
      PASSWORD: 'Password',
+     GUEST: 'Guest',
      USERNAME_OR_PASSWORD_INVALID: 'Invalid username and/or password',
      FILL_ALL_FIELDS: 'Fill correctly all fields in red to continue',
      WELCOME_BACK: 'Welcome back',
+     ALREADY_LOGGED: `You're already logged 🫡`,
+     UNLOGGED_MESSAGE: 'You must be logged in to access this feature.',
      ERRORS: (error) => {
           return {
                minLength: `The field does not have a minimum amount of ${error?.minLength?.requiredLength} characters`,

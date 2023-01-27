@@ -20,7 +20,7 @@ export class AccountService extends AbstractService<any> {
 
      public self() {
           const session_id: string = decrypt(sessionStorage.getItem('session_id')!);
-          return this.get<AccountDetails>(BASE_URL + 'account', { api_key: API_KEY, session_id })
+          return this.get<AccountDetails>(BASE_URL + 'account', { api_key: API_KEY, session_id }).pipe(tap())
      }
 
      public login(body: AccountLoginBody): Observable<AccountDetails> {
@@ -39,6 +39,10 @@ export class AccountService extends AbstractService<any> {
           )
      }
 
+     public guest() {
+          return this.get(BASE_URL + 'authentication/guest_session/new', { api_key: API_KEY })
+     }
+
      public logout(): Observable<{ success: boolean }> {
           if (!sessionStorage.getItem('session_id')) {
                return of({ success: false });
@@ -47,6 +51,6 @@ export class AccountService extends AbstractService<any> {
           sessionStorage.removeItem('session_id');
           sessionStorage.removeItem('expires_at');
           sessionStorage.removeItem('me');
-          return this.delete<{ success: boolean }, { session_id: string }>(BASE_URL + 'authentication/session', { api_key: API_KEY }, { session_id })
+          return this.delete<{ success: boolean }, { session_id: string }>(BASE_URL + 'authentication/session', { api_key: API_KEY }, { session_id });
      }
 }

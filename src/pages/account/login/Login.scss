@@ -11,5 +11,17 @@
     align-items: center;
     flex-direction: column;
     gap: 20px;
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 200px;
+      justify-content: center;
+
+      button {
+        min-width: 85.47px;
+      }
+    }
   }
 }

@@ -1,14 +1,16 @@
 import './Header.scss';
-import { Language } from '../../assets/langs/lang';
+import { Router } from '../..';
+import { LangSupportType, Language } from '../../assets/langs/lang';
 import { DropdownItem } from '../../core/models/DropdownItem';
 import { AccountService } from '../../core/services/account';
 import { isLogged, randomHex, upperFirstLetter, user } from '../../shared/utils';
+import { withRouter } from '../../shared/withFns';
 import { Dropdown } from '../Dropdown/Dropdown';
 import { Select } from 'antd';
 import { Component, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavigateFunction } from 'react-router-dom';
 
-export class Header extends Component<{ hide?: boolean }> {
+class Header extends Component<{ hide?: boolean, navigate: NavigateFunction }> {
 
      private readonly accountService = new AccountService();
 
@@ -17,18 +19,23 @@ export class Header extends Component<{ hide?: boolean }> {
           { text: Language.LANG.LOGOUT, icon: 'off', onClick: this.handleLogout.bind(this) }
      ]
 
-     private handleLang(lang: 'pt-BR' | 'en-US', ...params): void {
+     private handleLang(lang: LangSupportType, ...params): void {
           localStorage.setItem('lang', lang);
           Language.onChange.next(lang);
           this.setState(() => Language.LANG = Language.getCurrentLang(lang));
      }
 
      private handleLogout(): void {
-          this.accountService.logout().subscribe()
+          this.accountService.logout().subscribe(() => Router.navigate('/login'))
      }
 
      private getUsernamePlaceholder(): string {
-          return upperFirstLetter(this.user.username).replace(/[^A-Z]/g, '')
+          !this.user && (this.user = user());
+          return upperFirstLetter(this.user?.username).replace(/[^A-Z]/g, '')
+     }
+
+     public componentDidMount(): void {
+          Router.fn = this.props.navigate;
      }
 
      public render(): ReactNode {
@@ -91,3 +98,5 @@ export class Header extends Component<{ hide?: boolean }> {
           )
      }
 }
+
+export default withRouter(Header);

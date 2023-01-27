@@ -23,6 +23,7 @@ class Login extends Component<{ navigate?: NavigateFunction }> {
           username: [null, [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
           password: [null, [Validators.required, Validators.minLength(8), Validators.pattern(PASSWORD_REGEX)]]
      })
+     private show = true;
 
      private handleLogin(): void {
           if (this.form.invalid) {
@@ -41,11 +42,28 @@ class Login extends Component<{ navigate?: NavigateFunction }> {
           })
      }
 
+     private handleGuest(): void {
+          this.accountService.guest().subscribe()
+     }
+
+     public componentDidMount(): void {
+          Language.onChange.subscribe(() => {
+               this.setState(() => this.updateForm())
+          })
+     }
+
+     private updateForm(): boolean {
+          this.show = false;
+          this.show = true;
+          return this.show;
+     }
+
      public render(): ReactNode {
           return (<div className="login-page">
                <Panda hide={this.focusPassword} eyeDown={this.focusUsername}>
-                    <FieldGroup
+                    {this.show && <FieldGroup
                          control={this.form}
+                         strict={false}
                          render={() => (
                               <form className="login-content">
                                    <Input formControlName='username'
@@ -61,9 +79,13 @@ class Login extends Component<{ navigate?: NavigateFunction }> {
                                         onBlur={(): void => this.setState((): boolean => this.focusPassword = false)}
                                         onFocus={(): void => this.setState((): boolean => this.focusPassword = true)} placeholder={Language.LANG.PASSWORD}
                                    />
-                                   <button type='button' onClick={this.handleLogin.bind(this)}>Login</button>
+                                   <div className="buttons">
+                                        <button type='button' onClick={this.handleLogin.bind(this)}>{Language.LANG.SIGN_IN}</button>
+                                        <button type="button">{Language.LANG.SIGN_UP}</button>
+                                        <button type="button" onClick={this.handleGuest.bind(this)}>{Language.LANG.GUEST}</button>
+                                   </div>
                               </form>
-                         )} />
+                         )} />}
                </Panda>
           </div>)
      }

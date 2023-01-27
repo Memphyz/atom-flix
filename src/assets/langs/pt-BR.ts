@@ -7,11 +7,14 @@ export const PT_LANG = {
      SIGN_IN: 'Entrar',
      SIGN_UP: 'Cadastrar',
      LOGOUT: 'Sair',
+     GUEST: 'Convidado',
      USERNAME: 'Usuário',
      PASSWORD: 'Senha',
      USERNAME_OR_PASSWORD_INVALID: 'Usuário ou Senha incorretos!',
      FILL_ALL_FIELDS: 'Preencha corretamente todos os campos em vermelho para continuar',
      WELCOME_BACK: 'Bem vindo de volta',
+     ALREADY_LOGGED: 'Você já está logado 🫡',
+     UNLOGGED_MESSAGE: 'Você precisa estar logado para acessar esse recurso',
      ERRORS: (error) => {
           return {
                minLength: `O campo não possui a quantidade mínima de ${error?.minLength?.requiredLength} caracteres`,
