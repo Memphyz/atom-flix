@@ -1,3 +1,4 @@
+import { Router } from '..';
 import { AccountDetails } from './../core/models/AccountDetails';
 import { decrypt, encrypt } from './crypto';
 import { FormGroup } from 'react-reactive-form';
@@ -16,11 +17,12 @@ export const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/
  * @param {AccountDetails} [user]
  * @return {*}  {AccountDetails}
  */
-export const user = (user?: AccountDetails, guest?: boolean): AccountDetails => {
+export const user = (user?: AccountDetails, guest?: boolean, redirectTo?: string): AccountDetails => {
      if (user) {
           sessionStorage.setItem('me', encrypt(user));
           sessionStorage.setItem('ROLE', encrypt(guest ? 'GUEST' : 'USER'))
      }
+     redirectTo !== undefined && redirectTo !== null && Router.navigate(redirectTo)
      return decrypt(sessionStorage.getItem('me')!);
 }
 

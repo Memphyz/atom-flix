@@ -1,23 +1,18 @@
 import './Header.scss';
 import { Router } from '../..';
 import { LangSupportType, Language } from '../../assets/langs/lang';
-import { DropdownItem } from '../../core/models/DropdownItem';
 import { AccountService } from '../../core/services/account';
-import { isLogged, randomHex, upperFirstLetter, user } from '../../shared/utils';
+import { randomHex, upperFirstLetter, user } from '../../shared/utils';
 import { withRouter } from '../../shared/withFns';
-import { Dropdown } from '../Dropdown/Dropdown';
 import { Select } from 'antd';
 import { Component, ReactNode } from 'react';
-import { Link, NavigateFunction } from 'react-router-dom';
+import { NavigateFunction } from 'react-router-dom';
 
 class Header extends Component<{ hide?: boolean, navigate: NavigateFunction }> {
 
      private readonly accountService = new AccountService();
 
      private user = user();
-     private dropdownItems: DropdownItem[] = [
-          { text: Language.LANG.LOGOUT, icon: 'off', onClick: this.handleLogout.bind(this) }
-     ]
 
      private handleLang(lang: LangSupportType, ...params): void {
           localStorage.setItem('lang', lang);
@@ -67,31 +62,16 @@ class Header extends Component<{ hide?: boolean, navigate: NavigateFunction }> {
                               </div>
 
                               <div className="item user">
-                                   {isLogged() ?
-                                        // Logged content
-                                        <Dropdown items={this.dropdownItems} topPx={20} leftPx={-148}>
-                                             <div className="user-round">
-                                                  {this.user && this.user.avatar.tmdb.avatar_path ?
-                                                       <img src={this.user.avatar.tmdb.avatar_path} alt='user_avatar' />
-                                                       :
-                                                       <div className="avatar-placeholder" style={{
-                                                            backgroundColor: randomHex()
-                                                       }} avatar-name={this.getUsernamePlaceholder()}>
-                                                       </div>
-                                                  }
+                                   <div className="user-round" out-label={Language.LANG.LOGOUT} onClick={this.handleLogout.bind(this)}>
+                                        {this.user && this.user.avatar.tmdb.avatar_path ?
+                                             <img src={this.user.avatar.tmdb.avatar_path} alt='user_avatar' />
+                                             :
+                                             <div className="avatar-placeholder" style={{
+                                                  backgroundColor: randomHex()
+                                             }} avatar-name={this.getUsernamePlaceholder()}>
                                              </div>
-                                        </Dropdown>
-                                        // Login btn
-                                        :
-                                        <div className='login-out'>
-                                             <Link to='/login' className='no-link'>
-                                                  <button>{Language.LANG.SIGN_IN}</button>
-                                             </Link>
-                                             <Link to='/register' className='no-link'>
-                                                  <button>{Language.LANG.SIGN_UP}</button>
-                                             </Link>
-                                        </div>
-                                   }
+                                        }
+                                   </div>
                               </div>
                          </div>}
                </>

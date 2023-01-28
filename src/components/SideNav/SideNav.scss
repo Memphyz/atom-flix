@@ -1,5 +1,5 @@
 .sidenav-content {
-  min-width: 160px;
+  min-width: 120px;
   height: 100vh;
   background-color: white;
   box-shadow: 2px 0px 9px var(--disabled-200);
@@ -12,6 +12,10 @@
     gap: 60px;
     overflow: auto;
     max-height: calc(100% - 215px);
+
+    .item:hover {
+      border-left: 3px solid var(--dark-500);
+    }
   }
 
   .item {
@@ -20,6 +24,7 @@
     align-items: center;
     flex-direction: column;
     gap: 10px;
+    cursor: pointer;
 
     a {
       text-decoration: unset;
@@ -28,8 +33,8 @@
     }
 
     .icon {
-      min-width: 60px;
-      min-height: 60px;
+      min-width: 50px;
+      min-height: 50px;
       background-color: var(--brand-color-1);
       mask-size: cover;
       mask-position: center;
@@ -40,8 +45,8 @@
 
       .logo-image {
         width: 100%;
-        min-width: 125px;
-        min-height: 125px;
+        min-width: 95px;
+        min-height: 95px;
         margin: auto;
         mask-image: url(./../../assets/logo.svg);
         mask-size: cover;

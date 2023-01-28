@@ -12,10 +12,12 @@ export const EN_LANGUAGE: typeof PT_LANG = {
      USERNAME: 'Username',
      PASSWORD: 'Password',
      GUEST: 'Guest',
+     ACCOUNT: 'Account',
      USERNAME_OR_PASSWORD_INVALID: 'Invalid username and/or password',
      FILL_ALL_FIELDS: 'Fill correctly all fields in red to continue',
      WELCOME_BACK: 'Welcome back',
      ALREADY_LOGGED: `You're already logged 🫡`,
+     ACCESS_DENIED: '❌ You have no permission to access this feature',
      UNLOGGED_MESSAGE: 'You must be logged in to access this feature.',
      ERRORS: (error) => {
           return {

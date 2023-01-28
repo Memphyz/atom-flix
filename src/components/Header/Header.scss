@@ -7,6 +7,7 @@
   padding: 18px;
   gap: 15px;
   align-items: center;
+  position: relative;
 
   .item {
     min-width: 42px;
@@ -22,6 +23,24 @@
       }
 
       .user-round {
+        &:hover::before {
+          content: attr(out-label);
+          background-color: #00000057;
+          width: 42px;
+          height: 42px;
+          position: absolute;
+          z-index: 1;
+          border-radius: 84px;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+          font-weight: bolder;
+          font-size: 70%;
+          cursor: pointer;
+        }
+
         .avatar-placeholder {
           min-width: 42px;
           min-height: 42px;
@@ -31,6 +50,7 @@
           justify-content: center;
           align-items: center;
           cursor: pointer;
+
           &::before {
             content: attr(avatar-name);
             position: absolute;
@@ -40,6 +60,22 @@
         }
       }
     }
+  }
+
+  &::before {
+    content: '';
+    left: -9px;
+    position: absolute;
+    top: 90%;
+    height: 20px;
+    width: 20px;
+    border: 9px solid white;
+    border-right: 0;
+    border-bottom: 0;
+    border-radius: 50px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 37px;
   }
 }
 

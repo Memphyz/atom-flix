@@ -14,6 +14,8 @@ export const PT_LANG = {
      FILL_ALL_FIELDS: 'Preencha corretamente todos os campos em vermelho para continuar',
      WELCOME_BACK: 'Bem vindo de volta',
      ALREADY_LOGGED: 'Você já está logado 🫡',
+     ACCOUNT: 'Conta',
+     ACCESS_DENIED: '❌ Você não tem permissão para acessar esse recurso',
      UNLOGGED_MESSAGE: 'Você precisa estar logado para acessar esse recurso',
      ERRORS: (error) => {
           return {

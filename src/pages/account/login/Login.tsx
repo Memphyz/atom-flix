@@ -43,7 +43,7 @@ class Login extends Component<{ navigate?: NavigateFunction }> {
      }
 
      private handleGuest(): void {
-          this.accountService.guest().subscribe()
+          this.accountService.guest().subscribe(console.log)
      }
 
      public componentDidMount(): void {
@@ -80,8 +80,10 @@ class Login extends Component<{ navigate?: NavigateFunction }> {
                                         onFocus={(): void => this.setState((): boolean => this.focusPassword = true)} placeholder={Language.LANG.PASSWORD}
                                    />
                                    <div className="buttons">
-                                        <button type='button' onClick={this.handleLogin.bind(this)}>{Language.LANG.SIGN_IN}</button>
-                                        <button type="button">{Language.LANG.SIGN_UP}</button>
+                                        <button type='button' className='dark' onClick={this.handleLogin.bind(this)}>{Language.LANG.SIGN_IN}</button>
+                                        <a href='https://www.themoviedb.org/signup' target='_blank' rel="noreferrer">
+                                             <button type="button" className='dark'>{Language.LANG.SIGN_UP}</button>
+                                        </a>
                                         <button type="button" onClick={this.handleGuest.bind(this)}>{Language.LANG.GUEST}</button>
                                    </div>
                               </form>

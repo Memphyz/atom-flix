@@ -50,12 +50,12 @@ export default class RoutesApp extends Component {
                          })}>
                               <Routes>
                                    <Route path='' element={
-                                        <AuthRouteComponent>
+                                        <AuthRouteComponent role='GUEST'>
                                              <Home />
                                         </AuthRouteComponent>
                                    } />
                                    <Route path='/movie/:id' element={
-                                        <AuthRouteComponent>
+                                        <AuthRouteComponent role='GUEST'>
                                              <Filme />
                                         </AuthRouteComponent>
                                    } />

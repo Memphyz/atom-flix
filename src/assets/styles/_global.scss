@@ -4,7 +4,7 @@
   height: 32px;
 }
 
-#root > main > div.top-content > div > div > span.ant-select-selection-item {
+#root>main>div.top-content>div>div>span.ant-select-selection-item {
   padding-left: 30px !important;
   position: relative !important;
 }
@@ -20,20 +20,17 @@ input {
   color: var(--tex-primary);
   transition: border 0.5s;
 }
+
 input.touched.invalid {
   border: 1px solid var(--danger-500);
 }
+
 input:focus-visible {
   outline: unset;
   border: 1px solid var(--disabled-500);
 }
 
-#root
-  > main
-  > div.top-content
-  > div
-  > div
-  > span.ant-select-selection-item::before {
+#root>main>div.top-content>div>div>span.ant-select-selection-item::before {
   content: "";
   width: 20px;
   height: 20px;
@@ -44,12 +41,7 @@ input:focus-visible {
   background-image: url(./../icons/us-icon.png);
 }
 
-#root
-  > main
-  > div.top-content
-  > div
-  > div
-  > span.ant-select-selection-item[title="Português"]::before {
+#root>main>div.top-content>div>div>span.ant-select-selection-item[title="Português"]::before {
   background-image: url(./../icons/brazil-icon.png);
 }
 
@@ -63,6 +55,30 @@ button {
   border-radius: 6px;
   transition: all 0.2s;
   color: var(--text-primary);
+}
+
+button.success {
+  background-color: var(--success-100);
+  border: 1px solid var(--success-100);
+  color: white;
+}
+
+button.brand {
+  background-color: var(--brand-color-1);
+  border: 1px solid var(--brand-color-1);
+  color: white;
+}
+
+button.dark {
+  background-color: var(--dark-100);
+  border: 1px solid var(--dark-100);
+  color: white;
+}
+
+button.dark-500 {
+  background-color: var(--dark-500);
+  border: 1px solid var(--dark-500);
+  color: white;
 }
 
 button:not([disabled]) {

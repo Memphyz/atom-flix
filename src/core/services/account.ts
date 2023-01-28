@@ -5,8 +5,8 @@ import { API_KEY, BASE_URL } from './../..';
 import { decrypt, encrypt } from './../../shared/crypto';
 import { AccountDetails } from './../models/AccountDetails';
 import { AccountLoginBody } from './../models/AccountLoginBody';
-import { AccountRequestToken } from './../models/AccountRequestToken';
-import { mergeMap, Observable, of, tap } from 'rxjs';
+import { AccountRequestToken, GuestRequestToken } from './../models/AccountRequestToken';
+import { map, mergeMap, Observable, of, tap } from 'rxjs';
 
 export class AccountService extends AbstractService<any> {
 
@@ -39,18 +39,40 @@ export class AccountService extends AbstractService<any> {
           )
      }
 
-     public guest() {
-          return this.get(BASE_URL + 'authentication/guest_session/new', { api_key: API_KEY })
+     public guest(): Observable<AccountDetails> {
+          return this.get<GuestRequestToken>(BASE_URL + 'authentication/guest_session/new', { api_key: API_KEY }).pipe(
+               tap((token) => {
+                    sessionStorage.setItem('expires_at', encrypt(token.expires_at));
+                    sessionStorage.setItem('session_id', encrypt(token.guest_session_id))
+               }),
+               map((token) => {
+                    return {
+                         avatar: {
+                              gravatar: { hash: undefined },
+                              tmdb: { avatar_path: undefined }
+                         },
+                         id: token.guest_session_id,
+                         include_adult: false,
+                         iso_3166_1: null,
+                         iso_639_1: null,
+                         name: 'Guest',
+                         username: 'Guest' + Math.round(Math.random() * 9999)
+                    } as unknown as AccountDetails
+               }),
+               tap((userDetails) => user(userDetails, true, ''))
+          )
      }
 
      public logout(): Observable<{ success: boolean }> {
+          const ROLE = decrypt(sessionStorage.getItem('ROLE')!) || 'USER';
           if (!sessionStorage.getItem('session_id')) {
                return of({ success: false });
           }
           const session_id = decrypt(sessionStorage.getItem('session_id')!);
           sessionStorage.removeItem('session_id');
           sessionStorage.removeItem('expires_at');
+          sessionStorage.removeItem('ROLE');
           sessionStorage.removeItem('me');
-          return this.delete<{ success: boolean }, { session_id: string }>(BASE_URL + 'authentication/session', { api_key: API_KEY }, { session_id });
+          return ROLE === 'GUEST' ? of({ success: true }) : this.delete<{ success: boolean }, { session_id: string }>(BASE_URL + 'authentication/session', { api_key: API_KEY }, { session_id });
      }
 }
