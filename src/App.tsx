@@ -1,6 +1,7 @@
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { loaderService } from '.';
+import { icons } from './assets/icons/icons';
 import RoutesApp from './routes';
 import { Component, ReactNode } from 'react';
 import { PropagateLoader } from 'react-spinners';
@@ -19,6 +20,9 @@ export default class App extends Component {
         () => this.isLoading = loader
       )
     });
+    (Object.entries(icons) as string[][]).forEach(([name, url]) => {
+      document.body.style.setProperty(`--${name.split(/\.?(?=[A-Z])/).join('-').toLowerCase()}`, `url(${url})`);
+    })
   }
 
   public render(): ReactNode {

@@ -1,6 +1,8 @@
 import { Router } from '..';
 import { AccountDetails } from './../core/models/AccountDetails';
+import { AverageColor } from './../core/models/AverageColor';
 import { decrypt, encrypt } from './crypto';
+import { FastAverageColor } from 'fast-average-color';
 import { FormGroup } from 'react-reactive-form';
 
 export function isLogged(): boolean {
@@ -38,6 +40,35 @@ export function markAllFieldsAsTouchedAndDirty(form: FormGroup): void {
      }
      each(form);
      console.log(form)
+}
+
+export function formatDate(date: Date): string {
+     if (!date) {
+          return '';
+     }
+     return new Intl.DateTimeFormat(localStorage.getItem('lang')!).format(date)
+}
+
+export function convertMinuteToHour(minutes: number): { hour: number, minute: number } {
+     const hourMinute = { hour: 0, minute: 0 }
+     hourMinute.hour = Math.floor(minutes / 60);
+     hourMinute.minute = minutes % 60;
+     return hourMinute;
+}
+
+export function getAverageColor(url: string, fn: (color: AverageColor) => void): void {
+     var xhr = new XMLHttpRequest();
+     xhr.onload = function () {
+          var reader = new FileReader();
+          reader.onloadend = function () {
+               const fac = new FastAverageColor();
+               fac.getColorAsync(reader.result as string).then(fn)
+          }
+          reader.readAsDataURL(xhr.response);
+     };
+     xhr.open('GET', 'https://cors-anywhere.herokuapp.com/' + url);
+     xhr.responseType = 'blob';
+     xhr.send();
 }
 
 /**

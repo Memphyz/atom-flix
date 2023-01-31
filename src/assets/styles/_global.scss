@@ -57,6 +57,12 @@ button {
   color: var(--text-primary);
 }
 
+button[btn-icon]::before {
+  content: '';
+  background-image: var(attr(btn-icon));
+
+}
+
 button.success {
   background-color: var(--success-100);
   border: 1px solid var(--success-100);

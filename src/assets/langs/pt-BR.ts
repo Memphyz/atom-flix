@@ -17,6 +17,8 @@ export const PT_LANG = {
      ACCOUNT: 'Conta',
      ACCESS_DENIED: '❌ Você não tem permissão para acessar esse recurso',
      UNLOGGED_MESSAGE: 'Você precisa estar logado para acessar esse recurso',
+     ALSO_KNOWN_AS: 'Também conhecido como',
+     ORIGINAL_TITLE: 'Título original',
      ERRORS: (error) => {
           return {
                minLength: `O campo não possui a quantidade mínima de ${error?.minLength?.requiredLength} caracteres`,

@@ -21,8 +21,8 @@ class SideNav extends Component {
 
                     <div className="navigations">
                          {
-                              this.icons.map((item) => (
-                                   <div className="item">
+                              this.icons.map((item, i) => (
+                                   <div className="item" key={i}>
                                         <div className="icon" style={{
                                              WebkitMaskImage: `url(${item.icon})`
                                         }} />

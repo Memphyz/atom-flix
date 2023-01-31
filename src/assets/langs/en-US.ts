@@ -19,6 +19,8 @@ export const EN_LANGUAGE: typeof PT_LANG = {
      ALREADY_LOGGED: `You're already logged 🫡`,
      ACCESS_DENIED: '❌ You have no permission to access this feature',
      UNLOGGED_MESSAGE: 'You must be logged in to access this feature.',
+     ALSO_KNOWN_AS: 'Also known as',
+     ORIGINAL_TITLE: 'Original title',
      ERRORS: (error) => {
           return {
                minLength: `The field does not have a minimum amount of ${error?.minLength?.requiredLength} characters`,

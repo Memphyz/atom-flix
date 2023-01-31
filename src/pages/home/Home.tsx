@@ -77,7 +77,7 @@ export default class Home extends Component {
                               return (
                                    <div className='card' key={movie.id} id={movie.id + ''}>
                                         <a href={'movie/' + movie.id}>
-                                             <img loading='lazy' decoding='async' src={'https://www.themoviedb.org/t/p/w220_and_h330_face' + movie.backdrop_path} alt={movie.title.replace(' ', '_').toLocaleLowerCase() + '_backdrop'} />
+                                             <img loading='lazy' decoding='async' src={'	https://www.themoviedb.org/t/p/w220_and_h330_face' + movie.poster_path} alt={movie.title.replace(' ', '_').toLocaleLowerCase() + '_backdrop'} />
                                         </a>
                                         <Dropdown items={this.dropdownItems}></Dropdown>
                                         <div className="average" average-vote={(movie.vote_average * 10) + '%'} >
