@@ -57,6 +57,39 @@ button {
   color: var(--text-primary);
 }
 
+*[atom-tooltip] {
+  position: relative;
+}
+
+*[atom-tooltip]:hover::before {
+  content: attr(atom-tooltip);
+}
+
+*[atom-tooltip]:hover:after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--brand-color-1);
+  transform: rotate(45deg);
+  border-radius: 0px 0px 3px 0px;
+  top: -25%;
+  left: 40%;
+}
+
+*[atom-tooltip]::before {
+  white-space: nowrap;
+  position: absolute;
+  color: white;
+  top: -35px;
+  z-index: 1096;
+  text-align: center;
+  background-color: var(--brand-color-1);
+  padding: 5px;
+  border-radius: 5px;
+
+}
+
 button[btn-icon]::before {
   content: '';
   background-image: var(attr(btn-icon));

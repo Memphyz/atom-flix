@@ -1,6 +1,7 @@
 import './Home.scss';
 import { getLang } from '../..';
 import { Language } from '../../assets/langs/lang';
+import { Average } from '../../components/Average/Average';
 import { Dropdown } from '../../components/Dropdown/Dropdown';
 import { DropdownItem } from '../../core/models/DropdownItem';
 import { IMovie } from '../../core/models/Movie';
@@ -80,12 +81,7 @@ export default class Home extends Component {
                                              <img loading='lazy' decoding='async' src={'	https://www.themoviedb.org/t/p/w220_and_h330_face' + movie.poster_path} alt={movie.title.replace(' ', '_').toLocaleLowerCase() + '_backdrop'} />
                                         </a>
                                         <Dropdown items={this.dropdownItems}></Dropdown>
-                                        <div className="average" average-vote={(movie.vote_average * 10) + '%'} >
-                                             <svg>
-                                                  <circle className="track"></circle>
-                                                  <circle className="indicator" style={{ strokeDashoffset: 251.2 * ((100 - (movie.vote_average * 10)) / 100) + 'px', stroke: this.averageColor((movie.vote_average * 10)) }}></circle>
-                                             </svg>
-                                        </div>
+                                        <Average average={movie.vote_average * 10} />
                                         <div className="movie-info">
                                              <label htmlFor={movie.title}>{movie.title}</label>
                                              <span>{

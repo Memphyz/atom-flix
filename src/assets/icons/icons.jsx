@@ -6,6 +6,7 @@ import favorite from './favorite.svg';
 import favoriteFilled from './favorite_filled.svg';
 import favoriteOutline from './favorite_outline.svg';
 import off from './off.svg';
+import rateUp from './rate_up.svg';
 
 export const icons = {
      account,
@@ -14,6 +15,7 @@ export const icons = {
      dotIcon,
      favorite,
      favoriteFilled,
+     rateUp,
      favoriteOutline,
      off,
 }
