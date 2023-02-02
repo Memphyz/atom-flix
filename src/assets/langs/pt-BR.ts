@@ -20,6 +20,8 @@ export const PT_LANG = {
      EVALUATE: 'Avalie',
      PRODUCTION_COMPANIES: 'Empresas de produção',
      PRODUCTERS: 'Produtores',
+     CAST: 'Elenco',
+     SHOW_MORE: 'Mostrar mais',
      ACCESS_DENIED: '❌ Você não tem permissão para acessar esse recurso',
      UNLOGGED_MESSAGE: 'Você precisa estar logado para acessar esse recurso',
      ALSO_KNOWN_AS: 'Também conhecido como',

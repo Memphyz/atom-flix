@@ -62,17 +62,23 @@ class Filme extends Component<{ params?: { id: number } }> {
      private fetch(): void {
           const hasCache = this.cachedMovies.some(movie => Object.keys(movie).includes(getLang()))
           if (!this.cachedMovies.length || !hasCache) {
-               this.props.params && this.movieService.getDetail(this.props.params.id!).subscribe((movie) => this.setState(() => {
-                    const add = {};
-                    add[getLang()] = movie;
-                    this.cachedMovies.push(add as any);
-                    this.movie = movie;
-                    this.movie && (this.hourMinute = convertMinuteToHour(this.movie.runtime));
-               }));
+               this.props.params && this.movieService.getDetail(this.props.params.id!).pipe(
+               ).subscribe(this.onFindMovie.bind(this));
                return undefined;
           }
           this.setState(() => {
                this.movie = Object.values(this.cachedMovies.find(movie => movie[getLang()])!)?.shift()!;
+               this.movie && (this.hourMinute = convertMinuteToHour(this.movie.runtime));
+          })
+     }
+
+     private onFindMovie(movie: MovieDetail): void {
+          this.setState(() => {
+               console.log(movie)
+               const add = {};
+               add[getLang()] = movie;
+               this.cachedMovies.push(add as any);
+               this.movie = movie;
                this.movie && (this.hourMinute = convertMinuteToHour(this.movie.runtime));
           })
      }
@@ -102,8 +108,8 @@ class Filme extends Component<{ params?: { id: number } }> {
                               <p>{'\u00A0'}{'\u00A0'}{this.movie.overview}</p>
                               <div className="header-movie-data">
                                    <div className="buttons">
-                                        {this.buttons.map(button => (
-                                             <div className="button-wrapper" atom-tooltip={button.tooltip}>
+                                        {this.buttons.map((button, i) => (
+                                             <div key={i} className="button-wrapper" atom-tooltip={button.tooltip}>
 
                                                   <div className="button"
                                                        style={{ WebkitMaskImage: `url(${icons[button.icon]})` }}
@@ -116,7 +122,34 @@ class Filme extends Component<{ params?: { id: number } }> {
                          </div>
                     </div>
                     <div className="company-productions">
-                         <h3>{Language.LANG.PRODUCTERS}</h3>
+                         <h3>{Language.LANG.CAST}</h3>
+                         <div className="people-producers">
+                              {(this.movie.credits?.cast.length > 10 ? this.movie.credits?.cast.slice(0, 10) : this.movie.credits?.cast)?.map((cast) => (
+                                   <div key={cast.id} className="cast-people">
+                                        <figure>
+                                             {cast.profile_path ?
+                                                  <img src={"https://www.themoviedb.org/t/p/w138_and_h175_face/" + cast.profile_path} loading='lazy' decoding='async' alt={cast.name + 'photo'} />
+                                                  :
+                                                  <div className="photo-placeholder">
+                                                       <div className="icon" style={{
+                                                            WebkitMaskImage: `url(${icons.person})`
+                                                       }}></div>
+                                                  </div>
+                                             }
+                                        </figure>
+                                        <div className="details">
+                                             <strong>{cast.known_for_department}</strong>
+                                             <div className="name">{cast.name}</div>
+                                             <div className="character">
+                                                  {cast.character}
+                                             </div>
+                                        </div>
+                                   </div>
+                              ))}
+                              {this.movie.credits?.cast.length > 10 && (
+                                   <div className='show-more'><strong>{Language.LANG.SHOW_MORE} ⇢</strong></div>
+                              )}
+                         </div>
                     </div>
                </div>
           )

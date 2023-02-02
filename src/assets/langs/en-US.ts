@@ -21,6 +21,8 @@ export const EN_LANGUAGE: typeof PT_LANG = {
      ADD_TO_BOOKMARKS: 'Add to bookmarks',
      ADD_TO_FAVORITE: 'Add to favorites',
      EVALUATE: 'Evaluate',
+     SHOW_MORE: 'Show more',
+     CAST: 'Cast',
      ALREADY_LOGGED: `You're already logged 🫡`,
      ACCESS_DENIED: '❌ You have no permission to access this feature',
      UNLOGGED_MESSAGE: 'You must be logged in to access this feature.',
