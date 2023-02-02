@@ -1,4 +1,5 @@
 import { MovieCredits } from './MovieCredits';
+import { MovieVideos } from './MovieVideos';
 
 export interface BelongsToCollection {
      id: number;
@@ -57,4 +58,5 @@ export interface MovieDetail {
      vote_average: number;
      vote_count: number;
      credits: MovieCredits;
+     videos: MovieVideos;
 }
