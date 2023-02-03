@@ -24,9 +24,15 @@ export const EN_LANGUAGE: typeof PT_LANG = {
      SHOW_MORE: 'Show more',
      CAST: 'Cast',
      ALREADY_LOGGED: `You're already logged 🫡`,
+     TRAILERS: 'Trailers ',
      ACCESS_DENIED: '❌ You have no permission to access this feature',
      UNLOGGED_MESSAGE: 'You must be logged in to access this feature.',
      ALSO_KNOWN_AS: 'Also known as',
+     VOTE_COUNT: 'Vote count',
+     BUDGET: 'Budget',
+     KEYWORDS: 'Keywords',
+     REVENUE: 'Revenue',
+     RELEASED: 'Released',
      ORIGINAL_TITLE: 'Original title',
      ERRORS: (error) => {
           return {

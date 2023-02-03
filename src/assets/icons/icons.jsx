@@ -1,6 +1,7 @@
 import account from './account.svg';
 import bookmarkFilled from './bookmark-filled.svg';
 import bookmarkOutline from './bookmark-outline.svg';
+import close from './close.svg';
 import dotIcon from './dot-icon.svg';
 import favorite from './favorite.svg';
 import favoriteFilled from './favorite_filled.svg';
@@ -20,4 +21,5 @@ export const icons = {
      favoriteOutline,
      off,
      person,
+     close
 }

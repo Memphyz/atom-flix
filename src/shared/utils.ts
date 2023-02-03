@@ -39,7 +39,11 @@ export function markAllFieldsAsTouchedAndDirty(form: FormGroup): void {
           })
      }
      each(form);
-     console.log(form)
+}
+
+export function decimal(number: number): string {
+     let format = number.toFixed(2).split('.').shift()!;
+     return format.split(/(?=(?:...)*$)/).join('.');
 }
 
 export function formatDate(date: Date): string {

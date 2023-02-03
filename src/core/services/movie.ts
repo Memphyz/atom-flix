@@ -3,6 +3,7 @@ import { IMovie } from '../models/Movie';
 import { MovieCredits } from '../models/MovieCredits';
 import { MovieDetail } from '../models/MovieDetails';
 import { API_KEY, BASE_URL, getLang } from './../..';
+import { Keywords } from './../models/Keywords';
 import { MovieVideos } from './../models/MovieVideos';
 import { mergeMap, Observable, tap } from 'rxjs';
 
@@ -22,13 +23,19 @@ export class MovieService extends AbstractService<IMovie> {
                     this.getCredits(movie.id).pipe(
                          tap(credits => movie.credits = credits),
                          mergeMap((movie) => this.getVideos(movie.id)),
-                         tap(videos => movie.videos = videos)
-                    ).subscribe(console.log)
+                         tap(videos => movie.videos = videos),
+                         mergeMap(() => this.getKeyword(movie.id)),
+                         tap((keyword) => movie.keywords = keyword)
+                    ).subscribe()
                }))
      }
 
      public getCredits(movieId: number): Observable<MovieCredits> {
           return this.get<MovieCredits>(BASE_URL + `/movie/${movieId}/credits`, { api_key: API_KEY, language: getLang() })
+     }
+
+     public getKeyword(movieId: number): Observable<Keywords> {
+          return this.get<Keywords>(BASE_URL + `/movie/${movieId}/keywords`, { api_key: API_KEY, language: getLang() })
      }
 
      public getVideos(movieId: number): Observable<MovieVideos> {

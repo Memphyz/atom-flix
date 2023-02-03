@@ -1,3 +1,4 @@
+import { Keywords } from './Keywords';
 import { MovieCredits } from './MovieCredits';
 import { MovieVideos } from './MovieVideos';
 
@@ -59,4 +60,5 @@ export interface MovieDetail {
      vote_count: number;
      credits: MovieCredits;
      videos: MovieVideos;
+     keywords: Keywords
 }

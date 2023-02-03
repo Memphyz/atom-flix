@@ -22,9 +22,15 @@ export const PT_LANG = {
      PRODUCTERS: 'Produtores',
      CAST: 'Elenco',
      SHOW_MORE: 'Mostrar mais',
+     TRAILERS: 'Trailers',
      ACCESS_DENIED: '❌ Você não tem permissão para acessar esse recurso',
      UNLOGGED_MESSAGE: 'Você precisa estar logado para acessar esse recurso',
      ALSO_KNOWN_AS: 'Também conhecido como',
+     VOTE_COUNT: 'Quantidade de votos',
+     RELEASED: 'Disponível',
+     KEYWORDS: 'Palavras-chave',
+     BUDGET: 'Orçamento',
+     REVENUE: 'Receita',
      ORIGINAL_TITLE: 'Título original',
      ERRORS: (error) => {
           return {

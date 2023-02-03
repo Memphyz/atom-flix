@@ -19,6 +19,26 @@
                z-index: 1;
           }
 
+          .movie-header .minimal-details {
+               display: flex;
+               flex-direction: column;
+               padding: 10px;
+               border-radius: 6px;
+               font-size: 14px;
+
+               .info {
+                    padding: 10px 0px;
+
+                    label {
+                         font-weight: bolder;
+                    }
+
+                    span {
+                         color: var(--disabled-100);
+                    }
+               }
+          }
+
           .header-details {
                display: flex;
                flex-direction: column;
@@ -120,6 +140,51 @@
           }
      }
 
+     .keywords {
+          display: flex;
+          padding: 20px;
+          gap: 20px;
+          flex-direction: column;
+
+          .list-keywords {
+               display: flex;
+               gap: 20px;
+               padding: 20px;
+               max-width: 800px;
+               flex-wrap: wrap;
+               align-items: center;
+
+               span {
+                    padding: 5px;
+                    background-color: var(--disabled-100);
+                    border-radius: 6px;
+               }
+          }
+     }
+
+     .trailers {
+          display: flex;
+          padding: 20px;
+          gap: 20px;
+          flex-direction: column;
+
+          .list-trailers {
+               display: flex;
+               gap: 20px;
+               overflow: auto;
+               padding: 20px;
+
+               iframe {
+                    border: 3px solid var(--disabled-100);
+                    border-radius: 8px;
+                    width: 600px;
+                    height: 337px;
+                    box-shadow: 0px 0px 10px #00000082;
+               }
+          }
+
+     }
+
      .movie-header {
           img {
                border-radius: 8px;
@@ -146,51 +211,6 @@
                margin-top: 15px;
                padding: 15px;
 
-               .cast-people {
-                    padding: 10px;
-                    border: 1px solid var(--disabled-300);
-                    border-radius: 6px;
-                    box-shadow: 0px 0px 10px #00000033;
-
-                    figure {
-                         :first-child {
-                              border-radius: 6px;
-                              background-color: var(--disabled-200);
-
-                              &.photo-placeholder {
-                                   width: 138px;
-                                   height: 175px;
-                                   position: relative;
-
-                                   .icon {
-                                        width: 100%;
-                                        height: 100%;
-                                        background-color: var(--disabled-500);
-                                        mask-size: contain;
-                                        mask-repeat: no-repeat;
-                                        mask-position: center;
-                                   }
-                              }
-                         }
-                    }
-
-                    .details {
-                         display: flex;
-                         flex-direction: column;
-                         gap: 5px;
-                         margin-top: 10px;
-
-                         strong {
-                              color: var(--disabled-500);
-                         }
-
-                         .name {
-                              font-weight: bolder;
-                              color: var(--text-color);
-                         }
-                    }
-               }
-
                .show-more {
                     min-width: 160px;
                     min-height: 243px;
@@ -206,6 +226,58 @@
                          }
                     }
                }
+          }
+     }
+
+}
+.complete-cast {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 10px;
+}
+
+.cast-people {
+     padding: 10px;
+     border: 1px solid var(--disabled-300);
+     border-radius: 6px;
+     box-shadow: 0px 0px 10px #00000033;
+     height: 100%;
+
+     figure {
+          :first-child {
+               border-radius: 6px;
+               background-color: var(--disabled-200);
+
+               &.photo-placeholder {
+                    width: 138px;
+                    height: 175px;
+                    position: relative;
+
+                    .icon {
+                         width: 100%;
+                         height: 100%;
+                         background-color: var(--disabled-500);
+                         mask-size: contain;
+                         mask-repeat: no-repeat;
+                         mask-position: center;
+                    }
+               }
+          }
+     }
+
+     .details {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          margin-top: 10px;
+
+          strong {
+               color: var(--disabled-500);
+          }
+
+          .name {
+               font-weight: bolder;
+               color: var(--text-color);
           }
      }
 }

@@ -1,6 +1,6 @@
 import './index.css';
 import App from './App';
-import { changeLanguage, LANG_IDENTIFYER } from './assets/langs/lang';
+import { changeLanguage, LANG_IDENTIFYER, LangSupportType } from './assets/langs/lang';
 import { LoaderService } from './core/services/loader';
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom/client';
@@ -24,7 +24,7 @@ export const getLang = () => {
   const current = window?.navigator.language;
   const lang = localStorage.getItem('lang') || current;
   changeLanguage(LANG_IDENTIFYER[lang]);
-  return lang;
+  return lang as LangSupportType;
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
