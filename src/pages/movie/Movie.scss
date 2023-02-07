@@ -1,7 +1,40 @@
+@import './../../assets/styles/breakpoints';
+
 .movie-detail-content {
      position: relative;
      width: 100%;
 
+
+     @media screen and (max-width: $mobile-bkp) {
+          .backdrop {
+               flex-direction: column;
+               background-size: cover;
+
+               .movie-header {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+
+                    img {
+                         border-radius: 8px;
+                         max-height: 300px;
+                         max-width: 200px;
+                    }
+               }
+          }
+
+          .trailers {
+               flex-direction: column;
+
+               .list-trailers {
+                    flex-direction: column;
+
+                    iframe {
+                         width: 100% !important;
+                    }
+               }
+          }
+     }
 
      .backdrop {
           width: 100%;
@@ -123,6 +156,7 @@
                     position: absolute;
                     transform: scale(1.2);
                     right: 20px;
+                    top: 20px;
                }
           }
 
@@ -230,10 +264,43 @@
      }
 
 }
+
 .complete-cast {
      display: flex;
-     flex-wrap: wrap;
+     flex-direction: column;
      gap: 10px;
+     max-height: 75vh;
+     overflow: auto;
+     width: 80vw;
+
+
+     .group-items {
+          display: flex;
+          flex-direction: column;
+          gap: 13px;
+
+          h3 {
+               position: sticky;
+               top: 0px;
+               background-color: white;
+               z-index: 100;
+               padding: 10px;
+          }
+
+          .cast-people {
+               display: flex;
+               gap: 12px;
+               border: unset;
+               box-shadow: unset;
+               align-items: center;
+
+               .photo-placeholder,
+               img {
+                    max-width: 50px;
+                    max-height: 60px;
+               }
+          }
+     }
 }
 
 .cast-people {

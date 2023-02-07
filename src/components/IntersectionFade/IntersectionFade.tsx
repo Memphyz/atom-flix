@@ -2,7 +2,7 @@ import './IntersectionFade.scss';
 import classNames from 'classnames';
 import { Component, createRef, ReactNode } from 'react';
 
-export class IntersectionFade extends Component<{ children: ReactNode }> {
+export class IntersectionFade extends Component<{ children: ReactNode, className?: string }> {
 
      private isVisible: boolean;
      private hostRef = createRef<HTMLDivElement>();
@@ -19,8 +19,9 @@ export class IntersectionFade extends Component<{ children: ReactNode }> {
           return (
                <div className={classNames({
                     'fade-in-section': true,
-                    visible: this.isVisible
-               })}
+                    visible: this.isVisible,
+
+               }) + ` ${this.props.className || ''}`}
                     ref={this.hostRef}>
                     {this.props.children}
                </div>

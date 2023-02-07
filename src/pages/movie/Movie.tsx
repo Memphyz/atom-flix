@@ -12,7 +12,8 @@ import {
      convertMinuteToHour,
      decimal,
      formatDate,
-     getAverageColor
+     getAverageColor,
+     groupBy
 } from '../../shared/utils';
 import { withParams } from '../../shared/withFns';
 import classNames from 'classnames';
@@ -95,6 +96,10 @@ class Filme extends Component<{ params?: { id: number } }> {
 
      private closeCastModal(): void {
           this.setState(() => this.openCast = false);
+     }
+
+     private getSortedCast<Credit extends { known_for_department: string }>(array: Credit[]): [string, Credit[]][] {
+          return array?.length ? Object.entries(groupBy(array.sort((cast, compare) => cast.known_for_department.localeCompare(compare.known_for_department)), 'known_for_department')) : [];
      }
 
      public render(): ReactNode {
@@ -196,29 +201,35 @@ class Filme extends Component<{ params?: { id: number } }> {
                                    <div className='show-more'><strong onClick={() => this.setState(() => this.openCast = true)}>{Language.LANG.SHOW_MORE} ⇢</strong>
                                         <Modal open={this.openCast} onClose={this.closeCastModal.bind(this)}>
                                              <div className="complete-cast">
-                                                  {this.movie.credits?.cast.map((cast) =>
-                                                       <IntersectionFade key={cast.id}>
-                                                            <div className="cast-people">
-                                                                 <figure>
-                                                                      {cast.profile_path ?
-                                                                           <img src={"https://www.themoviedb.org/t/p/w138_and_h175_face/" + cast.profile_path} loading='lazy' decoding='async' alt={cast.name + 'photo'} />
-                                                                           :
-                                                                           <div className="photo-placeholder">
-                                                                                <div className="icon" style={{
-                                                                                     WebkitMaskImage: `url(${icons.person})`
-                                                                                }}></div>
+                                                  {this.getSortedCast(this.movie.credits?.crew).map(([department, castList], i) =>
+                                                       <div className="group">
+                                                            <IntersectionFade key={i} className='group-items'>
+                                                                 <h3>{department}</h3>
+                                                                 {castList.map(cast => (
+                                                                      <IntersectionFade key={cast.id}>
+                                                                           <div className="cast-people">
+                                                                                <figure>
+                                                                                     {cast.profile_path ?
+                                                                                          <img src={"https://www.themoviedb.org/t/p/w138_and_h175_face/" + cast.profile_path} loading='lazy' decoding='async' alt={cast.name + 'photo'} />
+                                                                                          :
+                                                                                          <div className="photo-placeholder">
+                                                                                               <div className="icon" style={{
+                                                                                                    WebkitMaskImage: `url(${icons.person})`
+                                                                                               }}></div>
+                                                                                          </div>
+                                                                                     }
+                                                                                </figure>
+                                                                                <div className="details">
+                                                                                     <div className="name">{cast.name}</div>
+                                                                                     <div className="character">
+                                                                                          {cast.job}
+                                                                                     </div>
+                                                                                </div>
                                                                            </div>
-                                                                      }
-                                                                 </figure>
-                                                                 <div className="details">
-                                                                      <strong>{cast.known_for_department}</strong>
-                                                                      <div className="name">{cast.name}</div>
-                                                                      <div className="character">
-                                                                           {cast.character}
-                                                                      </div>
-                                                                 </div>
-                                                            </div>
-                                                       </IntersectionFade>
+                                                                      </IntersectionFade>
+                                                                 ))}
+                                                            </IntersectionFade>
+                                                       </div>
                                                   )}
                                              </div>
                                         </Modal>

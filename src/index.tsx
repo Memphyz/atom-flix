@@ -1,4 +1,4 @@
-import './index.css';
+import './index.scss';
 import App from './App';
 import { changeLanguage, LANG_IDENTIFYER, LangSupportType } from './assets/langs/lang';
 import { LoaderService } from './core/services/loader';

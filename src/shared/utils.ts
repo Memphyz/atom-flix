@@ -60,6 +60,15 @@ export function convertMinuteToHour(minutes: number): { hour: number, minute: nu
      return hourMinute;
 }
 
+export function groupBy<T>(array: T[], key: keyof T): { [x: string]: T[] } {
+     return array.reduce((result, currentValue) => {
+          (result[currentValue[key as string]] = result[currentValue[key as string]] || []).push(
+               currentValue
+          );
+          return result;
+     }, {});
+};
+
 export function getAverageColor(url: string, fn: (color: AverageColor) => void): void {
      var xhr = new XMLHttpRequest();
      xhr.onload = function () {
