@@ -103,6 +103,7 @@ class Filme extends Component<{ params?: { id: number } }> {
      }
 
      public render(): ReactNode {
+          const castCrew = this.movie ? [...(this.movie.credits?.cast || []), ...(this.movie.credits?.crew || [])] : []
           return this.movie && (
                <div className="movie-detail-content" >
                     <div className="backdrop" ref={this.backdropRef} style={{ backgroundImage: 'url(https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/' + this.movie.backdrop_path + ')' }}>
@@ -165,15 +166,15 @@ class Filme extends Component<{ params?: { id: number } }> {
                          <div className="list-trailers">
                               {this.movie.videos.results.map((video, i) => (
                                    <IntersectionFade key={i}>
-                                        <iframe src={`https://www.youtube.com/embed/${video.key}?autoplay=1&origin=https%3A%2F%2Fwww.themoviedb.org&hl=pt&modestbranding=1&fs=1&autohide=1`} loading='lazy' allowFullScreen={true}></iframe>
+                                        <iframe title={video.name} src={`https://www.youtube.com/embed/${video.key}?autoplay=1&origin=https%3A%2F%2Fwww.themoviedb.org&hl=pt&modestbranding=1&fs=1&autohide=1`} loading='lazy' allowFullScreen={true}></iframe>
                                    </IntersectionFade>
                               ))}
                          </div>
                     </div> : null}
                     <div className="company-productions">
-                         <h3>{Language.LANG.CAST}</h3>
+                         <h3>{Language.LANG.CAST}/{Language.LANG.CREW}</h3>
                          <div className="people-producers">
-                              {(this.movie.credits?.cast.length > 10 ? this.movie.credits?.cast.slice(0, 10) : this.movie.credits?.cast)?.map((cast) => (
+                              {(castCrew.length > 10 ? castCrew.slice(0, 10) : castCrew)?.map((cast) => (
                                    <IntersectionFade key={cast.id}>
                                         <div className="cast-people">
                                              <figure>
@@ -191,13 +192,13 @@ class Filme extends Component<{ params?: { id: number } }> {
                                                   <strong>{cast.known_for_department}</strong>
                                                   <div className="name">{cast.name}</div>
                                                   <div className="character">
-                                                       {cast.character}
+                                                       {cast['character'] || cast['job']}
                                                   </div>
                                              </div>
                                         </div>
                                    </IntersectionFade>
                               ))}
-                              {this.movie.credits?.cast.length > 10 && (
+                              {castCrew.length > 10 && (
                                    <div className='show-more'><strong onClick={() => this.setState(() => this.openCast = true)}>{Language.LANG.SHOW_MORE} ⇢</strong>
                                         <Modal open={this.openCast} onClose={this.closeCastModal.bind(this)}>
                                              <div className="complete-cast">

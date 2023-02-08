@@ -3,6 +3,7 @@ import { getLang } from '../..';
 import { Language } from '../../assets/langs/lang';
 import { Average } from '../../components/Average/Average';
 import { Dropdown } from '../../components/Dropdown/Dropdown';
+import { Filters } from '../../components/Filters/Filters';
 import { DropdownItem } from '../../core/models/DropdownItem';
 import { IMovie } from '../../core/models/Movie';
 import { IResponse } from '../../core/models/Response';
@@ -36,14 +37,6 @@ export default class Home extends Component {
           this.fetch();
      }
 
-     private averageColor(average: number): string {
-          if (average < 40) {
-               return 'red';
-          }
-
-          return average < 80 ? 'orange' : 'green'
-     }
-
      private fetch(reset = false): void {
           if (reset) {
                this.page = 1;
@@ -63,15 +56,11 @@ export default class Home extends Component {
           this.fetch();
      }
 
-     // private bookmarkedIcon(movie: IMovie): keyof typeof icons {
-     //      return movie.
-     // }
-
      public render(): ReactNode {
           return (
                <div className="page-list-content">
                     <div className="filters">
-
+                         <Filters />
                     </div>
                     <div className="catalog" onScroll={handleScroll.bind(this, this.handlePage.bind(this))}>
                          {this.movies.map(movie => {

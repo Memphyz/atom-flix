@@ -66,6 +66,10 @@ button {
     background-color: var(--success-100);
     border: 1px solid var(--success-100);
     color: white;
+
+    &:hover {
+      color: var(--success-100);
+    }
   }
 
   &.brand {
@@ -92,6 +96,7 @@ button {
 
   &:hover {
     background-color: var(--disabled-100);
+    border-color: var(--disabled-100);
   }
 }
 
@@ -143,4 +148,5 @@ button {
 
 a.no-link {
   color: unset;
+  text-decoration: none;
 }

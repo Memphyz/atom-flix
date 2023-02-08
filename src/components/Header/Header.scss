@@ -1,13 +1,61 @@
+@import './../../assets/styles/breakpoints';
+
 .top-content {
   min-height: 90px;
   background-color: white;
   box-shadow: 10px 0px 9px var(--disabled-200);
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 18px;
   gap: 15px;
   align-items: center;
   position: relative;
+
+  .right-content {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .left-content {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+
+    .logo-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.2s;
+      cursor: pointer;
+
+      @media screen and (min-width: $mobile-bkp) {
+        display: none;
+      }
+
+      &:hover {
+        filter: brightness(1.5);
+      }
+
+      .logo {
+        width: 54px;
+        height: 54px;
+        mask-image: url(./../../assets/logo.svg);
+        mask-size: cover;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        background-color: var(--brand-color-1);
+      }
+
+      .name {
+        font-weight: bolder;
+        color: var(--brand-color-1);
+        font-size: 1.3em;
+      }
+    }
+  }
 
   .item {
     min-width: 42px;

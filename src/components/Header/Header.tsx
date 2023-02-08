@@ -6,7 +6,7 @@ import { randomHex, upperFirstLetter, user } from '../../shared/utils';
 import { withRouter } from '../../shared/withFns';
 import { Select } from 'antd';
 import { Component, ReactNode } from 'react';
-import { NavigateFunction } from 'react-router-dom';
+import { Link, NavigateFunction } from 'react-router-dom';
 
 class Header extends Component<{ hide?: boolean, navigate: NavigateFunction }> {
 
@@ -57,23 +57,32 @@ class Header extends Component<{ hide?: boolean, navigate: NavigateFunction }> {
                               {select}
                          </div>
                          : <div className="top-content">
-                              <div className="item">
-                                   {select}
+                              <div className="left-content">
+                                   <Link className="logo-wrapper no-link" to='/'>
+                                        <div className="logo"></div>
+                                        <div className="name">Atom Flix</div>
+                                   </Link>
                               </div>
+                              <div className="right-content">
+                                   <div className="item">
+                                        {select}
+                                   </div>
 
-                              <div className="item user">
-                                   <div className="user-round" out-label={Language.LANG.LOGOUT} onClick={this.handleLogout.bind(this)}>
-                                        {this.user && this.user.avatar.tmdb.avatar_path ?
-                                             <img src={this.user.avatar.tmdb.avatar_path} alt='user_avatar' />
-                                             :
-                                             <div className="avatar-placeholder" style={{
-                                                  backgroundColor: randomHex()
-                                             }} avatar-name={this.getUsernamePlaceholder()}>
-                                             </div>
-                                        }
+                                   <div className="item user">
+                                        <div className="user-round" out-label={Language.LANG.LOGOUT} onClick={this.handleLogout.bind(this)}>
+                                             {this.user && this.user.avatar.tmdb.avatar_path ?
+                                                  <img src={this.user.avatar.tmdb.avatar_path} alt='user_avatar' />
+                                                  :
+                                                  <div className="avatar-placeholder" style={{
+                                                       backgroundColor: randomHex()
+                                                  }} avatar-name={this.getUsernamePlaceholder()}>
+                                                  </div>
+                                             }
+                                        </div>
                                    </div>
                               </div>
-                         </div>}
+                         </div>
+                    }
                </>
           )
      }

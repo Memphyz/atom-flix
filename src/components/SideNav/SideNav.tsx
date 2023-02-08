@@ -11,8 +11,6 @@ class SideNav extends Component {
 
      private readonly icons: SideNavItem[] = [
           new SideNavItem('ACCOUNT', icons.account),
-          new SideNavItem('REVENUE', icons.rateUp),
-          new SideNavItem('FAVORITES', icons.bookmarkFilled),
      ]
 
      public activate = false;
@@ -23,9 +21,6 @@ class SideNav extends Component {
                     this.width = window.innerWidth
                )
           )
-
-          setInterval(() => this.setState(() => this.activate = !this.activate
-          ), 2000)
      }
 
      public render() {
