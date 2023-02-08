@@ -1,6 +1,7 @@
 import './SideNav.scss';
 import { icons } from '../../assets/icons/icons';
 import { SideNavItem } from '../../core/models/SideNavIcon';
+import classNames from 'classnames';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { debounceTime, fromEvent } from 'rxjs';
@@ -10,7 +11,11 @@ class SideNav extends Component {
 
      private readonly icons: SideNavItem[] = [
           new SideNavItem('ACCOUNT', icons.account),
+          new SideNavItem('REVENUE', icons.rateUp),
+          new SideNavItem('FAVORITES', icons.bookmarkFilled),
      ]
+
+     public activate = false;
 
      public componentDidMount(): void {
           fromEvent(window, 'resize').pipe(debounceTime(500)).subscribe(() =>
@@ -18,6 +23,9 @@ class SideNav extends Component {
                     this.width = window.innerWidth
                )
           )
+
+          setInterval(() => this.setState(() => this.activate = !this.activate
+          ), 2000)
      }
 
      public render() {
@@ -45,7 +53,28 @@ class SideNav extends Component {
                               </div>
                          </div> :
                          <div className="bottom-bar">
-
+                              <div className="navigations">
+                                   {
+                                        this.icons.map((item, i) => (
+                                             <div className={
+                                                  classNames({
+                                                       'item-wrapper': true,
+                                                       active: i === 0 && this.activate
+                                                  })
+                                             }>
+                                                  <div className="details"></div>
+                                                  <Link to='/favoritos' className='no-link'>
+                                                       <div className="item" key={i} item-index={i}>
+                                                            <div className="icon" style={{
+                                                                 WebkitMaskImage: `url(${item.icon})`
+                                                            }} />
+                                                       </div>
+                                                       <div className="name">{item.getTranslated()}</div>
+                                                  </Link>
+                                             </div>
+                                        ))
+                                   }
+                              </div>
                          </div>
                     }
                </>

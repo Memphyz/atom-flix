@@ -4,6 +4,7 @@ main {
   width: calc(100% - 120px);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   @media screen and (max-width: $mobile-bkp) {
     width: 100%;
@@ -20,6 +21,12 @@ main {
     max-height: 100vh;
     overflow: auto;
     position: relative;
+
+    @media screen and (max-width: $mobile-bkp) {
+      margin: 15px auto;
+      width: calc(100% - 30px);
+      height: 75%;
+    }
 
   }
 }
