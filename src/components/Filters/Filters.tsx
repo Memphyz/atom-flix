@@ -1,27 +1,30 @@
-import './Filters.scss';
+import { Select } from 'antd';
+import classNames from 'classnames';
+import { Component, ReactNode } from 'react';
 import { getLang } from '../..';
 import { LangSupportType, Language } from '../../assets/langs/lang';
 import { Countries } from '../../core/models/Countries';
 import { Genre } from '../../core/models/MovieDetails';
+import { Search, SearchType } from '../../core/models/Search';
 import { SelectOption } from '../../core/models/SelectOption';
 import { FilterService } from '../../core/services/filters';
-import { RegionService } from '../../core/services/region';
 import { iso3166 } from '../../shared/iso-3166';
 import { Switcher } from '../Switcher/Switcher';
-import { Select } from 'antd';
-import classNames from 'classnames';
-import { Component, ReactNode } from 'react';
+import './Filters.scss';
 
 export class Filters extends Component<{ onFilter?: (filters: unknown) => void }> {
 
-     private readonly regions = iso3166.map(iso => new SelectOption(iso.name, iso['alpha-2']));
+     private readonly regions = [new SelectOption('All', ''), ...iso3166.map(iso => new SelectOption(iso.name, iso['alpha-2']))];
+     private types = Search.types;
+     private search = '';
+     private includeAdult = false;
+     private typeSearch = SearchType.MULTI;
      private genres: (Genre & { active?: boolean })[] = [];
-     private currentRegion: Countries;
+     private currentRegion: Countries = { 'alpha-2': '' } as any;
      private backup: { [key in LangSupportType]: { [x: string]: any } } = {
           "pt-BR": {},
           "en-US": {}
      };
-     private readonly regionService = new RegionService();
      private readonly filterService = new FilterService();
 
      public componentDidMount(): void {
@@ -30,12 +33,10 @@ export class Filters extends Component<{ onFilter?: (filters: unknown) => void }
      }
 
      private init(): void {
-          this.getCurrentRegion();
+          this.setState(() =>
+               this.types = Search.getTypes()
+          )
           this.getAllGenres();
-     }
-
-     private getCurrentRegion(): void {
-          this.regionService.getCurrentRegion().subscribe((region) => this.setState(() => this.currentRegion = iso3166.find(iso => iso['alpha-3'] === region.country_code_iso3)!))
      }
 
      private getAllGenres(): void {
@@ -51,8 +52,22 @@ export class Filters extends Component<{ onFilter?: (filters: unknown) => void }
           }))
      }
 
-     private findByRegion(search: string, item: SelectOption<string>): boolean {
+     private findBySearchSelect(search: string, item: SelectOption<string>): boolean {
           return item.label.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+     }
+
+     private onSelectType(value: SearchType): void {
+          this.setState(() => this.typeSearch = value);
+     }
+
+     private btnSearch(): void {
+          const params = {
+               query: this.search,
+               include_adult: this.includeAdult,
+               region: this.currentRegion['alpha-2'],
+               keywords: this.genres.filter(genre => genre.active)?.map(genre => genre.name).join(',')
+          }
+          console.log(params)
      }
 
      public render(): ReactNode {
@@ -64,14 +79,24 @@ export class Filters extends Component<{ onFilter?: (filters: unknown) => void }
 
                     <div className="filters-wrapper">
                          <div className="search">
-                              <input type="text" maxLength={80} placeholder={Language.LANG.SEARCH} />
+                              <input type="text" maxLength={80} placeholder={Language.LANG.SEARCH} onChange={(change) => {
+                                   this.setState(() => {
+                                        this.search = (change.nativeEvent.target as HTMLInputElement).value;
+                                   })
+                              }} />
                          </div>
                          <div className="ckeckbox">
-                              <Switcher label={Language.LANG.INCLUDE_ADULT} />
+                              <Switcher label={Language.LANG.INCLUDE_ADULT} onSwitch={(status) => this.setState(() => this.includeAdult = status)} />
                          </div>
 
-                         <div className="region-container">
-                              <Select id='region' value={this.currentRegion?.['alpha-2']} filterOption={(this.findByRegion as any).bind(this)} showSearch={true} options={this.regions} ></Select>
+                         <div className="select-container">
+                              <label htmlFor={Language.LANG.TYPE_SEARCH}>{Language.LANG.TYPE_SEARCH}</label>
+                              <Select id='type' value={this.typeSearch} filterOption={(this.findBySearchSelect as any).bind(this)} showSearch={true} options={this.types} onSelect={this.onSelectType.bind(this)} ></Select>
+                         </div>
+
+                         <div className="select-container">
+                              <label htmlFor={Language.LANG.COUNTRY}>{Language.LANG.COUNTRY}</label>
+                              <Select id='region' value={this.currentRegion?.['alpha-2']} filterOption={(this.findBySearchSelect as any).bind(this)} showSearch={true} options={this.regions} ></Select>
                          </div>
 
                          {this.genres?.length ? <div className="genres">
@@ -82,7 +107,7 @@ export class Filters extends Component<{ onFilter?: (filters: unknown) => void }
                                    })} key={genre.id} onClick={() => this.setState(() => genre.active = !genre.active)}> {genre.name}</span>
                               ))}
                          </div> : null}
-                         <button className="success">{Language.LANG.FILTER}</button>
+                         <button className="success" onClick={this.btnSearch.bind(this)}>{Language.LANG.FILTER}</button>
                     </div>
                </div>
           )
