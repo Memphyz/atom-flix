@@ -1,7 +1,18 @@
 .ant-select {
   width: 100%;
   max-width: 180px;
-  height: 32px;
+  height: 40px !important;
+  display: flex;
+  align-items: center;
+
+  .ant-select-selector {
+    height: 40px !important;
+
+    .ant-select-selection-item {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 
 #root>main>div.top-content>div>div>span.ant-select-selection-item {
