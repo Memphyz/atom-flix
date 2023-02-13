@@ -31,6 +31,8 @@ export const PT_LANG = {
      UNLOGGED_MESSAGE: 'Você precisa estar logado para acessar esse recurso',
      ALSO_KNOWN_AS: 'Também conhecido como',
      VOTE_COUNT: 'Quantidade de votos',
+     VOTES: 'Votos',
+     VOTE: 'Voto',
      RELEASED: 'Disponível',
      KEYWORDS: 'Palavras-chave',
      CREW: 'Equipe',

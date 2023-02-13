@@ -36,6 +36,8 @@ export const EN_LANGUAGE: typeof PT_LANG = {
      UNLOGGED_MESSAGE: 'You must be logged in to access this feature.',
      ALSO_KNOWN_AS: 'Also known as',
      VOTE_COUNT: 'Vote count',
+     VOTES: 'Votes',
+     VOTE: 'Vote',
      BUDGET: 'Budget',
      MOVIE: 'Movie',
      TYPE_SEARCH: 'Search type:',

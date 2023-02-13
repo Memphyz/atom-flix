@@ -67,6 +67,15 @@
       max-width: 220px;
       position: relative;
 
+      &:hover {
+        transform: scale(1.009);
+      }
+
+      a>img {
+        width: 220px;
+        height: 330px;
+      }
+
       .menu {
         position: absolute;
         top: 10px;

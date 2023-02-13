@@ -10,6 +10,7 @@ import { IResponse } from '../../core/models/Response';
 import { AccountService } from '../../core/services/account';
 import { MovieService } from '../../core/services/movie';
 import { handleScroll, scrollToTop } from '../../shared/infinity-scroll';
+import { decimal } from '../../shared/utils';
 import { Component, ReactNode } from 'react';
 import { Observable } from 'rxjs';
 
@@ -56,14 +57,19 @@ export default class Home extends Component {
           this.fetch();
      }
 
+     private onSearch(movies: IMovie[]): void {
+          this.page = 1;
+          this.setState(() => this.movies = movies);
+     }
+
      public render(): ReactNode {
           return (
                <div className="page-list-content">
                     <div className="filters">
-                         <Filters />
+                         <Filters onFilter={this.onSearch.bind(this)} />
                     </div>
                     <div className="catalog" onScroll={handleScroll.bind(this, this.handlePage.bind(this))}>
-                         {this.movies.map(movie => {
+                         {this.movies.filter(movie => movie.media_type === 'movie' || !movie.media_type).map(movie => {
                               return (
                                    <div className='card' key={movie.id} id={movie.id + ''}>
                                         <a href={'movie/' + movie.id}>
@@ -76,6 +82,7 @@ export default class Home extends Component {
                                              <span>{
                                                   new Date(movie.release_date).toLocaleDateString(getLang().toLocaleLowerCase(), { weekday: undefined, year: "numeric", month: "long", day: "numeric" })
                                              }</span>
+                                             <div className="pill">{decimal(movie.vote_count)} {movie.vote_count > 1 ? Language.LANG.VOTES : Language.LANG.VOTE}</div>
                                         </div>
                                    </div>
                               )

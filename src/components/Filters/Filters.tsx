@@ -1,18 +1,21 @@
-import { Select } from 'antd';
-import classNames from 'classnames';
-import { Component, ReactNode } from 'react';
+import './Filters.scss';
 import { getLang } from '../..';
 import { LangSupportType, Language } from '../../assets/langs/lang';
 import { Countries } from '../../core/models/Countries';
+import { IMovie } from '../../core/models/Movie';
 import { Genre } from '../../core/models/MovieDetails';
 import { Search, SearchType } from '../../core/models/Search';
 import { SelectOption } from '../../core/models/SelectOption';
 import { FilterService } from '../../core/services/filters';
 import { iso3166 } from '../../shared/iso-3166';
 import { Switcher } from '../Switcher/Switcher';
-import './Filters.scss';
+import { Select } from 'antd';
+import classNames from 'classnames';
+import { Component, ReactNode } from 'react';
+import { noop } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
 
-export class Filters extends Component<{ onFilter?: (filters: unknown) => void }> {
+export class Filters extends Component<{ onFilter?: (movies: IMovie[]) => void, page?: number }> {
 
      private readonly regions = [new SelectOption('All', ''), ...iso3166.map(iso => new SelectOption(iso.name, iso['alpha-2']))];
      private types = Search.types;
@@ -65,9 +68,10 @@ export class Filters extends Component<{ onFilter?: (filters: unknown) => void }
                query: this.search,
                include_adult: this.includeAdult,
                region: this.currentRegion['alpha-2'],
+               page: this.props.page || 1,
                keywords: this.genres.filter(genre => genre.active)?.map(genre => genre.name).join(',')
           }
-          console.log(params)
+          this.filterService.getAll(`/search/${this.typeSearch}`, params).pipe(map(res => res.results)).subscribe((this.props.onFilter || noop) as any)
      }
 
      public render(): ReactNode {

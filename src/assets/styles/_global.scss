@@ -148,8 +148,10 @@ button {
   padding: 2px 10px;
   width: fit-content;
   background-color: var(--disabled);
+  color: white;
   border-radius: 10000px;
   white-space: nowrap;
+  font-size: 12px;
 
   &.success {
     background-color: var(--success);
