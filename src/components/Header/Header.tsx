@@ -3,7 +3,6 @@ import { icons } from '../../assets/icons/icons';
 import { Navigation } from '../../core/models/Navigation';
 import './header.scss';
 
-
 export function Header(props: { children?: ReactElement | string }): ReactElement {
 
      const navigations: Navigation[] = [
