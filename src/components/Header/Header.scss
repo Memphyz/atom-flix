@@ -1,154 +1,34 @@
-@import './../../assets/styles/breakpoints';
+header {
+     $padding: 70px;
+     min-height: 90px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     padding: 0px $padding;
+     position: fixed;
+     width: calc(100vw - ($padding *2));
+     background-color: rgba(0, 0, 0, var(--opacity));
+     color: rgba(var(--text-color-rgba), var(--text-color-rgba), var(--text-color-rgba));
 
-.top-content {
-  min-height: 90px;
-  background-color: white;
-  box-shadow: 10px 0px 9px var(--disabled-200);
-  display: flex;
-  justify-content: space-between;
-  padding: 18px;
-  gap: 15px;
-  align-items: center;
-  position: relative;
+     .content-header {
+          width: 100%;
 
-  .right-content {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    justify-content: flex-end;
-  }
+          .left-container {
+               height: 100%;
 
-  .left-content {
-    display: flex;
-    gap: 15px;
-    align-items: center;
+               .item {
+                    display: flex;
+                    gap: 5px;
 
-    .logo-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-      transition: all 0.2s;
-      cursor: pointer;
-
-      @media screen and (min-width: $mobile-bkp) {
-        display: none;
-      }
-
-      &:hover {
-        filter: brightness(1.5);
-      }
-
-      .logo {
-        width: 54px;
-        height: 54px;
-        mask-image: url(./../../assets/logo.svg);
-        mask-size: cover;
-        mask-repeat: no-repeat;
-        mask-position: center;
-        background-color: var(--brand-color-1);
-      }
-
-      .name {
-        font-weight: bolder;
-        color: var(--brand-color-1);
-        font-size: 1.3em;
-      }
-    }
-  }
-
-  .item {
-    min-width: 42px;
-    min-height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &.user {
-      .login-out {
-        display: flex;
-        gap: 15px;
-      }
-
-      .user-round {
-        &:hover::before {
-          content: attr(out-label);
-          background-color: #00000057;
-          width: 42px;
-          height: 42px;
-          position: absolute;
-          z-index: 1;
-          border-radius: 84px;
-          text-align: center;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: white;
-          font-weight: bolder;
-          font-size: 70%;
-          cursor: pointer;
-        }
-
-        .avatar-placeholder {
-          min-width: 42px;
-          min-height: 42px;
-          border-radius: 84px;
-          position: relative;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-
-          &::before {
-            content: attr(avatar-name);
-            position: absolute;
-            color: white;
-            font-weight: bolder;
+                    .icon {
+                         width: 20px;
+                         height: 20px;
+                         background-color: white;
+                         mask-size: cover;
+                         mask-repeat: no-repeat;
+                         mask-position: center;
+                    }
+               }
           }
-        }
-      }
-    }
-  }
-
-
-  &::before {
-    content: '';
-    left: -9px;
-    position: absolute;
-    top: 90%;
-    height: 20px;
-    width: 20px;
-    border: 9px solid white;
-    border-right: 0;
-    border-bottom: 0;
-    border-radius: 50px;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 0;
-    border-top-left-radius: 37px;
-  }
-
-  &::after {
-    content: '';
-    transform: rotate(90deg);
-    right: -9px;
-    position: absolute;
-    top: 90%;
-    height: 20px;
-    width: 20px;
-    border: 9px solid white;
-    border-right: 0;
-    border-bottom: 0;
-    border-radius: 50px;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 0;
-    border-top-left-radius: 37px;
-  }
-}
-
-.hide-header {
-  display: flex;
-  justify-content: flex-end;
-  padding: 21px;
-  width: 100%;
-  position: absolute;
+     }
 }
