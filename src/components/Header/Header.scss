@@ -1,34 +1,87 @@
-header {
-     $padding: 70px;
-     min-height: 90px;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     padding: 0px $padding;
-     position: fixed;
-     width: calc(100vw - ($padding *2));
-     background-color: rgba(0, 0, 0, var(--opacity));
-     color: rgba(var(--text-color-rgba), var(--text-color-rgba), var(--text-color-rgba));
 
-     .content-header {
-          width: 100%;
+  header {
+    max-width: 1920px;
+    min-height: 90px;
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background-color: rgba(10, 7, 11, var(--opacity));
+    color: white;
 
-          .left-container {
-               height: 100%;
+    .content-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin: 0px 30px;
 
-               .item {
-                    display: flex;
-                    gap: 5px;
+      .left-container {
+        height: 100%;
+        display: flex;
+        gap: 25px;
+        align-items: center;
 
-                    .icon {
-                         width: 20px;
-                         height: 20px;
-                         background-color: white;
-                         mask-size: cover;
-                         mask-repeat: no-repeat;
-                         mask-position: center;
-                    }
-               }
+        .logo-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          margin-right: 50px;
+
+          label {
+            font-size: 25px;
+            font-weight: 700;
+            background: linear-gradient(
+              90deg,
+              var(--brand-color-1) 0%,
+              var(--brand-color-4) 90%
+            );
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
           }
-     }
-}
+
+          .logo {
+            mask-image: url(./../../assets/logo/logo.svg);
+            mask-repeat: no-repeat;
+            mask-size: contain;
+            width: 55px;
+            height: 50px;
+            background-color: var(--brand-color-1);
+          }
+        }
+
+        .item {
+          display: flex;
+          gap: 5px;
+          height: 45px;
+          align-items: center;
+          padding: 0px 15px;
+          cursor: pointer;
+          
+          * {
+               cursor: pointer;
+               transition: all 0.5;
+          }
+
+          &:hover {
+            color: var(--black-100);
+
+            .icon {
+               background-color: var(--black-100);
+            }
+          }
+
+          .icon {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            mask-size: cover;
+            mask-repeat: no-repeat;
+            mask-position: center;
+          }
+        }
+      }
+    }
+  }

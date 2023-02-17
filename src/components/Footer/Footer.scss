@@ -1,0 +1,30 @@
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  gap: 30px;
+
+  span {
+    color: white;
+  }
+
+  .container {
+    max-width: 300px;
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      span {
+        label:nth-child(2) {
+          font-weight: 500;
+        }
+        
+        label:first-of-type {
+          color: var(--black-100);
+        }
+      }
+    }
+  }
+}

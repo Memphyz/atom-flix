@@ -1,0 +1,38 @@
+.main-home-content {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  .banner {
+    height: 720px;
+    position: relative;
+    background-image: url(./../../assets/bg-overlay.svg);
+
+    &::after {
+      content: "";
+      height: 100%;
+      width: 1920px;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      position: absolute;
+      box-shadow: 0px 24px 250px 129px inset;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 1920px;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-image: url(./../../assets/bg.svg);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+}

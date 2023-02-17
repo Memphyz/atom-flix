@@ -1,0 +1,7 @@
+@import './colors.scss';
+@import './button.scss';
+
+html {
+  background-color: var(--black);
+  overflow: hidden;
+}
