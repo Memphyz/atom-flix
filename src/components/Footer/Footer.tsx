@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { Lang } from "../../shared/lang";
+import { Select } from "../Select/Select";
 import "./Footer.scss";
 
 export function Footer(): ReactElement {
@@ -29,7 +30,7 @@ export function Footer(): ReactElement {
         <span>{Lang.LANG.APPLICATION_DESC}</span>
       </div>
       <div className="container right-content">
-        <span>language</span>
+        <Select options={[]}/>
       </div>
     </footer>
   );

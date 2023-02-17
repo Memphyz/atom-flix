@@ -1,7 +1,6 @@
 import { ENUS } from "./en-us";
 import { PTBR } from "./pt-br";
 import { Subject } from "rxjs";
-import React from "react";
 
 const languageMap = {
   "pt-BR": PTBR,
@@ -12,9 +11,10 @@ type Langs = typeof PTBR;
 type AvaliableLangs = keyof typeof languageMap;
 
 export class Lang {
-  public static LANG: Langs = PTBR;
   public static currentLang: AvaliableLangs =
     navigator.language as keyof typeof languageMap;
+    
+  public static LANG: Langs = languageMap[Lang.currentLang];
   public static readonly listener = new Subject<Langs>();
 
   public static change(lang: AvaliableLangs): void {
