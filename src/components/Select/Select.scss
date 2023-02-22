@@ -1,5 +1,6 @@
 .select-wrapper {
   position: relative;
+  color: white;
 
   .input-container {
     position: relative;
@@ -7,14 +8,68 @@
 
   .options {
     max-height: 200px;
-    width: 100%;
+    width: 0%;
+    left: 50%;
     overflow: auto;
     position: absolute;
+    transition: all 0.5s;
+
+    &.open {
+      left: 0%;
+      width: 100%;
+
+      .options-container {
+        padding: 10px;
+
+      }
+
+      .option-placeholder {
+        padding: 10px;
+
+        label {
+          font-size: 15px;
+        }
+      }
+    }
 
     .option-placeholder {
       margin-top: 5px;
+      background: linear-gradient(
+        90deg,
+        var(--brand-color-1) 0%,
+        var(--brand-color-4) 90%
+      );
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      label {
+        transition: all 0.5s;
+
+        font-size: 0px;
+      }
+
+      * {
+        position: relative;
+        z-index: 2;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        background-color: var(--black);
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
+        left: 1px;
+        top: 1px;
+        border-radius: 5px;
+      }
+
       .box {
         height: 90px;
+        width: 100%;
         background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
