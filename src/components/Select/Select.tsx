@@ -1,4 +1,5 @@
 import { ReactElement, useState } from "react";
+import { icons } from "../../assets/icons/icons";
 import { SelectProps } from "../../core/models/SelectProps";
 import { Lang } from "../../shared/lang";
 import { className } from "../../shared/utils/classname";
@@ -9,11 +10,14 @@ export function Select(props: SelectProps): ReactElement {
 
   return (
     <div className="select-wrapper">
-      <input
-        placeholder={props.placeholder || open.toString()}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
-      />
+      <div className="input-container">
+        <input
+          placeholder={props.placeholder || Lang.LANG.SELECT}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setOpen(false)}
+        />
+        <span className="line-in" />
+      </div>
       <div
         className={className({
           options: true,
@@ -26,7 +30,9 @@ export function Select(props: SelectProps): ReactElement {
                 <label htmlFor={option.label}>{option.label}</label>
               </div>
             ))
-          : "Nada"}
+          : <div className="option-placeholder" >
+            <div className="box" style={{backgroundImage: `url(${icons.emptyBox})`}}/>
+            </div>}
       </div>
     </div>
   );

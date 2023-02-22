@@ -9,7 +9,11 @@ footer {
   }
 
   .container {
-    max-width: 300px;
+    max-width: 800px;
+
+    &.middle-content > span {
+      color: var(--black-100);
+    }
 
     .wrapper {
       display: flex;
@@ -20,7 +24,7 @@ footer {
         label:nth-child(2) {
           font-weight: 500;
         }
-        
+
         label:first-of-type {
           color: var(--black-100);
         }

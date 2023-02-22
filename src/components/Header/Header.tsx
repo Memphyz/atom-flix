@@ -27,7 +27,7 @@ export function Header(props: {
   };
 
   useEffect((): void => {
-    window.addEventListener("scroll", (): void => {
+  document.addEventListener("scroll", (): void => {
       updateColors();
     });
     updateColors();
