@@ -1,9 +1,13 @@
 import { ReactElement } from "react";
 import { Lang } from "../../shared/lang";
 import { Select } from "../Select/Select";
+import {languageMap} from './../../shared/lang/index'
 import "./Footer.scss";
 
 export function Footer(): ReactElement {
+
+  const languages = languageMap
+
   return (
     <footer>
       <div className="container left-content">

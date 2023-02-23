@@ -2,7 +2,7 @@ import { ENUS } from "./en-us";
 import { PTBR } from "./pt-br";
 import { Subject } from "rxjs";
 
-const languageMap = {
+export const languageMap = {
   "pt-BR": PTBR,
   "en-US": ENUS,
 };
