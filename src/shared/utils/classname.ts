@@ -1,6 +1,6 @@
 export const className = (object: object) => {
   return Object.entries(object)
-    .filter(([_key, value]) => !!value)
+    .filter(([key, value]) => !!value && !!key)
     .map(([key]) => key)
     .join(" ");
 };
