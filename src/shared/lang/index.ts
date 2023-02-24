@@ -1,28 +1,29 @@
-import { ENUS } from "./en-us";
-import { PTBR } from "./pt-br";
-import { Subject } from "rxjs";
+import { Subject } from 'rxjs';
+import { ENUS } from './en-us';
+import { PTBR } from './pt-br';
 
 export const languageMap = {
-  "pt-BR": PTBR,
-  "en-US": ENUS,
+  "pt-BR": { value: PTBR, name: 'Português' },
+  "en-US": { value: ENUS, name: 'English' },
 };
 
 type Langs = typeof PTBR;
-type AvaliableLangs = keyof typeof languageMap;
+export type AvaliableLangs = keyof typeof languageMap;
 
 export class Lang {
   public static currentLang: AvaliableLangs =
     navigator.language as keyof typeof languageMap;
-    
-  public static LANG: Langs = languageMap[Lang.currentLang];
-  public static readonly listener = new Subject<Langs>();
+
+  public static LANG: Langs = languageMap[Lang.currentLang].value;
+  private static readonly listener = new Subject<Langs>();
 
   public static change(lang: AvaliableLangs): void {
-    this.LANG = languageMap[lang];
-    this.listener.next(this.LANG);
+    Lang.LANG = languageMap[lang].value;
+    localStorage.setItem('lang', lang)
+    this.listener.next(Lang.LANG);
   }
 
   public static langListener(): Pick<Subject<Langs>, 'subscribe'> {
-    return this.listener
+    return this.listener;
   }
 }

@@ -5,5 +5,6 @@ export const PTBR = {
   FRAMEWORK_USED: 'Framework utilizado',
   APPLICATION_DESC: 'Aplicação desenvolvida com o intuito de aprender um pouco mais sobre o framework React, sendo essa a primeira aplicação desenvolvida nesse framework  com inspiração em sites de streaming',
   SELECT: 'Selecione',
+  SIGN_UP: 'Registrar',
   NO_OPTION_FOUND: 'Nenhuma opção encontrada'
 }

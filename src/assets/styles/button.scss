@@ -8,4 +8,9 @@ button {
   border-radius: 6px;
   cursor: pointer;
   border: unset;
+
+  &.outline {
+    background-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px var(--brand-color-1);
+  }
 }

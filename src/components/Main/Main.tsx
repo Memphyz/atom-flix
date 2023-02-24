@@ -1,7 +1,7 @@
-import { ReactElement } from "react";
-import { Footer } from "../Footer/Footer";
-import { Header } from "../Header/Header";
-import "./Main.scss";
+import React, { ReactElement } from 'react';
+import { Footer } from '../Footer/Footer';
+import { Header } from '../Header/Header';
+import './Main.scss';
 
 export function Main(props: {
   children?: ReactElement | string;

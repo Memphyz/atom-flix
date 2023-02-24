@@ -4,23 +4,51 @@
 
   .input-container {
     position: relative;
+
+    input {
+      font-weight: 600;
+
+      &.open-style {
+        border-radius: 5px 0px 5px 0px;
+      }
+    }
   }
 
   .options {
-    max-height: 200px;
-    width: 0%;
-    left: 50%;
+    max-height: 0px;
+    left: 0%;
     overflow: auto;
     position: absolute;
+    background: linear-gradient(90deg,
+        var(--brand-color-1) 0%,
+        var(--brand-color-4) 90%);
     transition: all 0.5s;
+    transition-delay: 0ms;
+    width: 100%;
+    margin-top: 5px;
+
+    * {
+      position: relative;
+      z-index: 2;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      background-color: var(--black);
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+      left: 2px;
+      top: 2px;
+      border-radius: 5px;
+    }
 
     &.open {
-      left: 0%;
-      width: 100%;
+      max-height: 200px;
+      transition-delay: 500ms;
 
       .options-container {
         padding: 10px;
-
       }
 
       .option-placeholder {
@@ -32,13 +60,44 @@
       }
     }
 
+    .options-container {
+      transition: all 0.5s;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .option {
+        padding: 8px;
+        cursor: pointer;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        &.selected {
+          background: var(--black-300);
+        }
+
+        label.strong {
+          font-weight: bold;
+        }
+
+        span {
+          font-size: 12px;
+        }
+
+        * {
+          cursor: pointer;
+        }
+
+        &:hover {
+          background: var(--black-300);
+        }
+      }
+    }
+
     .option-placeholder {
-      margin-top: 5px;
-      background: linear-gradient(
-        90deg,
-        var(--brand-color-1) 0%,
-        var(--brand-color-4) 90%
-      );
       position: relative;
       display: flex;
       flex-direction: column;
@@ -47,24 +106,8 @@
 
       label {
         transition: all 0.5s;
-
         font-size: 0px;
-      }
-
-      * {
-        position: relative;
-        z-index: 2;
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        background-color: var(--black);
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        left: 1px;
-        top: 1px;
-        border-radius: 5px;
+        text-align: center;
       }
 
       .box {

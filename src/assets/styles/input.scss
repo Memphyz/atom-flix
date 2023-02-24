@@ -3,10 +3,15 @@ input {
   border: unset;
   filter: invert(1);
   position: relative;
-  min-height: 30px;
+  min-height: 35px;
   font-size: 16px;
+  transition: all .5s;
+  border-radius: 5px;
+  outline: unset;
+  box-shadow: inset 0px 0px 0px 2px var(--brand-color-2);
+  padding: 0px 10px;
 
-  ~ span.line-in {
+  ~span.line-in {
     position: absolute;
     transition: all 0.5s;
     width: 0%;
@@ -16,8 +21,9 @@ input {
   }
 
   &:focus-visible {
-    outline: unset;
-    &~ span.line-in {
+    box-shadow: inset 0px 0px 0px 0px var(--brand-color-2);
+
+    &~span.line-in {
       position: absolute;
       width: 100%;
       border: 1px solid var(--brand-color-1);
