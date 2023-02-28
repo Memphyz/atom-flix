@@ -5,6 +5,9 @@ import { className } from "../../shared/utils/classname";
 import "./Skeleton.scss";
 
 export function Skeleton(props: {
+  activated?: boolean;
+  children?: ReactNode;
+  style?: React.CSSProperties;
   classElements?: string;
   quantityMock?: number;
 }): ReactElement {
@@ -12,16 +15,23 @@ export function Skeleton(props: {
 
   return (
     <>
-      {Array(quantity)
-        .fill(undefined)
-        .map((_v, i) => (
-          <div
-            className={className({
-              [props.classElements || ""]: true,
-              skeleton: true,
-            })}
-          ></div>
-        ))}
+      {props.activated ? (
+        <>
+          {Array(quantity)
+            .fill(undefined)
+            .map((_v, i) => (
+              <div
+                style={props.style}
+                className={className({
+                  [props.classElements || ""]: true,
+                  skeleton: true,
+                })}
+              ></div>
+            ))}
+        </>
+      ) : (
+        <>{props.children}</>
+      )}
     </>
   );
 }

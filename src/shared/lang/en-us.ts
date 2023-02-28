@@ -12,4 +12,5 @@ export const ENUS: typeof PTBR = {
   SELECT: "Select",
   APPLICATION_DESC_HOME: "Reviews, ratings and reviews based on the TMDB API",
   NO_OPTION_FOUND: "No option found",
+  POPULAR_TV_SHOW: "Popular Series",
 };

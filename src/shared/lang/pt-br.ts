@@ -11,4 +11,5 @@ export const PTBR = {
   APPLICATION_DESC_HOME:
     "Críticas , avaliações e reviews com base na API do TMDB",
   NO_OPTION_FOUND: "Nenhuma opção encontrada",
+  POPULAR_TV_SHOW: "Séries Populares",
 };

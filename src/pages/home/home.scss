@@ -60,20 +60,36 @@
   }
 
   .content-movie-wrapper {
-    .tests {
-      display: flex;
-      padding: 10px 20px;
-      gap: 40px;
-      overflow: auto;
+    .list {
+      position: relative;
 
-      .card {
-        min-width: 150px;
-        min-height: 200px;
-        border-radius: 8px;
-        background-color: transparent;
+      h3 {
+        padding-left: 20px;
+        color: white;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 7%;
+        height: 100%;
+        right: 0;
+        top: 0;
+        background-image: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0) 0%,
+          var(--black) 100%
+        );
+      }
+
+      .cards {
         display: flex;
-        justify-content: center;
-        align-items: end;
+        padding: 10px 20px;
+        gap: 15px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        margin-left: 20px;
+        padding-left: 0px;
       }
     }
   }
