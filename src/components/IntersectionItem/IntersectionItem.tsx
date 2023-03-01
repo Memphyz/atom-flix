@@ -8,11 +8,13 @@ import {
 import { className } from "../../shared/utils/classname";
 import "./IntersectionItem.scss";
 
-export function IntersectionItem<T>(props: {
+export function IntersectionItem(props: {
   children?: any;
+  id?: any;
   className?: string;
   style?: React.CSSProperties;
   onClick?: MouseEventHandler<HTMLDivElement>;
+  onMouseOver?: MouseEventHandler<HTMLDivElement>;
 }): ReactElement {
   const ref = createRef<HTMLDivElement>();
   const [visible, setVisible] = useState(true);
@@ -25,7 +27,9 @@ export function IntersectionItem<T>(props: {
   return (
     <div
       ref={ref}
+      id={props.id}
       onClick={props.onClick}
+      onMouseOver={props.onMouseOver}
       className={`${className({
         intersection: true,
         visible,

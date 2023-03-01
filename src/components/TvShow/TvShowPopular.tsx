@@ -20,6 +20,8 @@ export function TvShowPopular(): ReactElement {
       width={120}
       height={180}
       backgroundImage="https://www.themoviedb.org/t/p/w220_and_h330_face/"
-    />
+    >
+      <div>teste</div>
+    </Cards>
   );
 }
