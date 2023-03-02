@@ -22,6 +22,7 @@ export function Skeleton(props: {
             .map((_v, i) => (
               <div
                 style={props.style}
+                key={i}
                 className={className({
                   [props.classElements || ""]: true,
                   skeleton: true,

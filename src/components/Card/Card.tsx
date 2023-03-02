@@ -1,18 +1,10 @@
-import {
-  BaseSyntheticEvent,
-  ReactElement,
-  SyntheticEvent,
-  useEffect,
-  useState,
-} from "react";
-import { ICardProps } from "./CardProps";
-import "./Card.scss";
-import React from "react";
-import { Skeleton } from "../Skeleton/Skeleton";
+import { ReactElement, SyntheticEvent, useEffect, useState } from "react";
 import { loaderService } from "../..";
-import { IntersectionItem } from "../IntersectionItem/IntersectionItem";
-import ReactDOM, { createPortal, render } from "react-dom";
 import { className } from "../../shared/utils/classname";
+import { IntersectionItem } from "../IntersectionItem/IntersectionItem";
+import { Skeleton } from "../Skeleton/Skeleton";
+import "./Card.scss";
+import { ICardProps } from "./CardProps";
 
 const MAX_WIDTH = 1920;
 const GAP = 20;
@@ -20,15 +12,13 @@ const GAP = 20;
 function ItemCard<T extends { id: any }>(props: ICardProps<T> & { item: T }) {
   const [showDetails, setDetails] = useState(false);
 
-  const detailsListeners = (event: SyntheticEvent) => {
+  const detailsListeners = () => {
+    props.onMouseOver && props.onMouseOver(props.item.id);
     setDetails(true);
-    (event.target as HTMLElement).onmouseout = () => {
-      changeDetails(false);
-    };
   };
 
-  const changeDetails = (flag: boolean) => {
-    setTimeout(() => setDetails(flag), 100);
+  const closeDetailsListeners = (event: SyntheticEvent) => {
+    setDetails(false);
   };
 
   return (
@@ -39,6 +29,7 @@ function ItemCard<T extends { id: any }>(props: ICardProps<T> & { item: T }) {
         details: showDetails,
       })}
       onMouseOver={detailsListeners}
+      onMouseLeave={closeDetailsListeners}
       onClick={props.onclick}
       style={{
         minWidth: showDetails ? (props.width || 0) * 3 : props.width || 150,

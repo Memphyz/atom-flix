@@ -15,6 +15,7 @@ export function IntersectionItem(props: {
   style?: React.CSSProperties;
   onClick?: MouseEventHandler<HTMLDivElement>;
   onMouseOver?: MouseEventHandler<HTMLDivElement>;
+  onMouseLeave?: MouseEventHandler<HTMLDivElement>;
 }): ReactElement {
   const ref = createRef<HTMLDivElement>();
   const [visible, setVisible] = useState(true);
@@ -29,7 +30,8 @@ export function IntersectionItem(props: {
       ref={ref}
       id={props.id}
       onClick={props.onClick}
-      onMouseOver={props.onMouseOver}
+      onMouseEnter={props.onMouseOver}
+      onMouseLeave={props.onMouseLeave}
       className={`${className({
         intersection: true,
         visible,

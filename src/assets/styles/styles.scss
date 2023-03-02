@@ -21,6 +21,10 @@ html {
   scrollbar-color: #d6d6d6 #ffffff;
 }
 
+iframe .ytp-show-cards-title {
+  display: none!important;
+}
+
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 5px;

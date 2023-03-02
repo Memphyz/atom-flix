@@ -4,7 +4,7 @@ export interface ICardProps<T extends { id: unknown }> {
   width?: number;
   height?: number;
   backgroundImage?: string;
-
+  onMouseOver?: (id: number) => void;
   backgroundImageSuffix?: keyof T;
   title: keyof T;
   children?: ReactElement;

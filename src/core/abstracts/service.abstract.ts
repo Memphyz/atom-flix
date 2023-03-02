@@ -10,13 +10,8 @@ import {
 } from "../interceptors/http.interceptors";
 
 export abstract class AbstractService<Resource = unknown> {
-  protected readonly http = axios.create({
-    baseURL: BASE_URL,
-    params: {
-      api_key: API_KEY,
-      language: Lang.currentLang,
-    },
-  });
+  protected readonly http = this.updateHttp(localStorage.getItem("lang"));
+
   protected abstract prefixUrl(): string;
 
   constructor() {
@@ -34,15 +29,18 @@ export abstract class AbstractService<Resource = unknown> {
     url = this.prefixUrl(),
     params = { page: 1 }
   ): Observable<IResponse<Resource>> {
-    return from(this.http.get(url, { params: { ...params } })).pipe(
-      map((res) => res.data as IResponse<Resource>)
-    );
+    return from(
+      this.http.get(url, {
+        params: { ...params, language: localStorage.getItem("lang") },
+      })
+    ).pipe(map((res) => res.data as IResponse<Resource>));
   }
 
   public getWithBaseConfig<T>(
     url = this.prefixUrl(),
     params?: { [x: string]: any }
   ): Observable<T> {
+    params = { ...params, language: localStorage.getItem("lang") };
     return from(this.http.get(url, { params })).pipe(map((data) => data.data));
   }
 
@@ -50,6 +48,7 @@ export abstract class AbstractService<Resource = unknown> {
     url = this.prefixUrl(),
     params?: { [x: string]: any }
   ): Observable<T> {
+    params = { ...params, language: localStorage.getItem("lang") };
     return from(this.http.get(url, { params, headers: {} })).pipe(
       map((data) => data.data)
     );
@@ -60,6 +59,7 @@ export abstract class AbstractService<Resource = unknown> {
     params?: { [x: string]: any },
     body?: B
   ): Observable<T> {
+    params = { ...params, language: localStorage.getItem("lang") };
     return from(this.http.post(url, body, { params, headers: {} })).pipe(
       map((data) => data.data)
     );
@@ -70,8 +70,18 @@ export abstract class AbstractService<Resource = unknown> {
     params?: { [x: string]: any },
     body?: B
   ): Observable<T> {
+    params = { ...params, language: localStorage.getItem("lang") };
     return from(this.http.delete(url, { params, data: body })).pipe(
       map((data) => data.data)
     );
+  }
+
+  private updateHttp(lang) {
+    return axios.create({
+      baseURL: BASE_URL,
+      params: {
+        api_key: API_KEY,
+      },
+    });
   }
 }
