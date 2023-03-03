@@ -5,11 +5,15 @@ import { Lang } from "../../shared/lang";
 import { PTBR } from "../../shared/lang/pt-br";
 import { Cards } from "../Card/Card";
 import "./TvShowPopular.scss";
+import { CardDetails } from "../CardDetails/CardDetails";
+import { isMobile } from "../..";
 
 export function TvShowPopular(): ReactElement {
   const service = new TvShowService();
   const [list, setList] = useState<TvShow[]>([]);
   const [details, setDetails] = useState<TvShow>();
+  const [totalItems, setTotalItems] = useState<number>();
+  const [page, setPage] = useState<number>(1);
   const [LANG, setLang] = useState<typeof PTBR>(Lang.LANG);
 
   useEffect(() => {
@@ -20,8 +24,20 @@ export function TvShowPopular(): ReactElement {
     });
   }, []);
 
+  useEffect((): void => {
+    fetch();
+  }, [page]);
+
   const fetch = () => {
-    service.getAllPopular().subscribe((data) => setList(data.results));
+    service.getAllPopular({ page }).subscribe((data) => {
+      setList([
+        ...list,
+        ...data.results.filter(
+          (detail) => !list.some((item) => item.id === detail.id)
+        ),
+      ]);
+      setTotalItems(data.total_results);
+    });
   };
 
   const getDetails = (id: number) => {
@@ -34,27 +50,15 @@ export function TvShowPopular(): ReactElement {
       items={list}
       title="name"
       backgroundImageSuffix="poster_path"
-      width={120}
-      height={180}
+      width={220}
+      lang={LANG}
+      onClickMore={() => setPage(page + 1)}
+      height={330}
       onMouseOver={getDetails}
+      totalItems={totalItems}
       backgroundImage="https://www.themoviedb.org/t/p/w220_and_h330_face/"
     >
-      <div className="details">
-        <div
-          className="backdrop"
-          style={{
-            backgroundImage: `url(https://www.themoviedb.org/t/p/w533_and_h300_bestv2${details?.backdrop_path})`,
-          }}
-        />
-        <h3 className="title">{details?.name}</h3>
-        {details?.overview && (
-          <div className="overview">
-            <label htmlFor={`${details?.name} ${LANG.SYNOPSIS}`}>
-              {details?.overview}
-            </label>
-          </div>
-        )}
-      </div>
+      <CardDetails details={details!} lang={LANG} height={330} />
     </Cards>
   );
 }

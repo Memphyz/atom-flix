@@ -8,6 +8,10 @@
     input {
       font-weight: 600;
 
+      &[readonly] {
+        cursor: pointer;
+      }
+
       &.open-style {
         border-radius: 5px 0px 5px 0px;
       }

@@ -1,6 +1,8 @@
-@import './colors.scss';
-@import './button.scss';
-@import './input.scss';
+@import "./colors.scss";
+@import "./button.scss";
+@import "./input.scss";
+@import "./loader.scss";
+@import "./variables.scss";
 
 html {
   background-color: var(--black);
@@ -11,32 +13,40 @@ html {
     background-color: var(--brand-color-1);
     color: white;
   }
+}
 
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
 }
 
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
-* {
-  scrollbar-width: auto;
-  scrollbar-color: #d6d6d6 #ffffff;
+
+html.desktop {
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #d6d6d6 #ffffff;
+  }
+  *::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff00;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--black-300);
+    border-radius: 16px;
+    border: 2px solid #ffffff00;
+  }
 }
 
 iframe .ytp-show-cards-title {
-  display: none!important;
+  display: none !important;
 }
 
 /* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #ffffff00;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #d6d6d6;
-  border-radius: 16px;
-  border: 2px solid #ffffff00;
-}

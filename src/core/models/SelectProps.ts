@@ -18,6 +18,7 @@ export class SelectItem<T = unknown> {
 export interface SelectProps<T = unknown> {
   placeholder?: string;
   options: SelectItem<T>[];
+  autocomplete?: boolean;
   value?: [T, Dispatch<React.SetStateAction<T>>];
   idField?: keyof T;
   onSelect?: (selected: SelectItem<T>) => void;

@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { PTBR } from "../../shared/lang/pt-br";
 export interface ICardProps<T extends { id: unknown }> {
   items: T[];
   width?: number;
@@ -9,4 +10,7 @@ export interface ICardProps<T extends { id: unknown }> {
   title: keyof T;
   children?: ReactElement;
   onclick?: () => void;
+  totalItems?: number;
+  lang: typeof PTBR;
+  onClickMore?: () => void;
 }

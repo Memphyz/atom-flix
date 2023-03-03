@@ -11,29 +11,64 @@
   position: relative;
   transition: all 0.5s !important;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+   
+  * {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .see-more {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+
+    label {
+      cursor: pointer;
+      color: white;
+      span {
+        cursor: pointer;
+        color: var(--brand-color-1);
+      }
+    }
+  }
 
   &.details {
     margin: 0px 10px;
     background-color: var(--black-300);
   }
 
-  &:hover {
+  &:not(.see-more):hover {
     transform: scale(1.05);
   }
 
- .shadow{
+  .shadow {
     position: absolute;
     width: 100%;
     height: 55%;
     bottom: 0px;
-    background-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #000000c7 100%);
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      #000000c7 100%
+    );
   }
 
+  .name {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 20px;
+  }
   label {
     color: white;
     text-align: center;
-    position: relative;
-    z-index: 1;
-    bottom: 10px;
   }
 }

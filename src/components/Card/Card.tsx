@@ -5,15 +5,21 @@ import { IntersectionItem } from "../IntersectionItem/IntersectionItem";
 import { Skeleton } from "../Skeleton/Skeleton";
 import "./Card.scss";
 import { ICardProps } from "./CardProps";
+import { noop } from "rxjs";
 
 const MAX_WIDTH = 1920;
 const GAP = 20;
 
-function ItemCard<T extends { id: any }>(props: ICardProps<T> & { item: T }) {
+function ItemCard<T extends { id: any }>(
+  props: ICardProps<T> & { item?: T; seeMore?: boolean }
+) {
   const [showDetails, setDetails] = useState(false);
 
   const detailsListeners = () => {
-    props.onMouseOver && props.onMouseOver(props.item.id);
+    if (window.innerWidth < (props.width || 0) * 3.5) {
+      return undefined;
+    }
+    props.onMouseOver && props.onMouseOver(props.item?.id);
     setDetails(true);
   };
 
@@ -21,15 +27,38 @@ function ItemCard<T extends { id: any }>(props: ICardProps<T> & { item: T }) {
     setDetails(false);
   };
 
+  const cardContent = () => {
+    if (props.seeMore) {
+      return (
+        <div className="see-more" onClick={props.onClickMore}>
+          <label htmlFor={props.lang.SEE_MORE}>
+            {props.lang.SEE_MORE} <span>↣</span>
+          </label>
+        </div>
+      );
+    }
+    return (
+      <>
+        <div className="name">
+          <label htmlFor={props.item![props.title as any]}>
+            {props.item![props.title as any]}
+          </label>
+        </div>
+        <div className="shadow" />
+      </>
+    );
+  };
+
   return (
     <IntersectionItem
-      id={props.item.id}
+      id={props.item?.id || "see-more"}
       className={className({
         card: true,
         details: showDetails,
+        "show-more": props.seeMore,
       })}
-      onMouseOver={detailsListeners}
-      onMouseLeave={closeDetailsListeners}
+      onMouseOver={!props.seeMore ? detailsListeners : noop}
+      onMouseLeave={!props.seeMore ? closeDetailsListeners : noop}
       onClick={props.onclick}
       style={{
         minWidth: showDetails ? (props.width || 0) * 3 : props.width || 150,
@@ -37,20 +66,13 @@ function ItemCard<T extends { id: any }>(props: ICardProps<T> & { item: T }) {
         backgroundImage: showDetails
           ? ""
           : `url(${props.backgroundImage || ""}${
-              props.item[(props.backgroundImageSuffix as any) || ""]
+              props.item
+                ? props.item![(props.backgroundImageSuffix as any) || ""]
+                : null
             })`,
       }}
     >
-      {showDetails ? (
-        props.children
-      ) : (
-        <>
-          <label htmlFor={props.item[props.title as any]}>
-            {props.item[props.title as any]}
-          </label>
-          <div className="shadow" />
-        </>
-      )}
+      {showDetails ? props.children : cardContent()}
     </IntersectionItem>
   );
 }
@@ -77,6 +99,9 @@ export function Cards<T extends { id: any }>(
       {props.items.map((item) => (
         <ItemCard key={item.id} {...props} item={item} />
       ))}
+      {props.totalItems! > props.items?.length ? (
+        <ItemCard {...props} seeMore={true} />
+      ) : null}
     </>
   ) : (
     <Skeleton

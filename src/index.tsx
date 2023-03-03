@@ -4,6 +4,7 @@ import { App } from './App';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import { BehaviorSubject } from "rxjs";
+import { isMobileBrowser } from "./shared/utils/regex";
 
 export const BASE_URL = process.env.REACT_APP_API_URL!;
 export const API_KEY = process.env.REACT_APP_API_KEY!;
@@ -19,6 +20,16 @@ export class Router {
   }
 }
 
+export const isMobile = window.innerWidth <= 992;
+function checkBrowser(): void {
+  if (!isMobileBrowser()) {
+    document.querySelector("html")!.classList.add("desktop");
+  }
+}
+
+window.onresize = checkBrowser;
+
+checkBrowser();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

@@ -1,0 +1,24 @@
+.loader {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  box-shadow: inset 0px 0px 0px 1000px #000000b5;
+  z-index: 2096;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  .balls {
+    mask-image: url('./../loading.svg');
+    width: 20vw;
+    position: absolute;
+    height: 20vw;
+    max-width: 100px;
+    max-height: 100px;
+    background-color: white;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+  }
+}

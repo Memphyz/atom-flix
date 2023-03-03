@@ -50,8 +50,9 @@ export function Select<T = unknown>(props: SelectProps<T>): ReactElement {
       <div className="input-container">
         <input
           ref={inputRef}
+          readOnly={!props.autocomplete}
           className={className({
-            'open-style': open
+            "open-style": open,
           })}
           placeholder={props.placeholder || Lang.LANG.SELECT}
           onFocus={() => setOpen(true)}
@@ -65,22 +66,40 @@ export function Select<T = unknown>(props: SelectProps<T>): ReactElement {
           open,
         })}
       >
-        {props.options?.length
-          ? <div className="options-container">{props.options.map((option, i) => (
-            <div className={className({
-              option: true,
-              selected: option.selected
-            })} onMouseDown={() => onSelect(option)} key={i}>
-              <label className={className({
-                strong: option.sublabel
-              })} htmlFor={option.label}>{option.label}</label>
-              {option.sublabel && <span>{option.sublabel}</span>}
-            </div>
-          ))}</div>
-          : <div className="option-placeholder" >
-            <div className="box" style={{ backgroundImage: `url(${icons.emptyBox})` }} />
-            <label htmlFor={Lang.LANG.NO_OPTION_FOUND}>{Lang.LANG.NO_OPTION_FOUND}</label>
-          </div>}
+        {props.options?.length ? (
+          <div className="options-container">
+            {props.options.map((option, i) => (
+              <div
+                className={className({
+                  option: true,
+                  selected: option.selected,
+                })}
+                onMouseDown={() => onSelect(option)}
+                key={i}
+              >
+                <label
+                  className={className({
+                    strong: option.sublabel,
+                  })}
+                  htmlFor={option.label}
+                >
+                  {option.label}
+                </label>
+                {option.sublabel && <span>{option.sublabel}</span>}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="option-placeholder">
+            <div
+              className="box"
+              style={{ backgroundImage: `url(${icons.emptyBox})` }}
+            />
+            <label htmlFor={Lang.LANG.NO_OPTION_FOUND}>
+              {Lang.LANG.NO_OPTION_FOUND}
+            </label>
+          </div>
+        )}
       </div>
     </div>
   );

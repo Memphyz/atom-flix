@@ -1,3 +1,5 @@
+@import './../../assets/styles/variables.scss';
+
 .main-home-content {
   display: flex;
   flex-direction: column;
@@ -9,6 +11,7 @@
     background-image: url(./../../assets/bg-overlay.svg);
     display: flex;
     align-items: center;
+    overflow: hidden;
 
     .content {
       position: relative;
@@ -90,6 +93,18 @@
         overflow-y: hidden;
         margin-left: 20px;
         padding-left: 0px;
+
+        @media screen and (max-width: $mobile) {
+          gap: 0px;
+
+          :nth-child(n).card {
+            margin-left: 15px;
+          }
+        }
+
+        :last-child#see-more {
+          margin-right: 7%;
+        }
       }
     }
   }

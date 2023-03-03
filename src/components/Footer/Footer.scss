@@ -1,9 +1,18 @@
+@import "./../../assets/styles/variables.scss";
+
+$margin: 30px;
+
 footer {
   display: flex;
   justify-content: space-between;
-  padding: 30px;
-  gap: 30px;
+  padding: $margin;
+  gap: $margin;
   margin-top: 90px;
+
+  @media screen and (max-width: $mobile) {
+    flex-direction: column-reverse;
+    gap: unset;
+  }
 
   span {
     color: white;
@@ -11,6 +20,9 @@ footer {
 
   .container {
     max-width: 800px;
+    @media screen and (max-width: $mobile) {
+      margin-bottom: $margin;
+    }
 
     &.middle-content > span {
       color: var(--black-100);
@@ -19,7 +31,14 @@ footer {
     .wrapper {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: calc($margin - 10px);
+
+      @media screen and (max-width: $mobile) {
+        gap: 0px;
+        :first-child {
+          margin-bottom: $margin;
+        }
+      }
 
       span {
         label:nth-child(2) {

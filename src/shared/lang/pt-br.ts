@@ -13,4 +13,5 @@ export const PTBR = {
   NO_OPTION_FOUND: "Nenhuma opção encontrada",
   POPULAR_TV_SHOW: "Séries Populares",
   SYNOPSIS: "Sinopse",
+  SEE_MORE: "Ver mais",
 };

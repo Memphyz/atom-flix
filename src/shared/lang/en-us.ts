@@ -14,4 +14,5 @@ export const ENUS: typeof PTBR = {
   NO_OPTION_FOUND: "No option found",
   POPULAR_TV_SHOW: "Popular Series",
   SYNOPSIS: "Synopsis",
+  SEE_MORE: "See more",
 };
