@@ -50,7 +50,6 @@ export function CardList<
         document.getElementById(props.listContainerId)?.scrollLeft!
       );
     props.getAll({ page: page || 1 }).subscribe((data) => {
-      console.log(data);
       setList([
         ...list,
         ...data.results.filter(
@@ -62,7 +61,6 @@ export function CardList<
   };
 
   const getDetails = (id: number) => {
-    console.log(list);
     const cached = list.find((cache) => cache.id === id);
     setDetails(cached);
   };
