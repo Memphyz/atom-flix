@@ -8,12 +8,14 @@ import { ICardProps } from "./CardProps";
 import { noop } from "rxjs";
 
 const MAX_WIDTH = 1920;
+const CARD_WIDTH_SPACING = 70;
 const GAP = 20;
 
 function ItemCard<T extends { id: any }>(
   props: ICardProps<T> & { item?: T; seeMore?: boolean }
 ) {
   const [showDetails, setDetails] = useState(false);
+  const [minWidth, setMinWidth] = useState(props.width || 150);
 
   const detailsListeners = () => {
     if (window.innerWidth < (props.width || 0) * 3.5) {
@@ -22,6 +24,14 @@ function ItemCard<T extends { id: any }>(
     props.onMouseOver && props.onMouseOver(props.item?.id);
     setDetails(true);
   };
+
+  useEffect((): void => {
+    let width = props.width || 150;
+    if (width + CARD_WIDTH_SPACING > window.innerWidth) {
+      width = window.innerWidth - CARD_WIDTH_SPACING;
+    }
+    setMinWidth(width);
+  }, []);
 
   const closeDetailsListeners = (event: SyntheticEvent) => {
     setDetails(false);
@@ -61,7 +71,9 @@ function ItemCard<T extends { id: any }>(
       onMouseLeave={!props.seeMore ? closeDetailsListeners : noop}
       onClick={props.onclick}
       style={{
-        minWidth: showDetails ? (props.width || 0) * 3 : props.width || 150,
+        minWidth: showDetails
+          ? minWidth * (props.widthDetailsMultiplier || 3)
+          : minWidth,
         minHeight: props.height || 200,
         backgroundImage: showDetails
           ? ""

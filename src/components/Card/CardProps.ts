@@ -9,6 +9,7 @@ export interface ICardProps<T extends { id: unknown }> {
   backgroundImageSuffix?: keyof T;
   title: keyof T;
   children?: ReactElement;
+  widthDetailsMultiplier?: number;
   onclick?: () => void;
   totalItems?: number;
   lang: typeof PTBR;

@@ -13,5 +13,8 @@ export const PTBR = {
   NO_OPTION_FOUND: "Nenhuma opção encontrada",
   POPULAR_TV_SHOW: "Séries Populares",
   SYNOPSIS: "Sinopse",
+  POPULAR_MOVIES: "Filmes Populares",
+  TOP_RATED: "Mais Votados",
+  LASTEST: "Lançamentos",
   SEE_MORE: "Ver mais",
 };
