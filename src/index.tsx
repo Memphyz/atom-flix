@@ -20,6 +20,7 @@ export class Router {
   }
 }
 
+
 export const isMobile = window.innerWidth <= 992;
 function checkBrowser(): void {
   if (!isMobileBrowser()) {

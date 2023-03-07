@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { MovieService } from "../../core/services/movie.service";
-import { IMovie } from "../../core/models/Movie";
+import { IMovie } from "../../core/models/Movie/Movie";
 import { CardList } from "../CardList/CardList";
 
 export function TopRatedMovies(props: {

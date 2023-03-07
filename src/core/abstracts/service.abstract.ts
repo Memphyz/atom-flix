@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Observable, from, map } from "rxjs";
+import { Observable, OperatorFunction, from, map, mergeMap } from "rxjs";
 import { IResponse } from "../models/Response";
 import { API_KEY, BASE_URL } from "./../../index";
 import { Lang } from "./../../shared/lang/index";
@@ -74,6 +74,26 @@ export abstract class AbstractService<Resource = unknown> {
     return from(this.http.delete(url, { params, data: body })).pipe(
       map((data) => data.data)
     );
+  }
+
+  public getById(id: number | string): Observable<unknown> {
+    return this.get<unknown>(
+      this.prefixUrl() + "/" + id
+    ) as unknown as Observable<unknown>;
+  }
+
+  protected assign<T extends Record<string, any>, R>(
+    idField: keyof T,
+    fillField: keyof T,
+    request: (data: any) => Observable<R>
+  ) {
+    return mergeMap((response: T) =>
+      request(response[idField]).pipe(
+        map((requestRespose) =>
+          Object.assign(response, { [fillField]: requestRespose })
+        )
+      )
+    ) as OperatorFunction<any, any>;
   }
 
   private updateHttp(lang) {

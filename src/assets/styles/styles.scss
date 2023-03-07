@@ -15,6 +15,19 @@ html {
   }
 }
 
+#root {
+  clip-path: circle(0);
+  transition: all 0.5s;
+  overflow: auto;
+  height: 100vh;
+  background-color: var(--black-300);
+
+  &.show {
+    background-color: var(--black);
+    clip-path: circle(100%);
+  }
+}
+
 * {
   padding: 0px;
   margin: 0px;

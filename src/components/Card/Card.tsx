@@ -1,4 +1,10 @@
-import { ReactElement, SyntheticEvent, useEffect, useState } from "react";
+import {
+  ReactElement,
+  SyntheticEvent,
+  createRef,
+  useEffect,
+  useState,
+} from "react";
 import { loaderService } from "../..";
 import { className } from "../../shared/utils/classname";
 import { IntersectionItem } from "../IntersectionItem/IntersectionItem";
@@ -6,6 +12,8 @@ import { Skeleton } from "../Skeleton/Skeleton";
 import "./Card.scss";
 import { ICardProps } from "./CardProps";
 import { noop } from "rxjs";
+import { Link } from "react-router-dom";
+import { router } from "../../App";
 
 const MAX_WIDTH = 1920;
 const CARD_WIDTH_SPACING = 70;
@@ -23,6 +31,18 @@ function ItemCard<T extends { id: any }>(
     }
     props.onMouseOver && props.onMouseOver(props.item?.id);
     setDetails(true);
+  };
+
+  const useProgressiveImage = (src) => {
+    const [sourceLoaded, setSourceLoaded] = useState(null);
+
+    useEffect(() => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => setSourceLoaded(src);
+    }, [src]);
+
+    return sourceLoaded;
   };
 
   useEffect((): void => {
@@ -69,7 +89,10 @@ function ItemCard<T extends { id: any }>(
       })}
       onMouseOver={!props.seeMore ? detailsListeners : noop}
       onMouseLeave={!props.seeMore ? closeDetailsListeners : noop}
-      onClick={props.onclick}
+      onClick={() => {
+        props.onclick && props.onclick();
+        !props.seeMore && router.next("details/" + props.item?.id);
+      }}
       style={{
         minWidth: showDetails
           ? minWidth * (props.widthDetailsMultiplier || 3)
