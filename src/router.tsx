@@ -40,7 +40,7 @@ export function Router(): ReactElement {
         <Link hidden ref={linkRef} to={url! || window.location.pathname} />
         <Routes>
           <Route path="" element={<Home />} />
-          <Route path="details/:id" element={<Details />} />
+          <Route path="details/:type/:id" element={<Details />} />
         </Routes>
       </BrowserRouter>
     </>

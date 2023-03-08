@@ -33,18 +33,6 @@ function ItemCard<T extends { id: any }>(
     setDetails(true);
   };
 
-  const useProgressiveImage = (src) => {
-    const [sourceLoaded, setSourceLoaded] = useState(null);
-
-    useEffect(() => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => setSourceLoaded(src);
-    }, [src]);
-
-    return sourceLoaded;
-  };
-
   useEffect((): void => {
     let width = props.width || 150;
     if (width + CARD_WIDTH_SPACING > window.innerWidth) {
@@ -91,7 +79,8 @@ function ItemCard<T extends { id: any }>(
       onMouseLeave={!props.seeMore ? closeDetailsListeners : noop}
       onClick={() => {
         props.onclick && props.onclick();
-        !props.seeMore && router.next("details/" + props.item?.id);
+        !props.seeMore &&
+          router.next(`details/${props.type}/${props.item?.id}`);
       }}
       style={{
         minWidth: showDetails

@@ -13,6 +13,7 @@ export function TvShowPopular(props: {
       title="name"
       backgroundImageSuffix="poster_path"
       width={190}
+      type="tv"
       height={280}
       backgroundImage="https://www.themoviedb.org/t/p/w220_and_h330_face/"
       getAll={service.getAllPopular.bind(service)}

@@ -13,6 +13,7 @@ export function TopRatedMovies(props: {
       backgroundImageSuffix="poster_path"
       width={430}
       height={243}
+      type="movie"
       widthDetailsMultiplier={1.2}
       backgroundImage="	https://www.themoviedb.org/t/p/w533_and_h300_bestv2/"
       getAll={service.getTopRated.bind(service)}

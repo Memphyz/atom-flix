@@ -18,6 +18,7 @@ main {
   right: 0px;
   border-radius: 5px 0px 0px 5px;
   cursor: pointer;
+  z-index: 1096;
 
   &.show {
     bottom: 60px;

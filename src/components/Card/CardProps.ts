@@ -8,6 +8,7 @@ export interface ICardProps<T extends { id: unknown }> {
   onMouseOver?: (id: number) => void;
   backgroundImageSuffix?: keyof T;
   title: keyof T;
+  type: ContentTypes;
   children?: ReactElement;
   widthDetailsMultiplier?: number;
   onclick?: () => void;
@@ -15,3 +16,5 @@ export interface ICardProps<T extends { id: unknown }> {
   lang: typeof PTBR;
   onClickMore?: () => void;
 }
+
+export type ContentTypes = "tv" | "movie";
