@@ -1,3 +1,5 @@
+import { TvShowSimilar } from "./TvShowSimilar";
+
 export interface TvShow {
   backdrop_path: string;
   first_air_date: string;
@@ -12,4 +14,5 @@ export interface TvShow {
   poster_path: string;
   vote_average: number;
   vote_count: number;
+  similar: TvShowSimilar;
 }

@@ -2,16 +2,16 @@ import { Observable } from "rxjs";
 import { AbstractService } from "../abstracts/service.abstract";
 import { Keywords } from "../models/Keywords";
 import { IMovie } from "../models/Movie/Movie";
-import { MovieCredits } from "../models/Movie/MovieCredits";
+import { Credits } from "../models/Credits";
 import { MovieDetail } from "../models/Movie/MovieDetails";
-import { MovieExtarnalIDs } from "../models/Movie/MovieExternalIds";
+import { ExternalIDs } from "../models/ExternalIds";
 import { MovieList } from "../models/Movie/MovieList";
-import { MovieVideo } from "../models/Movie/MovieVideos";
+import { ModelVideo } from "../models/ModelVideo";
 import { SimilarMovies } from "../models/Movie/SimilarMovies";
 import { Images } from "../models/ObjectImages";
 import { IResponse } from "../models/Response";
-import { MovieRecomendations } from "../models/Movie/MovieRecomendations";
-import { MovieWatchProviders } from "../models/Movie/MovieWatchProviders";
+import { Recomendations } from "../models/Recomendations";
+import { WatchProviders } from "../models/WatchProviders";
 
 export class MovieService extends AbstractService<IMovie> {
   protected prefixUrl(): string {
@@ -45,7 +45,7 @@ export class MovieService extends AbstractService<IMovie> {
           "images",
           this.getImages.bind(this)
         ),
-        this.assign<MovieDetail, MovieVideo>(
+        this.assign<MovieDetail, ModelVideo>(
           "id",
           "videos",
           this.getVideos.bind(this)
@@ -55,12 +55,12 @@ export class MovieService extends AbstractService<IMovie> {
           "lists",
           this.getLists.bind(this)
         ),
-        this.assign<MovieDetail, MovieExtarnalIDs>(
+        this.assign<MovieDetail, ExternalIDs>(
           "id",
           "external_ids",
           this.getExternalIDs.bind(this)
         ),
-        this.assign<MovieDetail, MovieCredits>(
+        this.assign<MovieDetail, Credits>(
           "id",
           "credits",
           this.getCredits.bind(this)
@@ -70,19 +70,19 @@ export class MovieService extends AbstractService<IMovie> {
           "keywords",
           this.getKeywords.bind(this)
         ),
-        this.assign<MovieDetail, MovieRecomendations>(
+        this.assign<MovieDetail, Recomendations>(
           "id",
           "recomendations",
           this.getRecomendations.bind(this)
         ),
-        this.assign<MovieDetail, MovieWatchProviders>(
+        this.assign<MovieDetail, WatchProviders>(
           "id",
           "watch_providers",
           this.getWatchProviders.bind(this)
         ),
         this.assign<MovieDetail, SimilarMovies>(
           "id",
-          "similar_movies",
+          "similar",
           this.getSimilarMovies.bind(this)
         )
       );
@@ -105,7 +105,7 @@ export class MovieService extends AbstractService<IMovie> {
   public getRecomendations(
     id: string | number,
     params?: { page: number }
-  ): Observable<MovieRecomendations> {
+  ): Observable<Recomendations> {
     return this.get(this.prefixUrl() + `/${id}/recommendations`, params);
   }
 
@@ -113,7 +113,7 @@ export class MovieService extends AbstractService<IMovie> {
     return this.get(this.prefixUrl() + `/${id}/images`);
   }
 
-  public getCredits(id: string | number): Observable<MovieCredits> {
+  public getCredits(id: string | number): Observable<Credits> {
     return this.get(this.prefixUrl() + `/${id}/credits`);
   }
 
@@ -121,17 +121,15 @@ export class MovieService extends AbstractService<IMovie> {
     return this.get(this.prefixUrl() + `/${id}/keywords`);
   }
 
-  public getWatchProviders(
-    id: string | number
-  ): Observable<MovieWatchProviders> {
+  public getWatchProviders(id: string | number): Observable<WatchProviders> {
     return this.get(this.prefixUrl() + `/${id}/watch/providers`);
   }
 
-  public getExternalIDs(id: string | number): Observable<MovieExtarnalIDs> {
+  public getExternalIDs(id: string | number): Observable<ExternalIDs> {
     return this.get(this.prefixUrl() + `/${id}/external_ids`);
   }
 
-  public getVideos(id: string | number): Observable<MovieVideo> {
+  public getVideos(id: string | number): Observable<ModelVideo> {
     return this.get(this.prefixUrl() + `/${id}/videos`);
   }
 }

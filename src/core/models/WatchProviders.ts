@@ -1287,7 +1287,7 @@ export interface Results {
   ZA: ZA;
 }
 
-export interface MovieWatchProviders {
+export interface WatchProviders {
   id: number;
   results: Results;
 }

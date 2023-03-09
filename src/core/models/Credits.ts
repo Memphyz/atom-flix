@@ -27,7 +27,7 @@ export interface Crew {
   job: string;
 }
 
-export interface MovieCredits {
+export interface Credits {
   id: number;
   cast: Cast[];
   crew: Crew[];

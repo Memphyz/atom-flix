@@ -1,4 +1,4 @@
-export interface MovieExtarnalIDs {
+export interface ExternalIDs {
   imdb_id: string;
   facebook_id: string;
   instagram_id: string;

@@ -3,19 +3,24 @@ import "./details.scss";
 import { getUrlPath } from "../../shared/utils/router";
 import { MovieService } from "../../core/services/movie.service";
 import { MovieDetail } from "../../core/models/Movie/MovieDetails";
-import { MovieVideo, Video } from "../../core/models/Movie/MovieVideos";
+import { ModelVideo, Video } from "../../core/models/ModelVideo";
 import { Backdrop, Images } from "../../core/models/ObjectImages";
 import { PresentationDetails } from "../../components/PresentationDetails/PresentationDetails";
+import { TvShowService } from "../../core/services/tv-show.service";
+
+const SERVICE_CONFIG = {
+  tv: TvShowService,
+  movie: MovieService,
+};
 
 export function Details(): ReactElement {
-  const movieService = new MovieService();
   const [movie, setMovie] = useState<MovieDetail>();
   const [movieImageVideos, setMovieImageVideos] = useState<
     (Video | Backdrop)[]
   >([]);
   useEffect(() => {
-    const id = getUrlPath().pop()!;
-    movieService.getById(id).subscribe(setMovie);
+    const [_details, type, id] = getUrlPath()!;
+    new SERVICE_CONFIG[type]().getById(id).subscribe(setMovie);
   }, []);
 
   useEffect(() => {

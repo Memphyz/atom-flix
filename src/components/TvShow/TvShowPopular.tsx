@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { TvShow } from "../../core/models/TvShow";
+import { TvShow } from "../../core/models/TvShow/TvShow";
 import { TvShowService } from "../../core/services/tv-show.service";
 import { CardList } from "../CardList/CardList";
 

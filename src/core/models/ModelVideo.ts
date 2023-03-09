@@ -11,7 +11,7 @@ export interface Video {
   id: string;
 }
 
-export interface MovieVideo {
+export interface ModelVideo {
   id: number;
   results: Video[];
 }
