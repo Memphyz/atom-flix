@@ -13,6 +13,7 @@ import { Backdrop } from "../../core/models/ObjectImages";
 import { className } from "../../shared/utils/classname";
 import "./PresentationDetails.scss";
 import { isMobile } from "../..";
+import { Modal } from "../Modal/Modal";
 
 const PADDING_MAIN_CONTAINER_PX = 30 * 2;
 const IMAGES_MAX_WIDTH_PX = 1320;
@@ -24,10 +25,19 @@ export function PresentationDetails(props: {
   const container = createRef<HTMLDivElement>();
   const [imgIndex, setImageIndex] = useState(0);
   const [stopInterval, setStopInterval] = useState(false);
+  const [modals, setModals] = useState<boolean[]>([]);
   const [showControls, setShowControls] = useState({
     left: false,
     right: false,
   });
+
+  useEffect(() => {
+    setModals(
+      props.data
+        ?.filter((data) => !isBackdrop(data))
+        .map((_details, i) => false)
+    );
+  }, []);
 
   useEffect(() => {
     if (!props.data || props.data.length <= 1) {
@@ -86,11 +96,12 @@ export function PresentationDetails(props: {
         ? IMAGES_MAX_WIDTH_PX
         : window.innerWidth - PADDING_MAIN_CONTAINER_PX;
 
+    const multiplier = index > imgIndex ? index - imgIndex : imgIndex - index;
     scrollContainer.scrollTo({
       left:
         index > imgIndex
-          ? scrollContainer.scrollLeft + imgsWidth
-          : scrollContainer.scrollLeft - imgsWidth,
+          ? scrollContainer.scrollLeft + imgsWidth * multiplier
+          : scrollContainer.scrollLeft - imgsWidth * multiplier,
       behavior: "smooth",
     });
     setImageIndex(index);
@@ -99,8 +110,10 @@ export function PresentationDetails(props: {
   function shouldShowControls(event: SyntheticEvent): void {
     const positionX: number = event.nativeEvent["pageX"];
     const scrollContainer = container?.current!;
-
-    if (positionX < 200) {
+    const main = document.getElementById("main-container")!;
+    const root = document.getElementById("root")!;
+    const spacing = (root.offsetWidth - main.offsetWidth) / 2;
+    if (positionX - spacing < 200) {
       setShowControls({ left: true, right: false });
       return undefined;
     }
@@ -111,8 +124,14 @@ export function PresentationDetails(props: {
     setShowControls({ left: false, right: false });
   }
 
-  function openVideo(): void {
-    // do something
+  useEffect(() => console.log(modals), [modals]);
+
+  function openVideo(index: number): void {
+    setModals(
+      props.data
+        .filter((data) => !isBackdrop(data))
+        .map((_details, i) => i === index)
+    );
   }
 
   return (
@@ -126,6 +145,24 @@ export function PresentationDetails(props: {
             key={i}
             className={className({ movie: !isBackdrop(videoImage) })}
           >
+            {!isBackdrop(videoImage) && (
+              <Modal open={modals[i]} onClose={() => openVideo(undefined!)}>
+                <div className="frame">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${
+                      getVideo(videoImage).key
+                    }?autoplay=1&modestbranding=0&fs=1&autohide=1`}
+                    allowFullScreen={false}
+                    title={getVideo(videoImage).name}
+                    id={getVideo(videoImage).id}
+                    loading="lazy"
+                    allow="accelerometer; autoplay;
+                  encrypted-media; gyroscope;
+                  picture-in-picture; fullscreen"
+                  ></iframe>
+                </div>
+              </Modal>
+            )}
             <img
               src={
                 isBackdrop(videoImage)
@@ -138,7 +175,7 @@ export function PresentationDetails(props: {
               }
               loading="lazy"
               decoding="async"
-              onClick={!isBackdrop(videoImage) ? openVideo : noop}
+              onClick={!isBackdrop(videoImage) ? () => openVideo(i) : noop}
             />
             {!isBackdrop(videoImage) && <div className="play-btn" />}
           </figure>
@@ -157,6 +194,7 @@ export function PresentationDetails(props: {
               .map((_value, index) => (
                 <div
                   onClick={() => onClickDot(index)}
+                  key={index}
                   className={className({
                     dot: true,
                     active: index === imgIndex,

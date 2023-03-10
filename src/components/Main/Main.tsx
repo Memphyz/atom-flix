@@ -30,7 +30,7 @@ export function Main(props: {
         })}
         onClick={scrollTop}
       />
-      <main>
+      <main id="main-container">
         <Header />
         <section className="page-content">{props.children}</section>
         <Footer />

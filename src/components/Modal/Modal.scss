@@ -1,0 +1,63 @@
+.atom-modal-wrapper {
+  height: 0vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2096;
+  overflow: hidden;
+
+  &.close > .atom-modal {
+    max-height: 0vh !important;
+    padding: 0px !important;
+  }
+
+  &.open {
+    background-color: #0000005e;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .atom-modal {
+      max-height: calc(100vh - 40px);
+    }
+  }
+  .atom-modal {
+    max-height: 0vh;
+    max-width: calc(100vw - 40px);
+    transition: all 0.5s;
+    background-color: white;
+    padding: 0px;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+
+    .close {
+      position: absolute;
+      top: -30px;
+      width: 30px;
+      height: 30px;
+      background: white;
+      border-radius: 1000px;
+      left: calc(50% - 20px);
+      transition: all 0.5s;
+
+      &::before {
+        content: '';
+        mask-image: url(./../../assets/icons/close.svg);
+        mask-size: 15px;
+        position: absolute;
+        height: 30px;
+        width: 30px;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        background-color: var(--black-200);
+      }
+
+      &.show {
+        top: 20px;
+      }
+    }
+  }
+}
