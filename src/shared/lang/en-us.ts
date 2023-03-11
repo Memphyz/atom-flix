@@ -18,4 +18,5 @@ export const ENUS: typeof PTBR = {
   TOP_RATED: "Top Rated",
   POPULAR_MOVIES: "Popular Movies",
   SEE_MORE: "See more",
+  DESCRIPTION: "Description",
 };

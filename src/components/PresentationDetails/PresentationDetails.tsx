@@ -12,8 +12,9 @@ import { Video } from "../../core/models/ModelVideo";
 import { Backdrop } from "../../core/models/ObjectImages";
 import { className } from "../../shared/utils/classname";
 import "./PresentationDetails.scss";
-import { isMobile } from "../..";
+import { isMobile, loaderService } from "../..";
 import { Modal } from "../Modal/Modal";
+import { Skeleton } from "../Skeleton/Skeleton";
 
 const PADDING_MAIN_CONTAINER_PX = 30 * 2;
 const IMAGES_MAX_WIDTH_PX = 1320;
@@ -24,6 +25,7 @@ export function PresentationDetails(props: {
 }): ReactElement {
   const container = createRef<HTMLDivElement>();
   const [imgIndex, setImageIndex] = useState(0);
+  const [isLoading, setLoading] = useState(false);
   const [stopInterval, setStopInterval] = useState(false);
   const [modals, setModals] = useState<boolean[]>([]);
   const [showControls, setShowControls] = useState({
@@ -32,6 +34,7 @@ export function PresentationDetails(props: {
   });
 
   useEffect(() => {
+    loaderService.subscribe(setLoading);
     setModals(
       props.data
         ?.filter((data) => !isBackdrop(data))
@@ -124,8 +127,6 @@ export function PresentationDetails(props: {
     setShowControls({ left: false, right: false });
   }
 
-  useEffect(() => console.log(modals), [modals]);
-
   function openVideo(index: number): void {
     setModals(
       props.data
@@ -139,89 +140,93 @@ export function PresentationDetails(props: {
       className="presentation-details-wrapper"
       onMouseMove={shouldShowControls}
     >
-      <div className="presentations" ref={container}>
-        {props.data?.map((videoImage, i) => (
-          <figure
-            key={i}
-            className={className({ movie: !isBackdrop(videoImage) })}
-          >
-            {!isBackdrop(videoImage) && (
-              <Modal open={modals[i]} onClose={() => openVideo(undefined!)}>
-                <div className="frame">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${
-                      getVideo(videoImage).key
-                    }?autoplay=1&modestbranding=0&fs=1&autohide=1`}
-                    allowFullScreen={false}
-                    title={getVideo(videoImage).name}
-                    id={getVideo(videoImage).id}
-                    loading="lazy"
-                    allow="accelerometer; autoplay;
+      <Skeleton activated={isLoading} classElements="presentations skeleton">
+        <div className="presentations" ref={container}>
+          {props.data?.map((videoImage, i) => (
+            <figure
+              key={i}
+              className={className({ movie: !isBackdrop(videoImage) })}
+            >
+              {!isBackdrop(videoImage) && (
+                <Modal open={modals[i]} onClose={() => openVideo(undefined!)}>
+                  <div className="frame">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${
+                        getVideo(videoImage).key
+                      }?autoplay=1&modestbranding=0&fs=1&autohide=1`}
+                      allowFullScreen={false}
+                      title={getVideo(videoImage).name}
+                      id={getVideo(videoImage).id}
+                      loading="lazy"
+                      allow="accelerometer; autoplay;
                   encrypted-media; gyroscope;
                   picture-in-picture; fullscreen"
-                  ></iframe>
-                </div>
-              </Modal>
-            )}
-            <img
-              src={
-                isBackdrop(videoImage)
-                  ? `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${
-                      getBackdrop(videoImage).file_path
-                    }`
-                  : `https://img.youtube.com/vi/${
-                      getVideo(videoImage).key
-                    }/maxresdefault.jpg`
+                    ></iframe>
+                  </div>
+                </Modal>
+              )}
+              <img
+                src={
+                  isBackdrop(videoImage)
+                    ? `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${
+                        getBackdrop(videoImage).file_path
+                      }`
+                    : `https://img.youtube.com/vi/${
+                        getVideo(videoImage).key
+                      }/maxresdefault.jpg`
+                }
+                loading="lazy"
+                decoding="async"
+                onClick={!isBackdrop(videoImage) ? () => openVideo(i) : noop}
+              />
+              {!isBackdrop(videoImage) && (
+                <div onClick={() => openVideo(i)} className="play-btn" />
+              )}
+            </figure>
+          ))}
+        </div>
+        {props.data?.length > 1 && (
+          <>
+            <div
+              className="index-nav"
+              style={
+                { "--data-length": props.data.length } as React.CSSProperties
               }
-              loading="lazy"
-              decoding="async"
-              onClick={!isBackdrop(videoImage) ? () => openVideo(i) : noop}
-            />
-            {!isBackdrop(videoImage) && <div className="play-btn" />}
-          </figure>
-        ))}
-      </div>
-      {props.data?.length > 1 && (
-        <>
-          <div
-            className="index-nav"
-            style={
-              { "--data-length": props.data.length } as React.CSSProperties
-            }
-          >
-            {Array(props.data.length)
-              .fill(null)
-              .map((_value, index) => (
-                <div
-                  onClick={() => onClickDot(index)}
-                  key={index}
-                  className={className({
-                    dot: true,
-                    active: index === imgIndex,
-                  })}
-                />
-              ))}
-          </div>
-          {!!imgIndex && (
-            <div
-              className={className({
-                "control-left": true,
-                show: showControls.left || isMobile,
-              })}
-              onClick={() => onClickDot(imgIndex - 1)}
-            />
-          )}
-          {imgIndex !== props.data.length - 1 && (
-            <div
-              onClick={() => onClickDot(imgIndex + 1)}
-              className={className({
-                "control-right": true,
-                show: showControls.right || isMobile,
-              })}
-            />
-          )}
-        </>
-      )}
+            >
+              {Array(props.data.length)
+                .fill(null)
+                .map((_value, index) => (
+                  <div
+                    onClick={() => onClickDot(index)}
+                    key={index}
+                    className={className({
+                      dot: true,
+                      active: index === imgIndex,
+                    })}
+                  />
+                ))}
+            </div>
+            {!!imgIndex && (
+              <div
+                className={className({
+                  "control-left": true,
+                  show: showControls.left || isMobile,
+                })}
+                onClick={() => onClickDot(imgIndex - 1)}
+              />
+            )}
+            {imgIndex !== props.data.length - 1 && (
+              <div
+                onClick={() => onClickDot(imgIndex + 1)}
+                className={className({
+                  "control-right": true,
+                  show: showControls.right || isMobile,
+                })}
+              />
+            )}
+          </>
+        )}
+      </Skeleton>
     </div>
   );
 }

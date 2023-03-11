@@ -8,6 +8,11 @@
     border-radius: 10px;
     max-height: 1320px;
 
+    &.skeleton {
+      height: 720px !important;
+      max-height: 50vw;
+    }
+
     figure {
       width: 100%;
       height: 100%;
@@ -20,10 +25,13 @@
         max-width: 90vw;
         width: calc(100vw - 40px);
 
+
+
         iframe {
           border: 0px;
           width: 100%;
           height: 100%;
+          
         }
       }
 

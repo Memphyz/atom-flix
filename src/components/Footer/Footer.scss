@@ -5,13 +5,21 @@ $margin: 30px;
 footer {
   display: flex;
   justify-content: space-between;
-  padding: $margin;
+  position: relative;
+  padding: $margin 0px;
   gap: $margin;
   margin-top: 90px;
+  bottom: -90px;
+  border-top: 1px solid var(--black-100);
+  transition: all 0.5s;
 
   @media screen and (max-width: $mobile) {
     flex-direction: column-reverse;
     gap: unset;
+  }
+
+  @media screen and (max-width: 1950px) {
+    padding: $margin;
   }
 
   span {

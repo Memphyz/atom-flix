@@ -130,7 +130,6 @@ export function Cards<T extends { id: any }>(
   ) : (
     <Skeleton
       quantityMock={SKELETON_SIZE}
-      activated={loaderService.value}
       classElements="card"
       style={{
         minWidth: props.width || 150,

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactElement, ReactNode, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { className } from "../../shared/utils/classname";
 import "./Skeleton.scss";
+import { loaderService } from "../..";
 
 export function Skeleton(props: {
   activated?: boolean;
@@ -11,11 +12,22 @@ export function Skeleton(props: {
   classElements?: string;
   quantityMock?: number;
 }): ReactElement {
-  const quantity = props.quantityMock || 10;
+  const quantity = props.quantityMock || 1;
+  const [isActivatedFlag, setActivated] = useState(true);
+
+  useEffect((): void => {
+    loaderService.subscribe(setActivated);
+  }, []);
+
+  function isActivated(): boolean {
+    return props.activated === undefined || props.activated === null
+      ? isActivatedFlag
+      : props.activated;
+  }
 
   return (
     <>
-      {props.activated ? (
+      {isActivated() ? (
         <>
           {Array(quantity)
             .fill(undefined)

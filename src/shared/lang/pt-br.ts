@@ -17,4 +17,5 @@ export const PTBR = {
   TOP_RATED: "Mais Votados",
   LASTEST: "Lançamentos",
   SEE_MORE: "Ver mais",
+  DESCRIPTION: "Descrição",
 };
