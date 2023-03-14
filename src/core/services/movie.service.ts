@@ -1,16 +1,18 @@
 import { Observable } from "rxjs";
 import { AbstractService } from "../abstracts/service.abstract";
-import { Keywords } from "../models/Keywords";
-import { IMovie } from "../models/Movie/Movie";
 import { Credits } from "../models/Credits";
-import { MovieDetail } from "../models/Movie/MovieDetails";
 import { ExternalIDs } from "../models/ExternalIds";
-import { MovieList } from "../models/Movie/MovieList";
+import { Keywords } from "../models/Keywords";
 import { ModelVideo } from "../models/ModelVideo";
-import { SimilarMovies } from "../models/Movie/SimilarMovies";
+import { IMovie } from "../models/Movie/Movie";
+import {
+  MovieDetail,
+  MovieDetailsLists,
+  MovieDetailsSimilar,
+} from "../models/Movie/MovieDetails";
 import { Images } from "../models/ObjectImages";
-import { IResponse } from "../models/Response";
 import { Recomendations } from "../models/Recomendations";
+import { IResponse } from "../models/Response";
 import { WatchProviders } from "../models/WatchProviders";
 
 export class MovieService extends AbstractService<IMovie> {
@@ -37,68 +39,23 @@ export class MovieService extends AbstractService<IMovie> {
   }
 
   public getById(id: string | number): Observable<MovieDetail> {
-    return super
-      .getById(id)
-      .pipe(
-        this.assign<MovieDetail, Images>(
-          "id",
-          "images",
-          this.getImages.bind(this)
-        ),
-        this.assign<MovieDetail, ModelVideo>(
-          "id",
-          "videos",
-          this.getVideos.bind(this)
-        ),
-        this.assign<MovieDetail, MovieList>(
-          "id",
-          "lists",
-          this.getLists.bind(this)
-        ),
-        this.assign<MovieDetail, ExternalIDs>(
-          "id",
-          "external_ids",
-          this.getExternalIDs.bind(this)
-        ),
-        this.assign<MovieDetail, Credits>(
-          "id",
-          "credits",
-          this.getCredits.bind(this)
-        ),
-        this.assign<MovieDetail, Keywords>(
-          "id",
-          "keywords",
-          this.getKeywords.bind(this)
-        ),
-        this.assign<MovieDetail, Recomendations>(
-          "id",
-          "recomendations",
-          this.getRecomendations.bind(this)
-        ),
-        this.assign<MovieDetail, WatchProviders>(
-          "id",
-          "watch_providers",
-          this.getWatchProviders.bind(this)
-        ),
-        this.assign<MovieDetail, SimilarMovies>(
-          "id",
-          "similar",
-          this.getSimilarMovies.bind(this)
-        )
-      );
+    return super.getById(id, {
+      append_to_response:
+        "videos,images,credits,account_states,changes,external_ids,lists,keywords,recommendations,release_dates,reviews,similar",
+    }) as Observable<MovieDetail>;
   }
 
-  public getSimilarMovies(
+  public getSimilar(
     id: string | number,
     params?: { page: number }
-  ): Observable<SimilarMovies> {
+  ): Observable<MovieDetailsSimilar> {
     return this.get(this.prefixUrl() + `/${id}/similar`, params);
   }
 
   public getLists(
     id: string | number,
     params?: { page: number }
-  ): Observable<MovieList> {
+  ): Observable<MovieDetailsLists> {
     return this.get(this.prefixUrl() + `/${id}/lists`, params);
   }
 

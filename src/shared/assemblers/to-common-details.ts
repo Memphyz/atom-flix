@@ -5,10 +5,7 @@ import { TvShowDetails } from "../../core/models/TvShow/TvShowDetails";
 export function movieDetailsToCommonDetails(movie: MovieDetail): CommonDetails {
   return {
     ...movie,
-    name: movie.title,
-    details_type: "movie",
-    release: movie.release_date,
-  };
+  } as unknown as CommonDetails;
 }
 
 export function tvShowDetaillToCommonDetails(tv: TvShowDetails): CommonDetails {
@@ -20,5 +17,5 @@ export function tvShowDetaillToCommonDetails(tv: TvShowDetails): CommonDetails {
     similar: tv.similar,
     release: tv.first_air_date,
     runtime: tv.episode_run_time.reduce((acc, curr) => (acc += curr), 0),
-  };
+  } as unknown as CommonDetails;
 }

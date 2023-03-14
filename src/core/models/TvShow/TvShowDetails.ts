@@ -1,12 +1,3 @@
-import { Credits } from "../Credits";
-import { ExternalIDs } from "../ExternalIds";
-import { Keywords } from "../Keywords";
-import { ModelVideo } from "../ModelVideo";
-import { Images } from "../ObjectImages";
-import { Recomendations } from "../Recomendations";
-import { WatchProviders } from "../WatchProviders";
-import { TvShowSimilar } from "./TvShowSimilar";
-
 export interface CreatedBy {
   id: number;
   credit_id: string;
@@ -21,22 +12,24 @@ export interface Genre {
 }
 
 export interface LastEpisodeToAir {
-  air_date: string;
-  episode_number: number;
   id: number;
   name: string;
   overview: string;
-  production_code: string;
-  season_number: number;
-  still_path: string;
   vote_average: number;
   vote_count: number;
+  air_date: string;
+  episode_number: number;
+  production_code: string;
+  runtime: number;
+  season_number: number;
+  show_id: number;
+  still_path: string;
 }
 
 export interface Network {
-  name: string;
   id: number;
   logo_path: string;
+  name: string;
   origin_country: string;
 }
 
@@ -68,7 +61,223 @@ export interface SpokenLanguage {
   name: string;
 }
 
+export interface Result {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: Date;
+  id: string;
+}
+
+export interface Videos {
+  results: Result[];
+}
+
+export interface Images {
+  backdrops: any[];
+  logos: any[];
+  posters: any[];
+}
+
+export interface Cast {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  character: string;
+  credit_id: string;
+  order: number;
+}
+
+export interface Crew {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  credit_id: string;
+  department: string;
+  job: string;
+}
+
+export interface Credits {
+  cast: Cast[];
+  crew: Crew[];
+}
+
+export interface Role {
+  credit_id: string;
+  character: string;
+  episode_count: number;
+}
+
+export interface Cast2 {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  roles: Role[];
+  total_episode_count: number;
+  order: number;
+}
+
+export interface Job {
+  credit_id: string;
+  job: string;
+  episode_count: number;
+}
+
+export interface Crew2 {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  jobs: Job[];
+  department: string;
+  total_episode_count: number;
+}
+
+export interface AggregateCredits {
+  cast: Cast2[];
+  crew: Crew2[];
+}
+
+export interface Item {
+  id: string;
+  action: string;
+  time: string;
+  iso_639_1: string;
+  iso_3166_1: string;
+  value: any;
+  original_value: any;
+}
+
+export interface Change {
+  key: string;
+  items: Item[];
+}
+
+export interface Changes {
+  changes: Change[];
+}
+
+export interface Result2 {
+  descriptors: any[];
+  iso_3166_1: string;
+  rating: string;
+}
+
+export interface ContentRatings {
+  results: Result2[];
+}
+
+export interface EpisodeGroups {
+  results: any[];
+}
+
+export interface ExternalIds {
+  imdb_id: string;
+  freebase_mid?: any;
+  freebase_id?: any;
+  tvdb_id: number;
+  tvrage_id?: any;
+  wikidata_id: string;
+  facebook_id: string;
+  instagram_id: string;
+  twitter_id: string;
+}
+
+export interface Result3 {
+  name: string;
+  id: number;
+}
+
+export interface Keywords {
+  results: Result3[];
+}
+
+export interface TvShowRecomendations {
+  adult: boolean;
+  backdrop_path: string;
+  id: number;
+  name: string;
+  original_language: string;
+  original_name: string;
+  overview: string;
+  poster_path: string;
+  media_type: string;
+  genre_ids: number[];
+  popularity: number;
+  first_air_date: string;
+  vote_average: number;
+  vote_count: number;
+  origin_country: string[];
+}
+
+export interface Recommendations {
+  page: number;
+  results: TvShowRecomendations[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface Reviews {
+  page: number;
+  results: any[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface ScreenedTheatrically {
+  results: any[];
+}
+
+export interface TvShowSimilarResult {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  first_air_date: string;
+  name: string;
+  vote_average: number;
+  vote_count: number;
+}
+
+export interface TvShowSimilar {
+  page: number;
+  results: TvShowSimilarResult[];
+  total_pages: number;
+  total_results: number;
+}
+
 export interface TvShowDetails {
+  adult: boolean;
   backdrop_path: string;
   created_by: CreatedBy[];
   episode_run_time: number[];
@@ -100,12 +309,17 @@ export interface TvShowDetails {
   type: string;
   vote_average: number;
   vote_count: number;
+  videos: Videos;
   images: Images;
-  videos: ModelVideo;
-  external_ids: ExternalIDs;
   credits: Credits;
+  aggregate_credits: AggregateCredits;
+  changes: Changes;
+  content_ratings: ContentRatings;
+  episode_groups: EpisodeGroups;
+  external_ids: ExternalIds;
   keywords: Keywords;
-  recomendations: Recomendations;
-  watch_providers: WatchProviders;
+  recommendations: Recommendations;
+  reviews: Reviews;
+  screened_theatrically: ScreenedTheatrically;
   similar: TvShowSimilar;
 }

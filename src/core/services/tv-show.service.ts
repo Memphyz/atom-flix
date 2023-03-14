@@ -1,20 +1,16 @@
-import { TvShow } from "../models/TvShow/TvShow";
-import { BASE_URL } from "./../../index";
-import { Observable, tap } from "rxjs";
+import { Observable } from "rxjs";
 import { AbstractService } from "../abstracts/service.abstract";
-import { IResponse } from "../models/Response";
-import { Video } from "../models/Video";
-import { WatchProviders } from "../models/WatchProviders";
+import { Credits } from "../models/Credits";
 import { ExternalIDs } from "../models/ExternalIds";
 import { Keywords } from "../models/Keywords";
-import { Credits } from "../models/Credits";
-import { Recomendations } from "../models/Recomendations";
-import { MovieList } from "../models/Movie/MovieList";
-import { SimilarMovies } from "../models/Movie/SimilarMovies";
-import { TvShowSimilar } from "../models/TvShow/TvShowSimilar";
-import { TvShowDetails } from "../models/TvShow/TvShowDetails";
 import { Images } from "../models/ObjectImages";
-import { ModelVideo } from "../models/ModelVideo";
+import { Recomendations } from "../models/Recomendations";
+import { IResponse } from "../models/Response";
+import { TvShow } from "../models/TvShow/TvShow";
+import { TvShowDetails, TvShowSimilar } from "../models/TvShow/TvShowDetails";
+import { Video } from "../models/Video";
+import { WatchProviders } from "../models/WatchProviders";
+import { BASE_URL } from "./../../index";
 
 export class TvShowService extends AbstractService<TvShow> {
   protected prefixUrl(): string {
@@ -28,53 +24,13 @@ export class TvShowService extends AbstractService<TvShow> {
   }
 
   public getById(id: string | number): Observable<TvShowDetails> {
-    return super
-      .getById(id)
-      .pipe(
-        this.assign<TvShowDetails, Images>(
-          "id",
-          "images",
-          this.getImages.bind(this)
-        ),
-        this.assign<TvShowDetails, ModelVideo>(
-          "id",
-          "videos",
-          this.getVideos.bind(this)
-        ),
-        this.assign<TvShowDetails, ExternalIDs>(
-          "id",
-          "external_ids",
-          this.getExternalIDs.bind(this)
-        ),
-        this.assign<TvShowDetails, Credits>(
-          "id",
-          "credits",
-          this.getCredits.bind(this)
-        ),
-        this.assign<TvShowDetails, Keywords>(
-          "id",
-          "keywords",
-          this.getKeywords.bind(this)
-        ),
-        this.assign<TvShowDetails, Recomendations>(
-          "id",
-          "recomendations",
-          this.getRecomendations.bind(this)
-        ),
-        this.assign<TvShowDetails, WatchProviders>(
-          "id",
-          "watch_providers",
-          this.getWatchProviders.bind(this)
-        ),
-        this.assign<TvShowDetails, TvShowSimilar>(
-          "id",
-          "similar",
-          this.getSimilarTvShow.bind(this)
-        )
-      );
+    return super.getById(id, {
+      append_to_response:
+        "videos,images,credits,aggregate_credits,account_states,changes,content_ratings,episode_groups,external_ids,keywords,recommendations,reviews,screened_theatrically,similar",
+    }) as Observable<TvShowDetails>;
   }
 
-  public getSimilarTvShow(
+  public getSimilar(
     id: string | number,
     params?: { page: number }
   ): Observable<TvShowSimilar> {

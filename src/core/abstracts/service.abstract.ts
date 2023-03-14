@@ -76,9 +76,13 @@ export abstract class AbstractService<Resource = unknown> {
     );
   }
 
-  public getById(id: number | string): Observable<unknown> {
+  public getById(
+    id: number | string,
+    params?: Record<string, any>
+  ): Observable<unknown> {
     return this.get<unknown>(
-      this.prefixUrl() + "/" + id
+      this.prefixUrl() + "/" + id,
+      params
     ) as unknown as Observable<unknown>;
   }
 

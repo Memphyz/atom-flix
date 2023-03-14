@@ -18,4 +18,5 @@ export const PTBR = {
   LASTEST: "Lançamentos",
   SEE_MORE: "Ver mais",
   DESCRIPTION: "Descrição",
+  SIMILAR: "Similares",
 };

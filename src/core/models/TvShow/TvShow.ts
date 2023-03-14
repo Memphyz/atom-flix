@@ -1,4 +1,4 @@
-import { TvShowSimilar } from "./TvShowSimilar";
+import { TvShowSimilar } from "./TvShowDetails";
 
 export interface TvShow {
   backdrop_path: string;
