@@ -13,14 +13,22 @@ export function IntersectionItem(props: {
   id?: any;
   className?: string;
   style?: React.CSSProperties;
+  animation?: "default" | "to-top" | "to-left";
   onClick?: MouseEventHandler<HTMLDivElement>;
   onMouseOver?: MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: MouseEventHandler<HTMLDivElement>;
 }): ReactElement {
   const ref = createRef<HTMLDivElement>();
   const [visible, setVisible] = useState(true);
+  let intsersected = false;
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => setVisible(entry.isIntersecting));
+    const animation = props.animation === "default";
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        intsersected = true;
+      }
+      setVisible(animation ? entry.isIntersecting : intsersected);
+    });
   });
   useEffect(() => {
     observer.observe(ref.current!);
@@ -34,8 +42,9 @@ export function IntersectionItem(props: {
       onMouseLeave={props.onMouseLeave}
       className={`${className({
         intersection: true,
+        [props.animation || "default"]: true,
         visible,
-      })} ${props.className}`}
+      })} ${props.className || ""}`}
       style={props.style}
     >
       {props.children}

@@ -10,6 +10,7 @@ export function Skeleton(props: {
   children?: ReactNode;
   style?: React.CSSProperties;
   classElements?: string;
+  awaysRenderChild?: boolean;
   quantityMock?: number;
 }): ReactElement {
   const quantity = props.quantityMock || 1;
@@ -41,6 +42,7 @@ export function Skeleton(props: {
                 })}
               ></div>
             ))}
+          {props.awaysRenderChild && props.children}
         </>
       ) : (
         <>{props.children}</>

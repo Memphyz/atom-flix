@@ -24,6 +24,7 @@ export function Main(props: {
   return (
     <>
       <div
+        id="scroll-to-top"
         className={className({
           "scroll-top": true,
           show: showArrow,

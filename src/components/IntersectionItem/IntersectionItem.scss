@@ -1,8 +1,31 @@
 .intersection {
-  transition: opacity 0.5s;
-  opacity: 0;
-
-  &.visible {
-    opacity: 1;
+  transition: all 0.5s;
+  &.default {
+    opacity: 0;
+    &.visible {
+      opacity: 1;
+    }
   }
+
+  &.to-top {
+    transition: all 1s;
+    position: relative;
+    top: 300px;
+
+    &.visible {
+      top: 0px;
+    }
+  }
+
+  &.to-left {
+    transition: all 1s;
+    position: relative;
+    right: -300px;
+
+    &.visible {
+      right: 0px;
+    }
+  }
+
+
 }
