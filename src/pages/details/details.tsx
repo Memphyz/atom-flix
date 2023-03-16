@@ -33,31 +33,31 @@ const ASSEMBLERS = {
 };
 
 export function Details(): ReactElement {
-  const [commonDetails, setCommonDetails] = useState<CommonDetails>();
-  const [similar, setSimilar] = useState<Similar>();
-  const [service, setService] = useState<MovieService>();
+  const [ commonDetails, setCommonDetails ] = useState<CommonDetails>();
+  const [ similar, setSimilar ] = useState<Similar>();
+  const [ service, setService ] = useState<MovieService>();
   const location = useLocation();
-  const [LANG, setLang] = useState(Lang.LANG);
+  const [ LANG, setLang ] = useState(Lang.LANG);
 
   useEffect(() => {
     Lang.langListener().subscribe(setLang);
-    setService(new SERVICE_CONFIG[getType()]());
+    setService(new SERVICE_CONFIG[ getType() ]());
   }, []);
 
   useEffect(() => {
     document.getElementById("scroll-to-top")?.click();
-    new SERVICE_CONFIG[getType()]().getById(getId()).subscribe(convert);
-  }, [location]);
+    new SERVICE_CONFIG[ getType() ]().getById(getId()).subscribe(convert);
+  }, [ location ]);
 
   useEffect(() => {
     if (!commonDetails) {
       return undefined;
     }
     setSimilar(commonDetails.similar);
-  }, [commonDetails]);
+  }, [ commonDetails ]);
 
   function convert(details: MovieDetail | TvShowDetails): void {
-    const common = ASSEMBLERS[getType()](
+    const common = ASSEMBLERS[ getType() ](
       details as MovieDetail & TvShowDetails
     );
     setCommonDetails(common);
