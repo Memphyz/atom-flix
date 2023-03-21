@@ -12,8 +12,8 @@ export function DetailsOverview(props: {
   commonDetails: CommonDetails;
   LANG: typeof PTBR;
 }): ReactElement {
-  const [hoursMinutes, setHourMinute] = useState({ hours: 0, minutes: 0 });
-  const [movieImageVideos, setMovieImageVideos] = useState<
+  const [ hoursMinutes, setHourMinute ] = useState({ hours: 0, minutes: 0 });
+  const [ movieImageVideos, setMovieImageVideos ] = useState<
     (Video | Backdrop)[]
   >([]);
 
@@ -27,14 +27,14 @@ export function DetailsOverview(props: {
     ];
     setMovieImageVideos(backDropsVideos);
     setHourMinute(toHoursAndMinutes(props.commonDetails.runtime || 0));
-  }, [props.commonDetails]);
+  }, [ props.commonDetails ]);
 
   return (
     <div className="movie-overview">
       <div className="images-videos">
         <PresentationDetails
           data={movieImageVideos}
-          placeholder={`https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces/${props.commonDetails?.backdrop_path}`}
+          placeholder={`https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces/${ props.commonDetails?.backdrop_path }`}
         />
       </div>
       <div className="title-overview">
@@ -47,10 +47,10 @@ export function DetailsOverview(props: {
               <span>
                 {new Date(
                   props.commonDetails?.release ||
-                    props.commonDetails?.release_date!
+                  props.commonDetails?.release_date!
                 ).getFullYear()}
               </span>
-              <span>{`${hoursMinutes.hours}h ${hoursMinutes.minutes}m`}</span>
+              <span>{`${ hoursMinutes.hours }h ${ hoursMinutes.minutes }m`}</span>
             </div>
           </Skeleton>
           <Skeleton classElements="tagline">
