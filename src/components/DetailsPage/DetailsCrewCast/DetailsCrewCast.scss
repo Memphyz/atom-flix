@@ -1,0 +1,11 @@
+.credits {
+  h3 {
+    margin-bottom: 1.25rem;
+  }
+  .cast {
+    display: flex;
+    gap: 15px;
+    overflow: auto;
+    padding: 10px 0px;
+  }
+}

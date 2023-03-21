@@ -7,6 +7,7 @@ import { CommonDetails } from "../../../core/models/CommonDetails";
 import { toHoursAndMinutes } from "../../../shared/utils/commons";
 import { Video } from "../../../core/models/ModelVideo";
 import { Backdrop } from "../../../core/models/ObjectImages";
+import { DetailsCrewCast } from "../DetailsCrewCast/DetailsCrewCast";
 
 export function DetailsOverview(props: {
   commonDetails: CommonDetails;
@@ -63,6 +64,7 @@ export function DetailsOverview(props: {
             &nbsp;{props.commonDetails?.overview}
           </span>
         </Skeleton>
+        <DetailsCrewCast {...props} />
       </div>
     </div>
   );

@@ -14,16 +14,22 @@ const WAIT_TIME = 500;
 
 export function Modal(props: {
   open: boolean;
-  children: ReactElement | string;
+  children?: ReactElement | string;
   onClose?: () => void;
 }): ReactElement {
   const [isOpen, setOpen] = useState(false);
   const [isClose, setClose] = useState(false);
   const [showClose, setShowClose] = useState(false);
+  const [ canHide, setCanHide ] = useState(false);
   const [id] = useState(uuid());
 
   useEffect(() => {
     setClose(!props.open);
+    setShowClose(true);
+    setTimeout(() => {
+      setShowClose(false);
+      setCanHide(true)
+    }, WAIT_TIME * 10);
     if (props.open) {
       setOpen(props.open);
       return undefined;
@@ -32,9 +38,12 @@ export function Modal(props: {
       setOpen(props.open);
     }, WAIT_TIME);
   }, [props.open]);
+
   function hide(): void {
     setClose(true);
-    setShowClose(false);
+    if (canHide) {
+      setShowClose(false);
+    }
     setTimeout(() => {
       setOpen(false);
       props.onClose && props.onClose();
@@ -42,8 +51,10 @@ export function Modal(props: {
   }
 
   function onMouseMove(event: SyntheticEvent): void {
-    const positionY: number = event.nativeEvent["pageY"];
-    setShowClose(positionY < 200);
+    if (canHide) {
+      const positionY: number = event.nativeEvent[ "pageY" ];
+      setShowClose(positionY < 200);
+    }
   }
 
   return (

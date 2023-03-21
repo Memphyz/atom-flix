@@ -19,4 +19,5 @@ export const PTBR = {
   SEE_MORE: "Ver mais",
   DESCRIPTION: "Descrição",
   SIMILAR: "Similares",
+  CAST: 'Elenco',
 };
