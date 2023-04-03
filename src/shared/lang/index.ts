@@ -14,12 +14,13 @@ export class Lang {
   public static currentLang: AvaliableLangs =
     navigator.language as keyof typeof languageMap;
 
-  public static LANG: Langs = languageMap[Lang.currentLang].value;
+  public static LANG: Langs = languageMap[ Lang.currentLang ].value;
   private static readonly listener = new Subject<Langs>();
 
   public static change(lang: AvaliableLangs): void {
-    Lang.LANG = languageMap[lang].value;
+    Lang.LANG = languageMap[ lang ].value;
     localStorage.setItem('lang', lang)
+    Lang.currentLang = lang;
     this.listener.next(Lang.LANG);
   }
 

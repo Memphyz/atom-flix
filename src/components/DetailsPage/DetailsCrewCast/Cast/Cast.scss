@@ -42,6 +42,7 @@
       &.name {
         font-weight: 700;
       }
+
       &.character,
       &.department {
         color: #adadad;
@@ -63,6 +64,9 @@
 
     .info-wrapper {
       padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
   }
 }
