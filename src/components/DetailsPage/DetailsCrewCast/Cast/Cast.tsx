@@ -41,12 +41,10 @@ export function CastDetails(props: { cast: Cast, LANG: typeof PTBR }): ReactElem
     <div className="cast-item" onClick={() => findPerson()}>
       <Modal open={viewDetails} onClose={() => setViewDetails(false)}>
         {details && <div className="details-modal">
-          <figure>
-            <img src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${ details.profile_path }`} alt={`${ details.name } profile img`} />
-          </figure>
+          <img src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${ details.profile_path }`} alt={`${ details.name } profile img`} />
           <div className="info-wrapper">
             <h2>{details.name} - ({DateUtils.formatDate(details.birthday)}{details.deathday ? ` - ${ DateUtils.formatDate(details.deathday) }` : ''})</h2>
-            <label htmlFor={details.biography}>{details.biography}</label>
+            <label htmlFor={details.biography || '-'}>{details.biography || '-'}</label>
           </div>
         </div>}
       </Modal>

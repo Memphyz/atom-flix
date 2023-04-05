@@ -17,11 +17,11 @@ export function Modal(props: {
   children?: ReactElement | string;
   onClose?: () => void;
 }): ReactElement {
-  const [isOpen, setOpen] = useState(false);
-  const [isClose, setClose] = useState(false);
-  const [showClose, setShowClose] = useState(false);
+  const [ isOpen, setOpen ] = useState(false);
+  const [ isClose, setClose ] = useState(false);
+  const [ showClose, setShowClose ] = useState(false);
   const [ canHide, setCanHide ] = useState(false);
-  const [id] = useState(uuid());
+  const [ id ] = useState(uuid());
 
   useEffect(() => {
     setClose(!props.open);
@@ -37,7 +37,7 @@ export function Modal(props: {
     setTimeout(() => {
       setOpen(props.open);
     }, WAIT_TIME);
-  }, [props.open]);
+  }, [ props.open ]);
 
   function hide(): void {
     setClose(true);
@@ -52,8 +52,11 @@ export function Modal(props: {
 
   function onMouseMove(event: SyntheticEvent): void {
     if (canHide) {
+      const el = document.getElementById(id);
+      const top = ((window.innerHeight - el.offsetHeight) / 2) + 50;
+      console.log(top)
       const positionY: number = event.nativeEvent[ "pageY" ];
-      setShowClose(positionY < 200);
+      setShowClose(positionY < top);
     }
   }
 

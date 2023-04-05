@@ -8,11 +8,26 @@ import { router } from "../../App";
 export function Header(props: {
   children?: ReactElement | string;
 }): ReactElement {
-  const [LANG, setLang] = useState(Lang.LANG);
+  const [ LANG, setLang ] = useState(Lang.LANG);
   const navigations: Navigation[] = [
     {
       icon: icons.home,
       text: LANG.HOME,
+      link: "/",
+    },
+    {
+      icon: icons.movie,
+      text: LANG.MOVIES,
+      link: "/movies",
+    },
+    {
+      icon: icons.tvShow,
+      text: LANG.TV_SHOW,
+      link: "/",
+    },
+    {
+      icon: icons.person,
+      text: LANG.PEOPLE,
       link: "/",
     },
   ];
@@ -40,7 +55,7 @@ export function Header(props: {
       updateColors();
     });
     updateColors();
-  }, [header]);
+  }, [ header ]);
 
   return (
     <header ref={header}>
@@ -56,7 +71,7 @@ export function Header(props: {
             <div className="item" key={i} onClick={() => router.next(nav.link)}>
               <div
                 className="icon"
-                style={{ WebkitMaskImage: `url(${nav.icon})` }}
+                style={{ WebkitMaskImage: `url(${ nav.icon })` }}
               />
               <label htmlFor={nav.text}>{nav.text}</label>
             </div>

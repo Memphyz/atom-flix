@@ -20,4 +20,7 @@ export const PTBR = {
   DESCRIPTION: "Descrição",
   SIMILAR: "Similares",
   CAST: 'Elenco',
+  MOVIES: 'Filmes',
+  TV_SHOW: 'Séries',
+  PEOPLE: 'Pessoas'
 };

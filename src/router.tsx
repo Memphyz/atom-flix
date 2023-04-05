@@ -4,10 +4,11 @@ import { router } from "./App";
 import { Details } from "./pages/details/details";
 import { Home } from "./pages/home/home";
 import { AvaliableLangs, Lang } from "./shared/lang";
+import { Movies } from "./pages/movies/movies";
 
 export function Router(): ReactElement {
   const linkRef = createRef<HTMLAnchorElement>();
-  const [url, setUrl] = useState<string>();
+  const [ url, setUrl ] = useState<string>();
 
   useEffect(() => {
     Lang.change(
@@ -32,7 +33,7 @@ export function Router(): ReactElement {
       container?.scrollTo({ top: 0 });
       container.classList.add("show");
     }, 500);
-  }, [url]);
+  }, [ url ]);
 
   return (
     <>
@@ -40,6 +41,7 @@ export function Router(): ReactElement {
         <Link hidden ref={linkRef} to={url! || window.location.pathname} />
         <Routes>
           <Route path="" element={<Home />} />
+          <Route path="movies" element={<Movies />} />
           <Route path="details/:type/:id" element={<Details />} />
         </Routes>
       </BrowserRouter>

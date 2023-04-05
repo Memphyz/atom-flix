@@ -20,5 +20,8 @@ export const ENUS: typeof PTBR = {
   SEE_MORE: "See more",
   DESCRIPTION: "Description",
   SIMILAR: "Similar",
-  CAST: 'Cast'
+  CAST: 'Cast',
+  MOVIES: 'Movies',
+  TV_SHOW: 'TV Show',
+  PEOPLE: 'People'
 };
