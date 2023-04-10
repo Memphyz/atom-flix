@@ -80,13 +80,33 @@ iframe .ytp-show-cards-title {
       color: white;
     }
 
-    &::after {
+    &:not(.final-right)::before {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      right: 10px;
+      top: calc(50% - 20px);
+      border-radius: 120px;
+      mask-image: url(./../icons/chevron-right.svg);
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      background: var(--brand-color-1);
+      filter: brightness(2);
+      z-index: 2;
+    }
+
+    &:after {
       content: "";
       position: absolute;
+      cursor: pointer;
       width: 7%;
       height: 100%;
       right: 0;
       top: 0;
+      z-index: 1;
       background-image: linear-gradient(to right,
           rgba(255, 255, 255, 0) 0%,
           var(--black) 100%);

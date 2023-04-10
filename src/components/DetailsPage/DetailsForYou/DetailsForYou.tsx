@@ -16,7 +16,7 @@ export function MoviesForYou(props: {
   getId: () => string;
   setSimilar: React.Dispatch<React.SetStateAction<Similar | undefined>>;
 }): ReactElement {
-  const [similarTop, setSimilarScrollTop] = useState(0);
+  const [ similarTop, setSimilarScrollTop ] = useState(0);
 
   useEffect(() => {
     if (!props.similar) {
@@ -26,7 +26,7 @@ export function MoviesForYou(props: {
     container.scrollTo({
       top: similarTop,
     });
-  }, [props.similar]);
+  }, [ props.similar ]);
 
   function fetchSimilar(): void {
     setSimilarScrollTop(
@@ -39,7 +39,7 @@ export function MoviesForYou(props: {
     ).subscribe((response) =>
       props.setSimilar({
         ...response,
-        results: [...props.similar!.results, ...response.results],
+        results: [ ...props.similar!.results, ...response.results ],
       })
     );
   }
@@ -55,17 +55,18 @@ export function MoviesForYou(props: {
             classElements="similar-card"
             quantityMock={props.similar?.results.length || 8}
           >
-            {props.similar?.results.map((similar) => (
+            {props.similar?.results.map((similar, index) => (
               <IntersectionItem
+                key={index}
                 animation={window.innerWidth < 1835 ? "to-left" : "to-top"}
               >
-                <Link to={`/details/${props.getType()}/${similar.id}`}>
+                <Link to={`/details/${ props.getType() }/${ similar.id }`}>
                   <div
                     key={similar.id}
                     className="similar-card"
                     card-title={similar.name || similar.title}
                     style={{
-                      backgroundImage: `url(https://www.themoviedb.org/t/p/w220_and_h330_face/${similar.poster_path})`,
+                      backgroundImage: `url(https://www.themoviedb.org/t/p/w220_and_h330_face/${ similar.poster_path })`,
                     }}
                   />
                 </Link>
