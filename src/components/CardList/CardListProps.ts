@@ -4,7 +4,9 @@ import { IResponse } from "../../core/models/Response";
 
 export type ICardListProps<T extends { id: any }> = {
   listContainerId: string;
+  otherRequestParams?: Record<string, any>
+
   getAll: (
-    params: { page: number } & Record<string, any>
+    ...args
   ) => Observable<IResponse<T>>;
 } & ICardProps<T>;

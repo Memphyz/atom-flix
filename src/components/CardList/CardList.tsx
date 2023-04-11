@@ -19,12 +19,12 @@ export function CardList<
     "lang" | "totalItems" | "onMouseOver" | "onClickMore" | "items"
   >
 ): ReactElement {
-  const [details, setDetails] = useState<T>();
-  const [list, setList] = useState<T[]>([]);
-  const [LANG, setLang] = useState<typeof PTBR>(Lang.LANG);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const [page, setPage] = useState<number>(1);
-  const [totalItems, setTotalItems] = useState<number>();
+  const [ details, setDetails ] = useState<T>();
+  const [ list, setList ] = useState<T[]>([]);
+  const [ LANG, setLang ] = useState<typeof PTBR>(Lang.LANG);
+  const [ scrollLeft, setScrollLeft ] = useState(0);
+  const [ page, setPage ] = useState<number>(1);
+  const [ totalItems, setTotalItems ] = useState<number>();
 
   useEffect(() => {
     Lang.langListener().subscribe(() => {
@@ -38,18 +38,18 @@ export function CardList<
   useEffect(() => {
     const container = document.getElementById(props.listContainerId);
     container?.scrollTo({ left: scrollLeft });
-  }, [list]);
+  }, [ list ]);
 
   useEffect((): void => {
     fetch(!!page);
-  }, [page]);
+  }, [ page ]);
 
   const fetch = (setScroll = true) => {
     setScroll &&
       setScrollLeft(
         document.getElementById(props.listContainerId)?.scrollLeft!
       );
-    props.getAll({ page: page || 1 }).subscribe((data) => {
+    props.getAll({ page: page || 1, ...(props.otherRequestParams || {}) }).subscribe((data) => {
       setList([
         ...list,
         ...data.results.filter(

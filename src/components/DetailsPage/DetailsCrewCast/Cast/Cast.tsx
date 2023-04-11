@@ -14,15 +14,12 @@ export function CastDetails(props: { cast: Cast, LANG: typeof PTBR }): ReactElem
   const [ details, setDetails ] = useState<Person>();
   const service = new PersonService();
 
-  useEffect(() => console.log(cacheDetails), [ cacheDetails ])
-
   useEffect(() => {
     Lang.langListener().subscribe(findPerson.bind(undefined, viewDetails))
   }, [])
 
   function findPerson(view = true): void {
     const cached = cacheDetails && cacheDetails[ Lang.currentLang ];
-    console.log(cached, cacheDetails)
     if (cached) {
       setViewDetails(view);
       setDetails(cached);

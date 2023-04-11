@@ -22,5 +22,6 @@ export const PTBR = {
   CAST: 'Elenco',
   MOVIES: 'Filmes',
   TV_SHOW: 'Séries',
-  PEOPLE: 'Pessoas'
+  PEOPLE: 'Pessoas',
+  TRENDING_WEEKK: 'Em alta na semana'
 };

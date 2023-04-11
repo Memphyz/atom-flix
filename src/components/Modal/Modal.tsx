@@ -54,7 +54,6 @@ export function Modal(props: {
     if (canHide) {
       const el = document.getElementById(id);
       const top = ((window.innerHeight - el.offsetHeight) / 2) + 50;
-      console.log(top)
       const positionY: number = event.nativeEvent[ "pageY" ];
       setShowClose(positionY < top);
     }

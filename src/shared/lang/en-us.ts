@@ -23,5 +23,6 @@ export const ENUS: typeof PTBR = {
   CAST: 'Cast',
   MOVIES: 'Movies',
   TV_SHOW: 'TV Show',
-  PEOPLE: 'People'
+  PEOPLE: 'People',
+  TRENDING_WEEKK: 'In high in the week'
 };
