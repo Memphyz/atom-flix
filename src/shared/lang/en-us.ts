@@ -24,5 +24,9 @@ export const ENUS: typeof PTBR = {
   MOVIES: 'Movies',
   TV_SHOW: 'TV Show',
   PEOPLE: 'People',
-  TRENDING_WEEKK: 'In high in the week'
+  TRENDING_WEEKK: 'Trending in the week',
+  MOVIES_TRENDING_WEEK: 'Movies in trending',
+  TV_SHOW_TRENDING_WEEK: 'TV Show in trending',
+  UPCOMING_MOVIE: 'Upcoming movies',
+  MOVIES_DESCRIPTION: 'Horror, Animation, Comedy, Drama and Documentary Films, all around here!'
 };

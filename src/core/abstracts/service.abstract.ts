@@ -8,13 +8,14 @@ import {
   httpErrorInterceptor,
   httpResponseInterceptor,
 } from "../interceptors/http.interceptors";
+import { IMovie } from "../models/Movie/Movie";
 
 export abstract class AbstractService<Resource = unknown> {
   protected readonly http = this.updateHttp(localStorage.getItem("lang"));
 
   protected abstract prefixUrl(): string;
 
-  constructor() {
+  constructor () {
     this.http.interceptors.request.use(
       httpRequestInterceptor,
       httpErrorInterceptor
@@ -38,7 +39,7 @@ export abstract class AbstractService<Resource = unknown> {
 
   public getWithBaseConfig<T>(
     url = this.prefixUrl(),
-    params?: { [x: string]: any }
+    params?: { [ x: string ]: any }
   ): Observable<T> {
     params = { ...params, language: localStorage.getItem("lang") };
     return from(this.http.get(url, { params })).pipe(map((data) => data.data));
@@ -46,7 +47,7 @@ export abstract class AbstractService<Resource = unknown> {
 
   public get<T>(
     url = this.prefixUrl(),
-    params?: { [x: string]: any }
+    params?: { [ x: string ]: any }
   ): Observable<T> {
     params = { ...params, language: localStorage.getItem("lang") };
     return from(this.http.get(url, { params, headers: {} })).pipe(
@@ -56,7 +57,7 @@ export abstract class AbstractService<Resource = unknown> {
 
   public post<T, B>(
     url = this.prefixUrl(),
-    params?: { [x: string]: any },
+    params?: { [ x: string ]: any },
     body?: B
   ): Observable<T> {
     params = { ...params, language: localStorage.getItem("lang") };
@@ -67,7 +68,7 @@ export abstract class AbstractService<Resource = unknown> {
 
   public delete<T, B>(
     url = this.prefixUrl(),
-    params?: { [x: string]: any },
+    params?: { [ x: string ]: any },
     body?: B
   ): Observable<T> {
     params = { ...params, language: localStorage.getItem("lang") };
@@ -86,15 +87,19 @@ export abstract class AbstractService<Resource = unknown> {
     ) as unknown as Observable<unknown>;
   }
 
+  public getUpcoming(params: { page?: number }): Observable<IResponse<IMovie>> {
+    return this.get(this.prefixUrl() + '/upcoming', params);
+  }
+
   protected assign<T extends Record<string, any>, R>(
     idField: keyof T,
     fillField: keyof T,
     request: (data: any) => Observable<R>
   ) {
     return mergeMap((response: T) =>
-      request(response[idField]).pipe(
+      request(response[ idField ]).pipe(
         map((requestRespose) =>
-          Object.assign(response, { [fillField]: requestRespose })
+          Object.assign(response, { [ fillField ]: requestRespose })
         )
       )
     ) as OperatorFunction<any, any>;

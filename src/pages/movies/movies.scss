@@ -4,4 +4,66 @@
   gap: 50px;
   position: relative;
   top: 90px;
+
+  .latest-wrapper {
+    height: 720px !important;
+    position: relative;
+    display: flex;
+    padding: 0px 5%;
+    align-items: center;
+    overflow: hidden;
+
+    h3 {
+      position: relative;
+      font-size: 54px;
+      max-width: 690px;
+      z-index: 3;
+      color: white;
+    }
+
+    &.placeholder::after {
+      content: "";
+      position: absolute;
+      height: 200%;
+      width: 2090px;
+      left: -100px;
+      right: 0;
+      top: -300px;
+      bottom: 0;
+      background-size: 2090px;
+      transition: all 10s;
+      background-position: center;
+      background-repeat: no-repeat;
+      animation: 20s infinite background-animation;
+      transform: skew(10deg, 10deg);
+      background-image: url(./../../assets/bg-collage-1.jpg);
+    }
+
+    @keyframes background-animation {
+      0% {
+        top: -650px;
+      }
+
+      50% {
+        top: 0px;
+      }
+
+      100% {
+        top: -650px
+      }
+    }
+
+    &::before {
+      content: "";
+      height: 100%;
+      width: 1920px;
+      left: 0;
+      z-index: 1;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      position: absolute;
+      box-shadow: -60px -15px 380px 213px inset;
+    }
+  }
 }

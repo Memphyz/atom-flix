@@ -27,7 +27,7 @@ export class MovieService extends AbstractService<IMovie> {
     return this.get("/movie/now_playing", params);
   }
 
-  public getLastest(): Observable<IResponse<IMovie>> {
+  public getLastest(): Observable<IMovie> {
     return this.get("/movie/latest");
   }
 
@@ -49,44 +49,44 @@ export class MovieService extends AbstractService<IMovie> {
     id: string | number,
     params?: { page: number }
   ): Observable<MovieDetailsSimilar> {
-    return this.get(this.prefixUrl() + `/${id}/similar`, params);
+    return this.get(this.prefixUrl() + `/${ id }/similar`, params);
   }
 
   public getLists(
     id: string | number,
     params?: { page: number }
   ): Observable<MovieDetailsLists> {
-    return this.get(this.prefixUrl() + `/${id}/lists`, params);
+    return this.get(this.prefixUrl() + `/${ id }/lists`, params);
   }
 
   public getRecomendations(
     id: string | number,
     params?: { page: number }
   ): Observable<Recomendations> {
-    return this.get(this.prefixUrl() + `/${id}/recommendations`, params);
+    return this.get(this.prefixUrl() + `/${ id }/recommendations`, params);
   }
 
   public getImages(id: string | number): Observable<Images> {
-    return this.get(this.prefixUrl() + `/${id}/images`);
+    return this.get(this.prefixUrl() + `/${ id }/images`);
   }
 
   public getCredits(id: string | number): Observable<Credits> {
-    return this.get(this.prefixUrl() + `/${id}/credits`);
+    return this.get(this.prefixUrl() + `/${ id }/credits`);
   }
 
   public getKeywords(id: string | number): Observable<Keywords> {
-    return this.get(this.prefixUrl() + `/${id}/keywords`);
+    return this.get(this.prefixUrl() + `/${ id }/keywords`);
   }
 
   public getWatchProviders(id: string | number): Observable<WatchProviders> {
-    return this.get(this.prefixUrl() + `/${id}/watch/providers`);
+    return this.get(this.prefixUrl() + `/${ id }/watch/providers`);
   }
 
   public getExternalIDs(id: string | number): Observable<ExternalIDs> {
-    return this.get(this.prefixUrl() + `/${id}/external_ids`);
+    return this.get(this.prefixUrl() + `/${ id }/external_ids`);
   }
 
   public getVideos(id: string | number): Observable<ModelVideo> {
-    return this.get(this.prefixUrl() + `/${id}/videos`);
+    return this.get(this.prefixUrl() + `/${ id }/videos`);
   }
 }

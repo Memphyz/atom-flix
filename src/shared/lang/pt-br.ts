@@ -23,5 +23,9 @@ export const PTBR = {
   MOVIES: 'Filmes',
   TV_SHOW: 'Séries',
   PEOPLE: 'Pessoas',
-  TRENDING_WEEKK: 'Em alta na semana'
+  TRENDING_WEEKK: 'Em alta na semana',
+  MOVIES_TRENDING_WEEK: 'Filmes em alta',
+  TV_SHOW_TRENDING_WEEK: 'Séries em alta',
+  UPCOMING_MOVIE: 'Filmes vindo por ai',
+  MOVIES_DESCRIPTION: 'Filmes de Terror, Animação, Comédia, Drama e Documentário, tudo por aqui!'
 };
