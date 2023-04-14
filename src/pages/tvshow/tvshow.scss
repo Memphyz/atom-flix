@@ -1,0 +1,19 @@
+.tv-show .placeholder::after {
+  animation: 20s infinite background-animation !important;
+  transform: skew(5deg, 5deg) !important;
+  background-image: url(./../../assets/bg-collage-2.jpg) !important;
+}
+
+@keyframes background-animation {
+  0% {
+    top: -450px;
+  }
+
+  50% {
+    top: -200px;
+  }
+
+  100% {
+    top: -450px
+  }
+}

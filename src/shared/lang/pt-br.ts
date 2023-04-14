@@ -15,6 +15,8 @@ export const PTBR = {
   SYNOPSIS: "Sinopse",
   POPULAR_MOVIES: "Filmes Populares",
   TOP_RATED: "Mais Votados",
+  TOP_RATED_MOVIE: "Filmes mais votados",
+  TOP_RATED_TV_SHOW: "Séries mais votadas",
   LASTEST: "Lançamentos",
   SEE_MORE: "Ver mais",
   DESCRIPTION: "Descrição",
@@ -23,9 +25,13 @@ export const PTBR = {
   MOVIES: 'Filmes',
   TV_SHOW: 'Séries',
   PEOPLE: 'Pessoas',
-  TRENDING_WEEKK: 'Em alta na semana',
+  TRENDING_WEEK: 'Em alta na semana',
   MOVIES_TRENDING_WEEK: 'Filmes em alta',
   TV_SHOW_TRENDING_WEEK: 'Séries em alta',
+  AIRING_TODAY: 'Em exibição hoje',
+  ON_AIR: 'No ar',
   UPCOMING_MOVIE: 'Filmes vindo por ai',
-  MOVIES_DESCRIPTION: 'Filmes de Terror, Animação, Comédia, Drama e Documentário, tudo por aqui!'
+  MOVIES_DESCRIPTION: 'Filmes de Terror, Animação, Comédia, Drama e Documentário, tudo por aqui!',
+  TV_SHOW_DESCRIPTION: 'Séries bem avaliadas, do momento, lançamentos, tudo por aqui!',
+  SEARCH: 'Pesquisar'
 };

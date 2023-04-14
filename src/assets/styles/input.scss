@@ -12,7 +12,16 @@ input {
   box-shadow: inset 0px 0px 0px 2px var(--brand-color-2);
   padding: 0px 10px;
 
-  ~span.line-in {
+  &.rounded {
+    border-radius: 1000px;
+    box-shadow: inset 0px 0px 0px 1px var(--black-100);
+
+    &:focus-visible {
+      box-shadow: inset 0px 0px 0px 2px var(--black-100);
+    }
+  }
+
+  ~ span.line-in {
     position: absolute;
     transition: all 0.5s;
     width: 0%;
@@ -21,10 +30,12 @@ input {
     bottom: -2px;
   }
 
+  &[left-icon] {}
+
   &:focus-visible {
     box-shadow: inset 0px 0px 0px 0px var(--brand-color-2);
 
-    &~span.line-in {
+    & ~ span.line-in {
       position: absolute;
       width: 100%;
       border: 1px solid var(--brand-color-1);

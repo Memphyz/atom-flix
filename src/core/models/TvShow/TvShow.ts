@@ -1,6 +1,6 @@
 import { TvShowSimilar } from "./TvShowDetails";
 
-export interface TvShow {
+export interface ITvShow {
   backdrop_path: string;
   first_air_date: string;
   genre_ids: number[];

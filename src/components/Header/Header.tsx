@@ -1,4 +1,4 @@
-import { createRef, ReactElement, useEffect, useState } from 'react';
+import { createRef, CSSProperties, ReactElement, useEffect, useState } from 'react';
 import { icons } from '../../assets/icons/icons';
 import { Navigation } from '../../core/models/Navigation';
 import { Lang } from '../../shared/lang';
@@ -23,7 +23,7 @@ export function Header(props: {
     {
       icon: icons.tvShow,
       text: LANG.TV_SHOW,
-      link: "/",
+      link: "/tvshow",
     },
     {
       icon: icons.person,
@@ -78,10 +78,7 @@ export function Header(props: {
           ))}
         </div>
         <div className="right-container">
-          <button>{LANG.SIGN_IN}</button>
-          <a href="https://www.themoviedb.org/signup" target="_blank">
-            <button className="outline">{LANG.SIGN_UP}</button>
-          </a>
+          <input type="text" left-icon style={{ '--left-icon': 'search' } as CSSProperties} maxLength={120} className='rounded' placeholder={LANG.SEARCH} />
         </div>
       </div>
     </header>

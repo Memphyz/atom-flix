@@ -15,6 +15,8 @@ export const ENUS: typeof PTBR = {
   POPULAR_TV_SHOW: "Popular Series",
   SYNOPSIS: "Synopsis",
   LASTEST: "Lastest",
+  TOP_RATED_MOVIE: "Top rated movies",
+  TOP_RATED_TV_SHOW: "Top rated Tv Shows",
   TOP_RATED: "Top Rated",
   POPULAR_MOVIES: "Popular Movies",
   SEE_MORE: "See more",
@@ -24,9 +26,13 @@ export const ENUS: typeof PTBR = {
   MOVIES: 'Movies',
   TV_SHOW: 'TV Show',
   PEOPLE: 'People',
-  TRENDING_WEEKK: 'Trending in the week',
+  TRENDING_WEEK: 'Trending in the week',
   MOVIES_TRENDING_WEEK: 'Movies in trending',
   TV_SHOW_TRENDING_WEEK: 'TV Show in trending',
   UPCOMING_MOVIE: 'Upcoming movies',
-  MOVIES_DESCRIPTION: 'Horror, Animation, Comedy, Drama and Documentary Films, all around here!'
+  AIRING_TODAY: 'Airing today',
+  ON_AIR: 'On the air',
+  MOVIES_DESCRIPTION: 'Horror, Animation, Comedy, Drama and Documentary Films, all around here!',
+  TV_SHOW_DESCRIPTION: 'Well-evaluated series, of the moment, upcomings, everything around here!',
+  SEARCH: 'Search'
 };

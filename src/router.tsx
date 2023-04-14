@@ -5,6 +5,7 @@ import { Details } from "./pages/details/details";
 import { Home } from "./pages/home/home";
 import { AvaliableLangs, Lang } from "./shared/lang";
 import { Movies } from "./pages/movies/movies";
+import { TvShow } from "./pages/tvshow/tvshow";
 
 export function Router(): ReactElement {
   const linkRef = createRef<HTMLAnchorElement>();
@@ -42,6 +43,7 @@ export function Router(): ReactElement {
         <Routes>
           <Route path="" element={<Home />} />
           <Route path="movies" element={<Movies />} />
+          <Route path="tvshow" element={<TvShow />} />
           <Route path="details/:type/:id" element={<Details />} />
         </Routes>
       </BrowserRouter>
