@@ -1,0 +1,9 @@
+.search-wrapper-results {
+  position: fixed;
+  width: 100vw;
+  height: calc(100vw - 90px);
+  left: 0;
+  top: 90px;
+  background: var(--black-400);
+  z-index: 1040;
+}

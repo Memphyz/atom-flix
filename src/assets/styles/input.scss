@@ -12,6 +12,11 @@ input {
   box-shadow: inset 0px 0px 0px 2px var(--brand-color-2);
   padding: 0px 10px;
 
+  &.search {
+    padding-left: 50px;
+    position: relative;
+  }
+
   &.rounded {
     border-radius: 1000px;
     box-shadow: inset 0px 0px 0px 1px var(--black-100);
@@ -30,7 +35,6 @@ input {
     bottom: -2px;
   }
 
-  &[left-icon] {}
 
   &:focus-visible {
     box-shadow: inset 0px 0px 0px 0px var(--brand-color-2);

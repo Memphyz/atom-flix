@@ -1,14 +1,17 @@
-import { createRef, CSSProperties, ReactElement, useEffect, useState } from 'react';
+import { createRef, CSSProperties, ReactElement, SyntheticEvent, useEffect, useState } from 'react';
 import { icons } from '../../assets/icons/icons';
 import { Navigation } from '../../core/models/Navigation';
 import { Lang } from '../../shared/lang';
 import './Header.scss';
 import { router } from "../../App";
+import { Search } from '../Search/Search';
+import { className } from '../../shared/utils/classname';
 
 export function Header(props: {
   children?: ReactElement | string;
 }): ReactElement {
   const [ LANG, setLang ] = useState(Lang.LANG);
+  const [ search, setSearch ] = useState('');
   const navigations: Navigation[] = [
     {
       icon: icons.home,
@@ -24,12 +27,7 @@ export function Header(props: {
       icon: icons.tvShow,
       text: LANG.TV_SHOW,
       link: "/tvshow",
-    },
-    {
-      icon: icons.person,
-      text: LANG.PEOPLE,
-      link: "/",
-    },
+    }
   ];
   const header = createRef<HTMLHeadElement>();
 
@@ -57,8 +55,15 @@ export function Header(props: {
     updateColors();
   }, [ header ]);
 
+  function updateSearch(event: SyntheticEvent<HTMLInputElement>): void {
+    setSearch(event.target[ 'value' ])
+  }
+
+
   return (
-    <header ref={header}>
+    <header ref={header} className={className({
+      'remove-opacity': search
+    })}>
       <div className="content-header">
         <div className="left-container">
           <div className="logo-wrapper" onClick={() => router.next("/")}>
@@ -78,7 +83,11 @@ export function Header(props: {
           ))}
         </div>
         <div className="right-container">
-          <input type="text" left-icon style={{ '--left-icon': 'search' } as CSSProperties} maxLength={120} className='rounded' placeholder={LANG.SEARCH} />
+          <div className="search-wrapper">
+            <input type="text" onChange={updateSearch} maxLength={120} className='rounded search' placeholder={LANG.SEARCH} />
+            <div className="search-icon"></div>
+            <Search search={search} />
+          </div>
         </div>
       </div>
     </header>
