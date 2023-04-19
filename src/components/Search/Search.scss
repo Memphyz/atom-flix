@@ -1,9 +1,73 @@
 .search-wrapper-results {
   position: fixed;
   width: 100vw;
-  height: calc(100vw - 90px);
+  height: 100%;
   left: 0;
-  top: 90px;
+  top: 1000vh;
   background: var(--black-400);
-  z-index: 1040;
+  z-index: -1;
+  opacity: 0.95;
+  filter: blur(1);
+  transition: all 0.5s;
+  overflow: auto;
+
+  &.show {
+    top: 0vh;
+
+    fieldset {
+      margin: 10px 30px;
+      padding: 30px;
+      transition: all 0.5s;
+      border-radius: 10px;
+      border: 2px dashed var(--black-100);
+
+      &:first-of-type {
+        margin-top: 65px;
+      }
+
+      .list-search {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      &:hover {
+        box-shadow: inset 0px 0px 8px var(--black-200);
+      }
+    }
+
+    legend {
+      margin-left: -10px;
+      padding: 0px 10px;
+      font-size: clamp(17px, 2vw, 25px);
+    }
+  }
+
+  &.no-results {
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+
+    &::before {
+      content: '';
+      background-color: white;
+      width: 50%;
+      max-width: 500px;
+      max-height: 400px;
+      mask-image: url(./../../assets/icons/not-found.svg);
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+      height: 40%;
+    }
+
+    &::after {
+      content: attr(not-found-msg);
+      font-size: clamp(15px, 4vw, 30px);
+      text-align: center;
+    }
+  }
+
 }

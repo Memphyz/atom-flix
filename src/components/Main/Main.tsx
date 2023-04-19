@@ -7,7 +7,7 @@ import { className } from "../../shared/utils/classname";
 export function Main(props: {
   children?: ReactElement | string;
 }): ReactElement {
-  const [showArrow, setShowArrow] = useState(false);
+  const [ showArrow, setShowArrow ] = useState(false);
 
   useEffect(() => {
     const root = document.getElementById("root")!;
@@ -33,7 +33,7 @@ export function Main(props: {
       />
       <main id="main-container">
         <Header />
-        <section className="page-content">{props.children}</section>
+        <section id="page-content" className="page-content">{props.children}</section>
         <Footer />
       </main>
     </>

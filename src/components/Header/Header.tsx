@@ -86,7 +86,7 @@ export function Header(props: {
           <div className="search-wrapper">
             <input type="text" onChange={updateSearch} maxLength={120} className='rounded search' placeholder={LANG.SEARCH} />
             <div className="search-icon"></div>
-            <Search search={search} />
+            <Search search={search} LANG={LANG} />
           </div>
         </div>
       </div>

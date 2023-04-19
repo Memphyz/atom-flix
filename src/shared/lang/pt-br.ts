@@ -33,5 +33,6 @@ export const PTBR = {
   UPCOMING_MOVIE: 'Filmes vindo por ai',
   MOVIES_DESCRIPTION: 'Filmes de Terror, Animação, Comédia, Drama e Documentário, tudo por aqui!',
   TV_SHOW_DESCRIPTION: 'Séries bem avaliadas, do momento, lançamentos, tudo por aqui!',
-  SEARCH: 'Pesquisar'
+  SEARCH: 'Pesquisar',
+  SEARCH_NOT_FOUND: 'Não encontrado. Verifique o termo digitado e tente novamente'
 };

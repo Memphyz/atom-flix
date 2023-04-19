@@ -34,5 +34,6 @@ export const ENUS: typeof PTBR = {
   ON_AIR: 'On the air',
   MOVIES_DESCRIPTION: 'Horror, Animation, Comedy, Drama and Documentary Films, all around here!',
   TV_SHOW_DESCRIPTION: 'Well-evaluated series, of the moment, upcomings, everything around here!',
-  SEARCH: 'Search'
+  SEARCH: 'Search',
+  SEARCH_NOT_FOUND: 'Not found. Check the term entered and try again'
 };

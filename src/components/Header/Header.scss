@@ -112,6 +112,12 @@ header {
 
       .search-wrapper {
         position: relative;
+        z-index: 2;
+
+        input {
+          color: black;
+          font-weight: 600;
+        }
 
         .search-icon {
           content: '';
