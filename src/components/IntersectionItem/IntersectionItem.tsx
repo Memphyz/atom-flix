@@ -19,10 +19,10 @@ export function IntersectionItem(props: {
   onMouseLeave?: MouseEventHandler<HTMLDivElement>;
 }): ReactElement {
   const ref = createRef<HTMLDivElement>();
-  const [visible, setVisible] = useState(true);
+  const [ visible, setVisible ] = useState(true);
   let intsersected = false;
   const observer = new IntersectionObserver((entries) => {
-    const animation = props.animation === "default";
+    const animation = !props.animation || props.animation === "default";
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         intsersected = true;
@@ -32,7 +32,7 @@ export function IntersectionItem(props: {
   });
   useEffect(() => {
     observer.observe(ref.current!);
-  }, [ref]);
+  }, [ ref ]);
   return (
     <div
       ref={ref}
@@ -40,11 +40,11 @@ export function IntersectionItem(props: {
       onClick={props.onClick}
       onMouseEnter={props.onMouseOver}
       onMouseLeave={props.onMouseLeave}
-      className={`${className({
+      className={`${ className({
         intersection: true,
-        [props.animation || "default"]: true,
+        [ props.animation || "default" ]: true,
         visible,
-      })} ${props.className || ""}`}
+      }) } ${ props.className || "" }`}
       style={props.style}
     >
       {props.children}

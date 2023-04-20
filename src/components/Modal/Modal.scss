@@ -19,10 +19,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     .atom-modal {
       max-height: calc(100vh - 40px);
     }
   }
+
   .atom-modal {
     max-height: 0vh;
     max-width: calc(100vw - 40px);
@@ -42,6 +44,8 @@
       border-radius: 1000px;
       left: calc(50% - 20px);
       transition: all 0.5s;
+      z-index: 1050;
+      cursor: pointer;
 
       &::before {
         content: '';

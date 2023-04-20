@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 export interface ICardProps<T extends { id: unknown }> {
-  items: T[];
+  items?: T[];
   width?: number;
   height?: number;
   backgroundImage?: string;

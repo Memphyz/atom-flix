@@ -84,7 +84,7 @@ export function Search(props: { search: string }): ReactElement {
         <div className="content-search-wrapper">
           <div className="list-search" search-item-type={content} >
             {results[ content ]?.map((data: MultiSearch, index) => (
-              <SearchItem title={data[ content === 'movies' ? 'title' : 'name' ]} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ content === 'people' ? data[ 'profile_path' ] : data.poster_path }`} />
+              <SearchItem backgroundLandscape={data.backdrop_path} overview={content === 'people' ? null : data.overview} title={data[ content === 'movies' ? 'title' : 'name' ]} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ content === 'people' ? data[ 'profile_path' ] : data.poster_path }`} />
             ))}
           </div>
         </div>

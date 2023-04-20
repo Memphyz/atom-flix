@@ -20,7 +20,7 @@ const MAX_WIDTH = 1920;
 const CARD_WIDTH_SPACING = 70;
 const GAP = 20;
 
-function ItemCard<T extends { id: any }>(
+export function ItemCard<T extends { id: any }>(
   props: ICardProps<T> & { item?: T; seeMore?: boolean }
 ) {
   const [ showDetails, setDetails ] = useState(false);
@@ -59,7 +59,7 @@ function ItemCard<T extends { id: any }>(
     return (
       <>
         <div className="name">
-          <label htmlFor={props.item![ props.title as any ]}>
+          <label htmlFor={props.item![ props.title as any ] + 'test'}>
             {props.item![ props.title as any ]}
           </label>
         </div>

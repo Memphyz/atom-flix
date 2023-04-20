@@ -34,5 +34,7 @@
   "SEARCH": "Search",
   "SEARCH_NOT_FOUND": "Not found. Check the entered term and try again",
   "PORTUGUESE": "Portuguese",
-  "ENGLISH": "English United States"
+  "ENGLISH": "English United States",
+  "NO_OVERVIEW_AVALIABLE": "Sorry, we couldn't find a description for this item at the moment.",
+  "MORE_DETAILS": "More Details"
 }
