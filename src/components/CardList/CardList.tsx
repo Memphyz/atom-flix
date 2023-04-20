@@ -1,9 +1,9 @@
 import { ReactElement, useEffect, useState } from "react";
-import { ICardListProps } from "./CardListProps";
-import { Cards } from "../Card/Card";
-import { CardDetails } from "../CardDetails/CardDetails";
 import { Lang } from "../../shared/lang";
 import { PTBR } from "../../shared/lang/pt-br";
+import { Cards } from "../Card/Card";
+import { CardDetails } from "../CardDetails/CardDetails";
+import { ICardListProps } from "./CardListProps";
 
 export function CardList<
   T extends {

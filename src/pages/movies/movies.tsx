@@ -15,7 +15,6 @@ import { className } from '../../shared/utils/classname';
 export function Movies(): ReactElement {
   const [ LANG, setLang ] = useState(Lang.LANG);
   const [ latest, setLatest ] = useState<IMovie>(null);
-  const [ latestVideo, setLatestVideo ] = useState<Video>(null);
   const movieService = new MovieService();
 
   useEffect(() => {

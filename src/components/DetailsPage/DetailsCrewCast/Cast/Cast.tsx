@@ -1,12 +1,12 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Cast } from "../../../../core/models/Credits";
-import { Modal } from "../../../Modal/Modal";
+import { Person } from "../../../../core/models/Person";
 import { PersonService } from "../../../../core/services/person.service";
 import { Lang } from "../../../../shared/lang";
-import { Person } from "../../../../core/models/Person";
-import './Cast.scss'
 import { PTBR } from "../../../../shared/lang/pt-br";
 import { DateUtils } from "../../../../shared/utils/date";
+import { Modal } from "../../../Modal/Modal";
+import './Cast.scss';
 
 export function CastDetails(props: { cast: Cast, LANG: typeof PTBR }): ReactElement {
   const [ viewDetails, setViewDetails ] = useState(false);

@@ -5,6 +5,7 @@ import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import { BehaviorSubject } from "rxjs";
 import { isMobileBrowser } from "./shared/utils/regex";
+import './i18n'
 
 export const BASE_URL = process.env.REACT_APP_API_URL!;
 export const API_KEY = process.env.REACT_APP_API_KEY!;

@@ -54,7 +54,7 @@ export function Search(props: { search: string, LANG: typeof PTBR }): ReactEleme
         <legend>{props.LANG.MOVIES}</legend>
         <div className="list-search">
           {
-            results.movies.map((movie, index) => (
+            results?.movies.map((movie, index) => (
               <SearchItem title={movie.title} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ movie.poster_path }`} />
             ))
           }
@@ -64,7 +64,7 @@ export function Search(props: { search: string, LANG: typeof PTBR }): ReactEleme
         <legend>{props.LANG.TV_SHOW}</legend>
         <div className="list-search">
           {
-            results.tv.map((tv, index) => (
+            results?.tv.map((tv, index) => (
               <SearchItem title={tv.name} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ tv.poster_path }`} />
             ))
           }
@@ -74,7 +74,7 @@ export function Search(props: { search: string, LANG: typeof PTBR }): ReactEleme
         <legend>{props.LANG.PEOPLE}</legend>
         <div className="list-search">
           {
-            results.people.map((person, index) => (
+            results?.people.map((person, index) => (
               <SearchItem title={person.name} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ person.poster_path }`} />
             ))
           }
