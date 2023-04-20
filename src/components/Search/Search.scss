@@ -14,32 +14,66 @@
   &.show {
     top: 0vh;
 
-    fieldset {
-      margin: 10px 30px;
-      padding: 30px;
-      transition: all 0.5s;
-      border-radius: 10px;
-      border: 2px dashed var(--black-100);
-
-      &:first-of-type {
-        margin-top: 65px;
-      }
+    .content-search-selector {
+      position: relative;
+      top: 65px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
       .list-search {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
       }
 
-      &:hover {
-        box-shadow: inset 0px 0px 8px var(--black-200);
+      .results-content {
+        position: relative;
+        padding: 20px;
+
+        .type-result-header {
+          display: flex;
+
+
+          .type-results {
+            display: flex;
+            gap: 40px;
+            font-size: clamp(17px, 2vw, 25px);
+
+            .hover-effect {
+              text-decoration: underline;
+              color: var(--brand-color-1);
+            }
+
+            span {
+              position: relative;
+              cursor: pointer;
+              transition: all 0.5s;
+
+              &.active {
+                @extend .hover-effect;
+              }
+
+              &:hover {
+                @extend .hover-effect;
+                filter: brightness(2);
+              }
+
+
+              &:not(:last-child)::after {
+                content: '/';
+                color: white;
+                pointer-events: none;
+                position: absolute;
+                left: calc(100% + 25%);
+              }
+            }
+          }
+        }
       }
     }
 
-    legend {
-      margin-left: -10px;
-      padding: 0px 10px;
-      font-size: clamp(17px, 2vw, 25px);
-    }
   }
 
   &.no-results {

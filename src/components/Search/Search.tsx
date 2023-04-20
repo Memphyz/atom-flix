@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { finalize } from 'rxjs';
 import { ISearch, ISearchFiltered } from '../../core/models/Search';
 import { SearchService } from '../../core/services/search.service';
@@ -7,10 +7,12 @@ import { DebounceTime } from '../../shared/utils/debounce';
 import './Search.scss';
 import { SearchItem } from './SearchItem/SeachItem';
 import { t } from 'i18next';
+import { MultiSearch } from '../../core/models/Search';
 
 export function Search(props: { search: string }): ReactElement {
   const service = new SearchService();
   const [ show, setShow ] = useState(false);
+  const [ content, setContent ] = useState<keyof ISearchFiltered>('movies');
   const [ results, setResults ] = useState<ISearchFiltered>(null)
   const debounce = useMemo(() => new DebounceTime(fetch), [])
 
@@ -43,42 +45,49 @@ export function Search(props: { search: string }): ReactElement {
     root.style.overflow = 'hidden';
   }
 
+  function changeContentType(event: SyntheticEvent<HTMLDivElement, PointerEvent>): void {
+    const target = event.nativeEvent.target as HTMLSpanElement;
+    if (target.attributes.getNamedItem('ignore-click')) {
+      return undefined;
+    }
+    const contents: Record<string, keyof ISearchFiltered> = {
+      [ t('MOVIES') ]: 'movies',
+      [ t('TV_SHOW') ]: 'tv',
+      [ t('PEOPLE') ]: 'people'
+    };
+    setContent(contents[ target.outerText ])
+
+  }
+
   return (
     <div className={className({
       'search-wrapper-results': true,
       show: show,
       'no-results': !results || (Object.values(results).every((list: unknown[]) => !list.length))
     })} not-found-msg={`${ t('SEARCH_NOT_FOUND') as string }`}>
-      <fieldset>
-        <legend>{t('MOVIES') as string}</legend>
-        <div className="list-search">
-          {
-            results?.movies.map((movie, index) => (
-              <SearchItem title={movie.title} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ movie.poster_path }`} />
-            ))
-          }
+      {results && <div className="content-search-selector">
+        <div className="results-content">
+          <div className="type-result-header">
+            <div className="type-results" ignore-click={true.toString()} onClick={changeContentType as any}>
+              {Object.values(results.movies).length ? <span className={className({
+                active: content === 'movies'
+              })}>{t('MOVIES') as string}</span> : null}
+              {Object.values(results.tv).length ? <span className={className({
+                active: content === 'tv'
+              })}>{t('TV_SHOW') as string}</span> : null}
+              {Object.values(results.people).length ? <span className={className({
+                active: content === 'people'
+              })}>{t('PEOPLE') as string}</span> : null}
+            </div>
+          </div>
         </div>
-      </fieldset>
-      <fieldset>
-        <legend>{t('TV_SHOW') as string}</legend>
-        <div className="list-search">
-          {
-            results?.tv.map((tv, index) => (
-              <SearchItem title={tv.name} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ tv.poster_path }`} />
-            ))
-          }
+        <div className="content-search-wrapper">
+          <div className="list-search" search-item-type={content} >
+            {results[ content ]?.map((data: MultiSearch, index) => (
+              <SearchItem title={data[ content === 'movies' ? 'title' : 'name' ]} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ content === 'people' ? data[ 'profile_path' ] : data.poster_path }`} />
+            ))}
+          </div>
         </div>
-      </fieldset>
-      <fieldset>
-        <legend>{t('TV_SHOW') as string}</legend>
-        <div className="list-search">
-          {
-            results?.people.map((person, index) => (
-              <SearchItem title={person.name} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ person.poster_path }`} />
-            ))
-          }
-
-        </div>
-      </fieldset>
+      </div>}
     </div>)
 }
