@@ -14,6 +14,7 @@ import { ICardProps } from "./CardProps";
 import { noop } from "rxjs";
 import { Link } from "react-router-dom";
 import { router } from "../../App";
+import { t } from "i18next";
 
 const MAX_WIDTH = 1920;
 const CARD_WIDTH_SPACING = 70;
@@ -22,8 +23,8 @@ const GAP = 20;
 function ItemCard<T extends { id: any }>(
   props: ICardProps<T> & { item?: T; seeMore?: boolean }
 ) {
-  const [showDetails, setDetails] = useState(false);
-  const [minWidth, setMinWidth] = useState(props.width || 150);
+  const [ showDetails, setDetails ] = useState(false);
+  const [ minWidth, setMinWidth ] = useState(props.width || 150);
 
   const detailsListeners = () => {
     if (window.innerWidth < (props.width || 0) * 3.5) {
@@ -49,8 +50,8 @@ function ItemCard<T extends { id: any }>(
     if (props.seeMore) {
       return (
         <div className="see-more" onClick={props.onClickMore}>
-          <label htmlFor={props.lang.SEE_MORE}>
-            {props.lang.SEE_MORE} <span>↣</span>
+          <label htmlFor={t('SEE_MORE') as string}>
+            {t('SEE_MORE') as string} <span>↣</span>
           </label>
         </div>
       );
@@ -58,8 +59,8 @@ function ItemCard<T extends { id: any }>(
     return (
       <>
         <div className="name">
-          <label htmlFor={props.item![props.title as any]}>
-            {props.item![props.title as any]}
+          <label htmlFor={props.item![ props.title as any ]}>
+            {props.item![ props.title as any ]}
           </label>
         </div>
         <div className="shadow" />
@@ -80,7 +81,7 @@ function ItemCard<T extends { id: any }>(
       onClick={() => {
         props.onclick && props.onclick();
         !props.seeMore &&
-          router.next(`details/${props.type}/${props.item?.id}`);
+          router.next(`details/${ props.type }/${ props.item?.id }`);
       }}
       style={{
         minWidth: showDetails
@@ -89,11 +90,10 @@ function ItemCard<T extends { id: any }>(
         minHeight: props.height || 200,
         backgroundImage: showDetails
           ? ""
-          : `url(${props.backgroundImage || ""}${
-              props.item
-                ? props.item![(props.backgroundImageSuffix as any) || ""]
-                : null
-            })`,
+          : `url(${ props.backgroundImage || "" }${ props.item
+            ? props.item![ (props.backgroundImageSuffix as any) || "" ]
+            : null
+          })`,
       }}
     >
       {showDetails ? props.children : cardContent()}
@@ -104,7 +104,7 @@ function ItemCard<T extends { id: any }>(
 export function Cards<T extends { id: any }>(
   props: ICardProps<T>
 ): ReactElement {
-  const [SKELETON_SIZE, setSkeletonSize] = useState(1);
+  const [ SKELETON_SIZE, setSkeletonSize ] = useState(1);
 
   useEffect(() => {
     updateSkeletonSize();

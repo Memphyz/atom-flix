@@ -1,9 +1,8 @@
 import { ReactElement, useEffect, useState } from "react";
-import { Lang } from "../../shared/lang";
-import { PTBR } from "../../shared/lang/pt-br";
 import { Cards } from "../Card/Card";
 import { CardDetails } from "../CardDetails/CardDetails";
 import { ICardListProps } from "./CardListProps";
+import i18next from "i18next";
 
 export function CardList<
   T extends {
@@ -21,19 +20,15 @@ export function CardList<
 ): ReactElement {
   const [ details, setDetails ] = useState<T>();
   const [ list, setList ] = useState<T[]>([]);
-  const [ LANG, setLang ] = useState<typeof PTBR>(Lang.LANG);
   const [ scrollLeft, setScrollLeft ] = useState(0);
   const [ page, setPage ] = useState<number>(1);
   const [ totalItems, setTotalItems ] = useState<number>();
 
   useEffect(() => {
-    Lang.langListener().subscribe(() => {
-      setLang(Lang.LANG);
-      setList([]);
-      setScrollLeft(0);
-      setPage(0);
-    });
-  }, []);
+    setList([]);
+    setScrollLeft(0);
+    setPage(0);
+  }, [ i18next.language ]);
 
   useEffect(() => {
     const container = document.getElementById(props.listContainerId);
@@ -69,12 +64,11 @@ export function CardList<
     <Cards
       {...props}
       items={list}
-      lang={LANG}
       totalItems={totalItems}
       onMouseOver={getDetails}
       onClickMore={() => setPage(page ? page + 1 : 2)}
     >
-      <CardDetails details={details!} lang={LANG} height={props.height!} />
+      <CardDetails details={details!} height={props.height!} />
     </Cards>
   );
 }

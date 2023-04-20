@@ -1,9 +1,6 @@
-import { ReactElement, createRef, useEffect } from 'react';
-import './List.scss'
-import { PTBR } from '../../shared/lang/pt-br';
-import { SyntheticEvent } from 'react';
-import { useState } from 'react';
+import { ReactElement, SyntheticEvent, createRef, useState } from 'react';
 import { className } from '../../shared/utils/classname';
+import './List.scss';
 
 export function List(props: {
   customClass?: string,

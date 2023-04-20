@@ -2,24 +2,23 @@ import { ReactElement, useEffect, useState } from "react";
 import { Cast } from "../../../../core/models/Credits";
 import { Person } from "../../../../core/models/Person";
 import { PersonService } from "../../../../core/services/person.service";
-import { Lang } from "../../../../shared/lang";
-import { PTBR } from "../../../../shared/lang/pt-br";
 import { DateUtils } from "../../../../shared/utils/date";
 import { Modal } from "../../../Modal/Modal";
 import './Cast.scss';
+import i18next from "i18next";
 
-export function CastDetails(props: { cast: Cast, LANG: typeof PTBR }): ReactElement {
+export function CastDetails(props: { cast: Cast }): ReactElement {
   const [ viewDetails, setViewDetails ] = useState(false);
   const [ cacheDetails, setCacheDetails ] = useState<Record<string, Person>>({});
   const [ details, setDetails ] = useState<Person>();
   const service = new PersonService();
 
   useEffect(() => {
-    Lang.langListener().subscribe(findPerson.bind(undefined, viewDetails))
-  }, [])
+    findPerson(viewDetails);
+  }, [ i18next.language ])
 
   function findPerson(view = true): void {
-    const cached = cacheDetails && cacheDetails[ Lang.currentLang ];
+    const cached = cacheDetails && cacheDetails[ i18next.language ];
     if (cached) {
       setViewDetails(view);
       setDetails(cached);
@@ -27,7 +26,7 @@ export function CastDetails(props: { cast: Cast, LANG: typeof PTBR }): ReactElem
     }
     service.getDetails(props.cast.id).subscribe((person): void => {
       const newCache = cacheDetails;
-      newCache[ Lang.currentLang ] = person;
+      newCache[ i18next.language ] = person;
       setCacheDetails(newCache);
       setDetails(person);
       setViewDetails(view);

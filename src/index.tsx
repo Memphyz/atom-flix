@@ -3,7 +3,7 @@ import { NavigateFunction } from 'react-router-dom';
 import { App } from './App';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { isMobileBrowser } from "./shared/utils/regex";
 import './i18n'
 
@@ -21,6 +21,12 @@ export class Router {
   }
 }
 
+export const languageChange = new Subject<string>();
+
+languageChange.subscribe((lang) => {
+  localStorage.setItem('lang', lang);
+  window.location.reload();
+})
 
 export const isMobile = window.innerWidth <= 992;
 function checkBrowser(): void {

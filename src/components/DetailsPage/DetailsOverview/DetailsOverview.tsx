@@ -2,16 +2,15 @@ import { ReactElement, useEffect, useState } from "react";
 import "./DetailsOverview.scss";
 import { PresentationDetails } from "../../PresentationDetails/PresentationDetails";
 import { Skeleton } from "../../Skeleton/Skeleton";
-import { PTBR } from "../../../shared/lang/pt-br";
 import { CommonDetails } from "../../../core/models/CommonDetails";
 import { toHoursAndMinutes } from "../../../shared/utils/commons";
 import { Video } from "../../../core/models/ModelVideo";
 import { Backdrop } from "../../../core/models/ObjectImages";
 import { DetailsCrewCast } from "../DetailsCrewCast/DetailsCrewCast";
+import { t } from "i18next";
 
 export function DetailsOverview(props: {
   commonDetails: CommonDetails;
-  LANG: typeof PTBR;
 }): ReactElement {
   const [ hoursMinutes, setHourMinute ] = useState({ hours: 0, minutes: 0 });
   const [ movieImageVideos, setMovieImageVideos ] = useState<
@@ -58,7 +57,7 @@ export function DetailsOverview(props: {
             <span className="tagline">{props.commonDetails?.tagline}</span>
           </Skeleton>
         </div>
-        <h4 className="description-title">{props.LANG.DESCRIPTION}</h4>
+        <h4 className="description-title">{t('DESCRIPTION') as string}</h4>
         <Skeleton classElements="overview">
           <span className="overview">
             &nbsp;{props.commonDetails?.overview}

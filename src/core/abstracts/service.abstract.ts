@@ -2,16 +2,16 @@ import axios from "axios";
 import { Observable, OperatorFunction, from, map, mergeMap } from "rxjs";
 import { IResponse } from "../models/Response";
 import { API_KEY, BASE_URL } from "./../../index";
-import { Lang } from "./../../shared/lang/index";
 import {
   httpRequestInterceptor,
   httpErrorInterceptor,
   httpResponseInterceptor,
 } from "../interceptors/http.interceptors";
 import { IMovie } from "../models/Movie/Movie";
+import i18next from "i18next";
 
 export abstract class AbstractService<Resource = unknown> {
-  protected readonly http = this.updateHttp(localStorage.getItem("lang"));
+  protected readonly http = this.updateHttp(i18next.language);
 
   protected abstract prefixUrl(): string;
 
@@ -32,7 +32,7 @@ export abstract class AbstractService<Resource = unknown> {
   ): Observable<IResponse<Resource>> {
     return from(
       this.http.get(url, {
-        params: { ...params, language: localStorage.getItem("lang") },
+        params: { ...params, language: i18next.language },
       })
     ).pipe(map((res) => res.data as IResponse<Resource>));
   }
@@ -41,7 +41,7 @@ export abstract class AbstractService<Resource = unknown> {
     url = this.prefixUrl(),
     params?: { [ x: string ]: any }
   ): Observable<T> {
-    params = { ...params, language: localStorage.getItem("lang") };
+    params = { ...params, language: i18next.language };
     return from(this.http.get(url, { params })).pipe(map((data) => data.data));
   }
 
@@ -49,7 +49,7 @@ export abstract class AbstractService<Resource = unknown> {
     url = this.prefixUrl(),
     params?: { [ x: string ]: any }
   ): Observable<T> {
-    params = { ...params, language: localStorage.getItem("lang") };
+    params = { ...params, language: i18next.language };
     return from(this.http.get(url, { params, headers: {} })).pipe(
       map((data) => data.data)
     );
@@ -60,7 +60,7 @@ export abstract class AbstractService<Resource = unknown> {
     params?: { [ x: string ]: any },
     body?: B
   ): Observable<T> {
-    params = { ...params, language: localStorage.getItem("lang") };
+    params = { ...params, language: i18next.language };
     return from(this.http.post(url, body, { params, headers: {} })).pipe(
       map((data) => data.data)
     );
@@ -71,7 +71,7 @@ export abstract class AbstractService<Resource = unknown> {
     params?: { [ x: string ]: any },
     body?: B
   ): Observable<T> {
-    params = { ...params, language: localStorage.getItem("lang") };
+    params = { ...params, language: i18next.language };
     return from(this.http.delete(url, { params, data: body })).pipe(
       map((data) => data.data)
     );

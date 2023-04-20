@@ -1,15 +1,15 @@
+import { t } from 'i18next';
 import { ReactElement, createRef, useEffect, useState } from 'react';
 import { icons } from '../../assets/icons/icons';
 import { SelectItem, SelectProps } from '../../core/models/SelectProps';
-import { Lang } from '../../shared/lang';
 import { className } from '../../shared/utils/classname';
 import './Select.scss';
 
 export function Select<T = unknown>(props: SelectProps<T>): ReactElement {
 
   const inputRef = createRef<HTMLInputElement>();
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = props.value!;
+  const [ open, setOpen ] = useState(false);
+  const [ value, setValue ] = props.value!;
 
   const updateInputValue = (option: SelectItem<T>): void => {
     inputRef.current && (inputRef.current.value = option.label);
@@ -22,7 +22,7 @@ export function Select<T = unknown>(props: SelectProps<T>): ReactElement {
     const { idField } = props;
     const selectedOption = props.options?.find(option => {
       if (idField) {
-        return value[idField] === option.value[idField];
+        return value[ idField ] === option.value[ idField ];
       }
       return JSON.stringify(value) === JSON.stringify(option.value);
     });
@@ -31,7 +31,7 @@ export function Select<T = unknown>(props: SelectProps<T>): ReactElement {
       markOptionAsSelected(selectedOption);
       updateInputValue(selectedOption);
     }
-  }, [value]);
+  }, [ value ]);
 
   const onSelect = (option: SelectItem<T>) => {
     updateInputValue(option);
@@ -54,7 +54,7 @@ export function Select<T = unknown>(props: SelectProps<T>): ReactElement {
           className={className({
             "open-style": open,
           })}
-          placeholder={props.placeholder || Lang.LANG.SELECT}
+          placeholder={props.placeholder || t('SELECT') as string}
           onFocus={() => setOpen(true)}
           onBlur={() => setOpen(false)}
         />
@@ -93,10 +93,10 @@ export function Select<T = unknown>(props: SelectProps<T>): ReactElement {
           <div className="option-placeholder">
             <div
               className="box"
-              style={{ backgroundImage: `url(${icons.emptyBox})` }}
+              style={{ backgroundImage: `url(${ icons.emptyBox })` }}
             />
-            <label htmlFor={Lang.LANG.NO_OPTION_FOUND}>
-              {Lang.LANG.NO_OPTION_FOUND}
+            <label htmlFor={t('NO_OPTION_FOUND') as string}>
+              {t('NO_OPTION_FOUND') as string}
             </label>
           </div>
         )}

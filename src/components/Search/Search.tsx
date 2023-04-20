@@ -1,15 +1,14 @@
-import { CSSProperties, ReactElement, useEffect, useMemo, useState } from 'react';
-import { ISearch, MultiSearch } from '../../core/models/Search';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { finalize } from 'rxjs';
+import { ISearch, ISearchFiltered } from '../../core/models/Search';
 import { SearchService } from '../../core/services/search.service';
+import { className } from '../../shared/utils/classname';
 import { DebounceTime } from '../../shared/utils/debounce';
 import './Search.scss';
-import { className } from '../../shared/utils/classname';
-import { ISearchFiltered } from '../../core/models/Search';
-import { finalize } from 'rxjs';
-import { PTBR } from '../../shared/lang/pt-br';
 import { SearchItem } from './SearchItem/SeachItem';
+import { t } from 'i18next';
 
-export function Search(props: { search: string, LANG: typeof PTBR }): ReactElement {
+export function Search(props: { search: string }): ReactElement {
   const service = new SearchService();
   const [ show, setShow ] = useState(false);
   const [ results, setResults ] = useState<ISearchFiltered>(null)
@@ -49,9 +48,9 @@ export function Search(props: { search: string, LANG: typeof PTBR }): ReactEleme
       'search-wrapper-results': true,
       show: show,
       'no-results': !results || (Object.values(results).every((list: unknown[]) => !list.length))
-    })} not-found-msg={`${ props.LANG.SEARCH_NOT_FOUND }`}>
+    })} not-found-msg={`${ t('SEARCH_NOT_FOUND') as string }`}>
       <fieldset>
-        <legend>{props.LANG.MOVIES}</legend>
+        <legend>{t('MOVIES') as string}</legend>
         <div className="list-search">
           {
             results?.movies.map((movie, index) => (
@@ -61,7 +60,7 @@ export function Search(props: { search: string, LANG: typeof PTBR }): ReactEleme
         </div>
       </fieldset>
       <fieldset>
-        <legend>{props.LANG.TV_SHOW}</legend>
+        <legend>{t('TV_SHOW') as string}</legend>
         <div className="list-search">
           {
             results?.tv.map((tv, index) => (
@@ -71,7 +70,7 @@ export function Search(props: { search: string, LANG: typeof PTBR }): ReactEleme
         </div>
       </fieldset>
       <fieldset>
-        <legend>{props.LANG.PEOPLE}</legend>
+        <legend>{t('TV_SHOW') as string}</legend>
         <div className="list-search">
           {
             results?.people.map((person, index) => (

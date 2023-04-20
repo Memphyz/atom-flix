@@ -3,7 +3,6 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { router } from "./App";
 import { Details } from "./pages/details/details";
 import { Home } from "./pages/home/home";
-import { AvaliableLangs, Lang } from "./shared/lang";
 import { Movies } from "./pages/movies/movies";
 import { TvShow } from "./pages/tvshow/tvshow";
 
@@ -12,9 +11,6 @@ export function Router(): ReactElement {
   const [ url, setUrl ] = useState<string>();
 
   useEffect(() => {
-    Lang.change(
-      (localStorage.getItem("lang") || navigator.language) as AvaliableLangs
-    );
     router.subscribe((url) => {
       if (!url || url === window.location.pathname) {
         return undefined;
@@ -28,13 +24,13 @@ export function Router(): ReactElement {
   }, []);
 
   useEffect(() => {
-    linkRef.current?.click();
+    linkRef?.current?.click();
     setTimeout(() => {
       const container = document.getElementById("root")!;
       container?.scrollTo({ top: 0 });
       container.classList.add("show");
     }, 500);
-  }, [ url ]);
+  }, [ url, linkRef ]);
 
   return (
     <>

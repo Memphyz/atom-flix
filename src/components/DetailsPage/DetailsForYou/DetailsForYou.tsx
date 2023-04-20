@@ -3,13 +3,12 @@ import { IntersectionItem } from "../../IntersectionItem/IntersectionItem";
 import { Skeleton } from "../../Skeleton/Skeleton";
 import "./DetailsForYou.scss";
 import { ReactElement, useEffect, useState } from "react";
-import { PTBR } from "../../../shared/lang/pt-br";
 import { Similar } from "../../../core/models/CommonDetails";
 import { MovieService } from "../../../core/services/movie.service";
 import { Observable } from "rxjs";
+import { t } from "i18next";
 
 export function MoviesForYou(props: {
-  LANG: typeof PTBR;
   similar: Similar;
   service: MovieService;
   getType: () => string;
@@ -47,7 +46,7 @@ export function MoviesForYou(props: {
   return (
     <div className="movies-for-you-wrapper">
       <Skeleton classElements="title-loading">
-        <h4>{props.LANG.SIMILAR}</h4>
+        <h4>{t('SIMILAR') as string}</h4>
       </Skeleton>
       <div className="similar-wrapper" id="similar-container">
         <div className="similar-container">
@@ -76,7 +75,7 @@ export function MoviesForYou(props: {
           {props.similar &&
             props.similar.total_pages !== props.similar.page && (
               <div className="see-more" onClick={fetchSimilar}>
-                <span>{props.LANG.SEE_MORE}</span>
+                <span>{t('SEE_MORE') as string}</span>
               </div>
             )}
         </div>

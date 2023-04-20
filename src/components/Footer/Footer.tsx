@@ -2,12 +2,9 @@ import i18next, { t } from 'i18next';
 import { ReactElement, useEffect, useState } from 'react';
 import { SelectItem } from '../../core/models/SelectProps';
 import { resources } from '../../i18n';
-import { AvaliableLangs } from '../../shared/lang';
-import { PTBR } from '../../shared/lang/pt-br';
 import { Select } from '../Select/Select';
 import './Footer.scss';
-
-interface ILangs { id: number, lang: typeof PTBR, ISO: AvaliableLangs }
+import { languageChange } from '../..';
 
 export function Footer(): ReactElement {
 
@@ -16,12 +13,10 @@ export function Footer(): ReactElement {
   let [ lang, setLang ] = useState<string>(i18next.language)
 
   const onLangChange = (option: SelectItem<string>): void => {
-    i18next.changeLanguage(option.value)
+    i18next.changeLanguage(option.value, () => languageChange.next(option.value));
   }
 
   useEffect(() => {
-    console.log(Object.entries(resources).map(([ lang, value ]) => new SelectItem(value.name(), lang)))
-    console.log(resources)
     const navigatorLang: string = languages.find(lang => lang.value === localStorage.getItem('lang'))?.value!;
     setLang(navigatorLang)
   }, [])

@@ -1,41 +1,34 @@
-import { createRef, CSSProperties, ReactElement, SyntheticEvent, useEffect, useState } from 'react';
+import { createRef, ReactElement, SyntheticEvent, useEffect, useState } from 'react';
+import { router } from "../../App";
 import { icons } from '../../assets/icons/icons';
 import { Navigation } from '../../core/models/Navigation';
-import { Lang } from '../../shared/lang';
-import './Header.scss';
-import { router } from "../../App";
-import { Search } from '../Search/Search';
 import { className } from '../../shared/utils/classname';
+import { Search } from '../Search/Search';
+import './Header.scss';
+import { t } from 'i18next';
 
 export function Header(props: {
   children?: ReactElement | string;
 }): ReactElement {
-  const [ LANG, setLang ] = useState(Lang.LANG);
   const [ search, setSearch ] = useState('');
   const navigations: Navigation[] = [
     {
       icon: icons.home,
-      text: LANG.HOME,
+      text: t('HOME') as string,
       link: "/",
     },
     {
       icon: icons.movie,
-      text: LANG.MOVIES,
+      text: t('MOVIES') as string,
       link: "/movies",
     },
     {
       icon: icons.tvShow,
-      text: LANG.TV_SHOW,
+      text: t('TV_SHOW') as string,
       link: "/tvshow",
     }
   ];
   const header = createRef<HTMLHeadElement>();
-
-  useEffect((): void => {
-    Lang.langListener().subscribe((lang) => {
-      setLang(lang);
-    });
-  }, []);
 
   const updateColors: () => void = (): void => {
     if (!header.current?.style) {
@@ -84,9 +77,9 @@ export function Header(props: {
         </div>
         <div className="right-container">
           <div className="search-wrapper">
-            <input type="text" onChange={updateSearch} maxLength={120} className='rounded search' placeholder={LANG.SEARCH} />
+            <input type="text" onChange={updateSearch} maxLength={120} className='rounded search' placeholder={t('SEARCH') as string} />
             <div className="search-icon"></div>
-            <Search search={search} LANG={LANG} />
+            <Search search={search} />
           </div>
         </div>
       </div>
