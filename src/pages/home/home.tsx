@@ -13,10 +13,6 @@ import { languageChange } from "../..";
 
 export function Home(): ReactElement {
 
-  useEffect(() => {
-    languageChange.subscribe(console.log)
-  }, [])
-
   return (
     <div className="main-home-content">
       <div className="banner">

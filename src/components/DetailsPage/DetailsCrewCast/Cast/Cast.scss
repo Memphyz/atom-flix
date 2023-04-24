@@ -89,6 +89,41 @@
         max-height: 378px;
         overflow: auto;
       }
+
+      .footer {
+        .externals {
+          display: flex;
+          gap: 30px;
+          justify-content: space-around;
+
+          .external-id {
+            font-size: clamp(17px, 2vw, 20px);
+            font-weight: 500;
+            display: flex;
+
+
+            a {
+              display: flex;
+              gap: 5px;
+
+              .icon {
+                width: 30px;
+                height: 30px;
+                background-position: center;
+                background-size: contain;
+              }
+
+              text-decoration: none;
+              transition: all 0.5s;
+              padding: 0px 10px;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ export function SearchItem(props: {
   backgroundLandscape: string;
   overview: string;
   vingette?: boolean
+  type?: 'tv' | 'movie' | 'person'
 }): ReactElement {
 
   const [ show, setShow ] = useState(false);
@@ -32,10 +33,10 @@ export function SearchItem(props: {
   }
 
   return (
-    <IntersectionItem onMouseOver={createPreview} onClick={() => setShow(true)} onMouseLeave={deletePreview} animation="default" className="card-search-item" style={{ backgroundImage: `url(${ props.backdround }` }}>
+    <IntersectionItem onMouseOver={createPreview} onClick={() => setShow(true)} onMouseLeave={deletePreview} animation="default" className={`card-search-item ${ props.type }${ !props.backdround ? ' placeholder' : '' }`} style={props.backdround ? { backgroundImage: `url(${ props.backdround }` } : null}>
       <label htmlFor={props.title}>{props.title}</label>
       <Modal open={show} onClose={() => setShow(false)} >
-        <div className="search-details" style={{ backgroundImage: `url(https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces${ props.backgroundLandscape || props.backdround })` }}>
+        <div className={`search-details${ props.backgroundLandscape || props.backdround ? '' : ' placeholder' } ${ props.type }`} style={props.backgroundLandscape || props.backdround ? { backgroundImage: `url(https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces${ props.backgroundLandscape || props.backdround })` } : null}>
           <button>{t('MORE_DETAILS') as string}</button>
           <div className="search-overview">
             <span>

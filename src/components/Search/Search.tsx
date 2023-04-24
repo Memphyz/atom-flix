@@ -9,7 +9,7 @@ import { SearchItem } from './SearchItem/SeachItem';
 import { t } from 'i18next';
 import { MultiSearch } from '../../core/models/Search';
 
-export function Search(props: { search: string }): ReactElement {
+export function Search(props: { search: string, onCloseEvent: () => void }): ReactElement {
   const service = new SearchService();
   const [ show, setShow ] = useState(false);
   const [ content, setContent ] = useState<keyof ISearchFiltered>('movies');
@@ -24,7 +24,12 @@ export function Search(props: { search: string }): ReactElement {
     service.search({ page: 1, query }).pipe(finalize(() => {
       blur(!query);
       setShow(!!query);
-    })).subscribe((multi) => setResults(ISearch.filter(multi.results)))
+    })).subscribe((multi) => {
+      const result = ISearch.filter(multi.results)
+      setResults(result);
+      console.log(props)
+      setContent(Object.keys(result).find(key => result[ key ]?.length) as any as keyof ISearchFiltered)
+    })
   }
 
   function blur(remove = false): void {
@@ -56,7 +61,17 @@ export function Search(props: { search: string }): ReactElement {
       [ t('PEOPLE') ]: 'people'
     };
     setContent(contents[ target.outerText ])
+  }
 
+  function mapItems(): ReactElement {
+    return <>
+      {results[ content ]?.map((data: MultiSearch, index) => {
+        const suffix = (content === 'people' ? data[ 'profile_path' ] : data.poster_path)
+        return (
+          <SearchItem type={data.media_type} backgroundLandscape={data.backdrop_path} overview={content === 'people' ? null : data.overview} title={data[ content === 'movies' ? 'title' : 'name' ]} key={index} backdround={suffix ? `https://www.themoviedb.org/t/p/w220_and_h330_face${ suffix }` : undefined} />
+        )
+      })}
+    </>
   }
 
   return (
@@ -65,6 +80,7 @@ export function Search(props: { search: string }): ReactElement {
       show: show,
       'no-results': !results || (Object.values(results).every((list: unknown[]) => !list.length))
     })} not-found-msg={`${ t('SEARCH_NOT_FOUND') as string }`}>
+      <div className="close-search-container" onClick={() => props.onCloseEvent()} />
       {results && <div className="content-search-selector">
         <div className="results-content">
           <div className="type-result-header">
@@ -83,9 +99,7 @@ export function Search(props: { search: string }): ReactElement {
         </div>
         <div className="content-search-wrapper">
           <div className="list-search" search-item-type={content} >
-            {results[ content ]?.map((data: MultiSearch, index) => (
-              <SearchItem backgroundLandscape={data.backdrop_path} overview={content === 'people' ? null : data.overview} title={data[ content === 'movies' ? 'title' : 'name' ]} key={index} backdround={`https://www.themoviedb.org/t/p/w220_and_h330_face${ content === 'people' ? data[ 'profile_path' ] : data.poster_path }`} />
-            ))}
+            {mapItems()}
           </div>
         </div>
       </div>}

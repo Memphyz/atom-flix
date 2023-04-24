@@ -14,6 +14,36 @@
   &.show {
     top: 0vh;
 
+    .close-search-container {
+      width: 45px;
+      height: 45px;
+      border-radius: 90px;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      background-color: white;
+      transition: all 0.5s;
+
+      &:hover::before {
+        background-color: var(--black-200);
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        top: calc(50% - 15px);
+        left: calc(50% - 15px);
+        background-color: var(--black-400);
+        mask-image: url(./../../assets/icons/close.svg);
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        mask-position: center;
+      }
+    }
+
     .content-search-selector {
       position: relative;
       top: 65px;

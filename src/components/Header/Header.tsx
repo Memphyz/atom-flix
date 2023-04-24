@@ -11,6 +11,7 @@ export function Header(props: {
   children?: ReactElement | string;
 }): ReactElement {
   const [ search, setSearch ] = useState('');
+  const inputRef = createRef<HTMLInputElement>();
   const navigations: Navigation[] = [
     {
       icon: icons.home,
@@ -52,6 +53,10 @@ export function Header(props: {
     setSearch(event.target[ 'value' ])
   }
 
+  function onCloseSearch(): void {
+    inputRef.current.value = '';
+    setSearch('');
+  }
 
   return (
     <header ref={header} className={className({
@@ -77,9 +82,9 @@ export function Header(props: {
         </div>
         <div className="right-container">
           <div className="search-wrapper">
-            <input type="text" onChange={updateSearch} maxLength={120} className='rounded search' placeholder={t('SEARCH') as string} />
+            <input ref={inputRef} type="text" onChange={updateSearch} maxLength={120} className='rounded search' placeholder={t('SEARCH') as string} />
             <div className="search-icon"></div>
-            <Search search={search} />
+            <Search search={search} onCloseEvent={onCloseSearch} />
           </div>
         </div>
       </div>

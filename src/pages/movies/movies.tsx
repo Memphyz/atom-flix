@@ -19,13 +19,6 @@ export function Movies(): ReactElement {
     movieService.getLastest().subscribe(setLatest)
   }, [ movieService ]);
 
-  useEffect(() => {
-    if (!latest) {
-      return undefined;
-    }
-    movieService.getVideos(latest.id).subscribe(console.log)
-  }, [ latest, movieService ])
-
   return (
     <div className="main-home-content">
       <Skeleton activated={!latest} classElements='latest-wrapper'>
