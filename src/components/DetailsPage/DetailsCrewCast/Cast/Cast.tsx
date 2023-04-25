@@ -62,7 +62,7 @@ export function CastDetails(props: { cast: Cast }): ReactElement {
         </div>}
       </Modal>
       <figure>
-        <img src={`https://www.themoviedb.org/t/p/w138_and_h175_face${ props.cast.profile_path }`} alt={`cast from ${ props.cast.name }`} loading="lazy" decoding="async" />
+        {props.cast.profile_path ? <img src={`https://www.themoviedb.org/t/p/w138_and_h175_face${ props.cast.profile_path }`} alt={`cast from ${ props.cast.name }`} loading="lazy" decoding="async" /> : <div className="profile-placeholder" />}
       </figure>
       <div className="cast-info-wrapper">
         <label className="name">{props.cast.name}</label>
