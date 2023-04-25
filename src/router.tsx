@@ -9,6 +9,7 @@ import { TvShow } from "./pages/tvshow/tvshow";
 export function Router(): ReactElement {
   const linkRef = createRef<HTMLAnchorElement>();
   const [ url, setUrl ] = useState<string>();
+  const [ cache, setCache ] = useState<{ url: string, anchor: HTMLAnchorElement }>();
 
   useEffect(() => {
     router.subscribe((url) => {
@@ -25,6 +26,10 @@ export function Router(): ReactElement {
 
   useEffect(() => {
     linkRef?.current?.click();
+    if (cache?.url === url && cache?.anchor) {
+      return undefined;
+    }
+    setCache({ url, anchor: linkRef?.current });
     setTimeout(() => {
       const container = document.getElementById("root")!;
       container?.scrollTo({ top: 0 });

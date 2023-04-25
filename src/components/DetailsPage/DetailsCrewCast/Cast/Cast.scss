@@ -55,11 +55,11 @@
     background-color: var(--black-300);
     max-width: 1368px;
     max-height: 450px;
-    overflow: auto;
 
     @media screen and (max-width: 768px) {
       flex-direction: column;
       max-height: calc(100vh - 40px);
+      overflow: auto;
 
       img {
         min-width: 100%;
@@ -78,23 +78,55 @@
       height: 100%;
     }
 
+
     .info-wrapper {
       padding: 10px 20px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       gap: 20px;
 
-      label {
-        font-size: clamp(15px, 2vw, 20px);
-        max-height: 378px;
+      @media screen and (min-width: 768px) {
+        width: calc(100% - 300px);
         overflow: auto;
       }
 
+      .main-content-cast-modal {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        label {
+          font-size: clamp(15px, 2vw, 20px);
+          max-height: 378px;
+          overflow: auto;
+        }
+
+
+      }
+
       .footer {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
         .externals {
           display: flex;
           gap: 30px;
-          justify-content: space-around;
+          position: relative;
+          flex-wrap: wrap;
+
+          @media screen and (min-width: 768px) {
+            justify-content: space-around;
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            border: 1px dashed var(--black-100);
+            width: 100%;
+            bottom: calc(100% + 20px);
+          }
 
           .external-id {
             font-size: clamp(17px, 2vw, 20px);
@@ -120,6 +152,32 @@
               &:hover {
                 text-decoration: underline;
               }
+            }
+          }
+        }
+
+        .combined-credits {
+          overflow-x: auto;
+
+          @media screen and (max-width: 768px) {
+            max-height: 600px;
+
+            h3 {
+              position: sticky;
+              top: 0px;
+              z-index: 10;
+              background-color: var(--black-300);
+            }
+          }
+
+          .combined-credits-list {
+            display: flex;
+            gap: 15px;
+
+            @media screen and (max-width: 768px) {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, 160px);
+              justify-content: center;
             }
           }
         }

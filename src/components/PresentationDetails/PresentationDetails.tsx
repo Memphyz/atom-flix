@@ -26,12 +26,12 @@ export function PresentationDetails(props: {
   placeholder?: string;
 }): ReactElement {
   const container = createRef<HTMLDivElement>();
-  const [imgIndex, setImageIndex] = useState(0);
-  const [isLoading, setLoading] = useState(false);
-  const [stopInterval, setStopInterval] = useState(false);
-  const [modals, setModals] = useState<boolean[]>([]);
-  const [loadingImages, setLoadingImage] = useState<boolean[]>([]);
-  const [showControls, setShowControls] = useState({
+  const [ imgIndex, setImageIndex ] = useState(0);
+  const [ isLoading, setLoading ] = useState(false);
+  const [ stopInterval, setStopInterval ] = useState(false);
+  const [ modals, setModals ] = useState<boolean[]>([]);
+  const [ loadingImages, setLoadingImage ] = useState<boolean[]>([]);
+  const [ showControls, setShowControls ] = useState({
     left: false,
     right: false,
   });
@@ -41,7 +41,7 @@ export function PresentationDetails(props: {
     load();
   }, []);
 
-  useEffect(load, [props.data, props.placeholder]);
+  useEffect(load, [ props.data, props.placeholder ]);
 
   useEffect(() => {
     if (!props.data || props.data.length <= 1) {
@@ -70,7 +70,7 @@ export function PresentationDetails(props: {
         });
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [container]);
+  }, [ container ]);
 
   function load(): void {
     setModals(
@@ -78,7 +78,7 @@ export function PresentationDetails(props: {
         ?.filter((data) => !isBackdrop(data))
         .map((_details, i) => false)
     );
-    if (props.data) {
+    if (props.data?.length) {
       setLoadingImage(
         Array.from(props.data.filter((data) => isBackdrop(data))).map(
           () => false
@@ -86,7 +86,7 @@ export function PresentationDetails(props: {
       );
       return undefined;
     } else if (props.placeholder || props.placeholderSkeleton) {
-      setLoadingImage([false]);
+      setLoadingImage([ false ]);
     }
   }
 
@@ -130,7 +130,7 @@ export function PresentationDetails(props: {
   }
 
   function shouldShowControls(event: SyntheticEvent): void {
-    const positionX: number = event.nativeEvent["pageX"];
+    const positionX: number = event.nativeEvent[ "pageX" ];
     const scrollContainer = container?.current!;
     const main = document.getElementById("main-container")!;
     const root = document.getElementById("root")!;
@@ -163,85 +163,82 @@ export function PresentationDetails(props: {
         <div className="presentations" ref={container}>
           {props.data.length
             ? props.data.map((videoImage, i) => (
-                <figure
-                  key={i}
-                  className={className({
-                    movie: !isBackdrop(videoImage),
-                    "skeleton-figure": !loadingImages[i],
-                  })}
-                >
-                  {!isBackdrop(videoImage) && (
-                    <Modal
-                      open={modals[i]}
-                      onClose={() => openVideo(undefined!)}
-                    >
-                      <div className="frame">
-                        <iframe
-                          src={`https://www.youtube.com/embed/${
-                            getVideo(videoImage).key
+              <figure
+                key={i}
+                className={className({
+                  movie: !isBackdrop(videoImage),
+                  "skeleton-figure": loadingImages.length && !loadingImages[ i ],
+                })}
+              >
+                {!isBackdrop(videoImage) && (
+                  <Modal
+                    open={modals[ i ]}
+                    onClose={() => openVideo(undefined!)}
+                  >
+                    <div className="frame">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${ getVideo(videoImage).key
                           }?autoplay=1&modestbranding=0&fs=1&autohide=1`}
-                          allowFullScreen={false}
-                          title={getVideo(videoImage).name}
-                          id={getVideo(videoImage).id}
-                          loading="lazy"
-                          allow="accelerometer; autoplay;
+                        allowFullScreen={false}
+                        title={getVideo(videoImage).name}
+                        id={getVideo(videoImage).id}
+                        loading="lazy"
+                        allow="accelerometer; autoplay;
                   encrypted-media; gyroscope;
                   picture-in-picture; fullscreen"
-                        ></iframe>
-                      </div>
-                    </Modal>
-                  )}
+                      ></iframe>
+                    </div>
+                  </Modal>
+                )}
+                <img
+                  onLoad={() => {
+                    setLoadingImage([
+                      ...loadingImages.map((value, index) =>
+                        index === i ? true : value
+                      ),
+                    ]);
+                  }}
+                  src={
+                    isBackdrop(videoImage)
+                      ? `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${ getBackdrop(videoImage).file_path
+                      }`
+                      : `https://img.youtube.com/vi/${ getVideo(videoImage).key
+                      }/maxresdefault.jpg`
+                  }
+                  loading="lazy"
+                  decoding="async"
+                  onClick={
+                    !isBackdrop(videoImage) ? () => openVideo(i) : noop
+                  }
+                />
+                {!isBackdrop(videoImage) && (
+                  <div onClick={() => openVideo(i)} className="play-btn" />
+                )}
+              </figure>
+            ))
+            : (props.placeholder || props.placeholderSkeleton) && (
+              <Skeleton
+                awaysRenderChild={true}
+                classElements="presentations"
+                activated={!loadingImages[ 0 ]}
+              >
+                <figure
+                  className={className({
+                    "skeleton-figure": !loadingImages[ 0 ],
+                  })}
+                >
                   <img
                     onLoad={() => {
-                      setLoadingImage([
-                        ...loadingImages.map((value, index) =>
-                          index === i ? true : value
-                        ),
-                      ]);
+                      setLoadingImage([ true ]);
                     }}
-                    src={
-                      isBackdrop(videoImage)
-                        ? `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${
-                            getBackdrop(videoImage).file_path
-                          }`
-                        : `https://img.youtube.com/vi/${
-                            getVideo(videoImage).key
-                          }/maxresdefault.jpg`
-                    }
+                    id="placeholder-image-presentation"
+                    src={props.placeholder}
                     loading="lazy"
                     decoding="async"
-                    onClick={
-                      !isBackdrop(videoImage) ? () => openVideo(i) : noop
-                    }
                   />
-                  {!isBackdrop(videoImage) && (
-                    <div onClick={() => openVideo(i)} className="play-btn" />
-                  )}
                 </figure>
-              ))
-            : (props.placeholder || props.placeholderSkeleton) && (
-                <Skeleton
-                  awaysRenderChild={true}
-                  classElements="presentations"
-                  activated={!loadingImages[0]}
-                >
-                  <figure
-                    className={className({
-                      "skeleton-figure": !loadingImages[0],
-                    })}
-                  >
-                    <img
-                      onLoad={() => {
-                        setLoadingImage([true]);
-                      }}
-                      id="placeholder-image-presentation"
-                      src={props.placeholder}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </figure>
-                </Skeleton>
-              )}
+              </Skeleton>
+            )}
         </div>
         {props.data?.length > 1 && (
           <>

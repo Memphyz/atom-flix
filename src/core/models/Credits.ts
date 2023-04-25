@@ -11,7 +11,9 @@ export interface Cast {
   character: string;
   credit_id: string;
   order: number;
+
 }
+
 
 export interface Crew {
   adult: boolean;

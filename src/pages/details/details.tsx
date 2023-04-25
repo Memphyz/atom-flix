@@ -37,7 +37,7 @@ export function Details(): ReactElement {
   useEffect(() => {
     document.getElementById("scroll-to-top")?.click();
     new SERVICE_CONFIG[ getType() ]().getById(getId()).subscribe(convert);
-  }, []);
+  }, [ location.pathname ]);
 
   useEffect(() => {
     if (!commonDetails) {

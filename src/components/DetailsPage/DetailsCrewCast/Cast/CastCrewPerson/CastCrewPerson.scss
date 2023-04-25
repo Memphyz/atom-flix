@@ -1,0 +1,47 @@
+.details-combined-wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+
+  .info-combined-cast {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    position: relative;
+    gap: 10px;
+    height: 100%;
+
+    label {
+      font-weight: 500;
+      color: var(--black-100);
+      filter: brightness(1.5);
+    }
+
+    .overview-combined-cast {
+      max-height: 170px;
+      overflow: auto;
+      font-weight: 400;
+      color: #fff5f5;
+    }
+  }
+
+  .details-combined-cast {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5803921569);
+      height: 100%;
+    }
+  }
+
+}

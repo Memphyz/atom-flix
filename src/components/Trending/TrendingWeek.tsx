@@ -13,7 +13,7 @@ export function TrendingWeek(props: {
   const service = new TrendingService();
   return (
     (!props.orientation || props.orientation === 'portait') ? <CardList<ITrending>
-      title={props.title || 'title'}
+      title={props.title || props.mediaType === 'tv' ? 'name' : 'title'}
       backgroundImageSuffix="poster_path"
       width={190}
       height={280}
@@ -24,7 +24,7 @@ export function TrendingWeek(props: {
       listContainerId={props.listContainerId}
     />
       : <CardList<ITrending>
-        title={props.title || 'title'}
+        title={props.title || props.mediaType === 'tv' ? 'name' : 'title'}
         backgroundImageSuffix="backdrop_path"
         width={430}
         height={243}

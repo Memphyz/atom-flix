@@ -1,17 +1,19 @@
-import { CSSProperties, ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
+import { logos } from "../../../../assets/icons/icons";
 import { Cast } from "../../../../core/models/Credits";
+import { Cast as CombinedCast } from "../../../../core/models/CombinedCredits";
 import { Person } from "../../../../core/models/Person";
 import { PersonService } from "../../../../core/services/person.service";
 import { DateUtils } from "../../../../shared/utils/date";
+import { ItemCard } from "../../../Card/Card";
 import { Modal } from "../../../Modal/Modal";
 import './Cast.scss';
-import i18next from "i18next";
 import { CastUtils, ExternalLinkMap } from "./CastUtils";
-import { icons, logos } from "../../../../assets/icons/icons";
+import { t } from "i18next";
+import { CastCrewPerson } from "./CastCrewPerson/CastCrewPerson";
 
 export function CastDetails(props: { cast: Cast }): ReactElement {
   const [ viewDetails, setViewDetails ] = useState(false);
-  const [ cacheDetails, setCacheDetails ] = useState<Record<string, Person>>({});
   const [ details, setDetails ] = useState<Person>();
   const [ externals, setExternals ] = useState<ExternalLinkMap[]>([]);
   const service = new PersonService();
@@ -21,16 +23,7 @@ export function CastDetails(props: { cast: Cast }): ReactElement {
   }, [])
 
   function findPerson(view = true): void {
-    const cached = cacheDetails && cacheDetails[ i18next.language ];
-    if (cached) {
-      setViewDetails(view);
-      setDetails(cached);
-      return undefined;
-    }
     service.getDetails(props.cast.id).subscribe((person): void => {
-      const newCache = cacheDetails;
-      newCache[ i18next.language ] = person;
-      setCacheDetails(newCache);
       setDetails(person);
       setViewDetails(view);
       setExternals(CastUtils.createExternalLinks(person))
@@ -43,13 +36,23 @@ export function CastDetails(props: { cast: Cast }): ReactElement {
         {details && <div className="details-modal">
           <img src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${ details.profile_path }`} alt={`${ details.name } profile img`} />
           <div className="info-wrapper">
-            <h2>{details.name} - ({DateUtils.formatDate(details.birthday)}{details.deathday ? ` - ${ DateUtils.formatDate(details.deathday) }` : ''})</h2>
-            <label htmlFor={details.biography || '-'}>{details.biography || '-'}</label>
+            <div className="main-content-cast-modal">
+              <h2>{details.name} - ({DateUtils.formatDate(details.birthday)}{details.deathday ? ` - ${ DateUtils.formatDate(details.deathday) }` : ''})</h2>
+              <label htmlFor={details.biography || '-'}>{details.biography || '-'}</label>
+            </div>
             <div className="footer">
+              {(details.combined_credits?.cast?.length || details.combined_credits?.crew?.length) && <div className="combined-credits">
+                {details.combined_credits.cast?.length && <>
+                  <h3>{t('CAST') as string}</h3>
+                  <div className="combined-credits-list">
+                    {details.combined_credits.cast.map((cast, icast) => <CastCrewPerson onclick={() => setViewDetails(false)} cast={cast} media_type={cast.media_type as any} subtitle={cast.character} key={icast} title={cast.media_type === 'movie' ? 'title' : 'name'} />)}
+                  </div>
+                </>}
+              </div>}
               {externals?.length ? <div className="externals">
-                {externals.map((external) => (
-                  <div className={`external-id ${ external.type }`}>
-                    <a target="_parent" rel="noreferrer" href={external.link}><div className="icon" style={{ backgroundImage: `url(${ logos[ external.type ] })` }} />
+                {externals.map((external, i) => (
+                  <div key={i} className={`external-id ${ external.type }`}>
+                    <a href={external.link} target="_blank" rel="noreferrer" onClick={() => window.open(external.link)}><div className="icon" style={{ backgroundImage: `url(${ logos[ external.type ] })` }} />
                       <span>{external.type[ 0 ].toLocaleUpperCase() + external.type.slice(1)}</span></a>
                   </div>
                 ))}

@@ -1,3 +1,4 @@
+import { CombinedCredits } from "./CombinedCredits"
 import { Credits } from "./Credits"
 import { ExternalIDs } from "./ExternalIds"
 
@@ -16,7 +17,7 @@ export interface Person {
   place_of_birth: string
   popularity: number
   profile_path: string
-  combined_credits: Omit<Credits, 'id'>
+  combined_credits: CombinedCredits;
   external_ids: ExternalIDs
   images: Images
   tagged_images: TaggedImages
