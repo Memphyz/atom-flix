@@ -1,0 +1,65 @@
+.combined-credits {
+  overflow-x: auto;
+
+  @media screen and (max-width: 768px) {
+    max-height: 600px;
+    transition: all 0.5s;
+    overflow-y: hidden;
+
+    &.show {
+      overflow-y: auto;
+
+      .collapse-combined::after {
+        transform: rotate(90deg);
+      }
+    }
+
+    h3 {
+      position: sticky;
+      top: 0px;
+      z-index: 10;
+      background-color: var(--black-300);
+    }
+
+    .collapse-combined {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+
+      &::after {
+        content: '';
+        mask-image: url(./../../../../../assets/icons/chevron-right.svg);
+        position: absolute;
+        mask-size: contain;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        width: 20px;
+        height: 20px;
+        background-color: white;
+        top: 10px;
+        right: 0;
+        z-index: 10;
+        transition: all 0.5s;
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  .combined-credits-list {
+    display: flex;
+    gap: 15px;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(auto-fill, 160px);
+      justify-content: center;
+      max-height: 0px;
+      transition: all 0.5s;
+      display: none;
+
+      &.show {
+        display: grid;
+        max-height: 600px;
+      }
+    }
+  }
+}

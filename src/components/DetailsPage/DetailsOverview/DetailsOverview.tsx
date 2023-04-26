@@ -39,7 +39,7 @@ export function DetailsOverview(props: {
       </div>
       <div className="title-overview">
         <Skeleton classElements="title">
-          <h4 className="title">{props.commonDetails?.name}</h4>
+          <h4 className="title">{props.commonDetails?.name || props.commonDetails?.original_name || props.commonDetails?.title || props.commonDetails?.original_title}</h4>
         </Skeleton>
         <div className="year-time-detail">
           <Skeleton classElements="duration">

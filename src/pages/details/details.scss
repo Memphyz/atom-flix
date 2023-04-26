@@ -9,9 +9,14 @@
   @media screen and (max-width: 1990px) {
     padding: 0px 30px;
   }
+
   .movie-main-details {
     display: flex;
     gap: 30px;
     flex-wrap: wrap;
+
+    @media screen and (max-width: 1835px) {
+      justify-content: center;
+    }
   }
 }

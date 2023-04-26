@@ -3,6 +3,8 @@
   height: 100%;
   border-radius: 6px;
   overflow: hidden;
+  max-height: 230px;
+  max-width: 420px;
 
   .info-combined-cast {
     display: flex;
@@ -44,4 +46,12 @@
     }
   }
 
+}
+
+.default.visible.card {
+  max-width: 160px;
+}
+
+.default.visible.card.details {
+  max-width: 420px;
 }

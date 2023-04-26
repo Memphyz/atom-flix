@@ -16,6 +16,7 @@ export function Modal(props: {
   open: boolean;
   children?: ReactElement | string;
   onClose?: () => void;
+  onOpen?: () => void
 }): ReactElement {
   const [ isOpen, setOpen ] = useState(false);
   const [ isClose, setClose ] = useState(false);
@@ -31,6 +32,7 @@ export function Modal(props: {
       setCanHide(true)
     }, WAIT_TIME * 10);
     if (props.open) {
+      props.onOpen && props.onOpen();
       setOpen(props.open);
       return undefined;
     }
@@ -38,6 +40,12 @@ export function Modal(props: {
       setOpen(props.open);
     }, WAIT_TIME);
   }, [ props.open ]);
+
+  useEffect(() => {
+    if (isOpen !== props.open) {
+      setOpen(props.open)
+    }
+  }, [ isOpen ])
 
   function hide(): void {
     setClose(true);

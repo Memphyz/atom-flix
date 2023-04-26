@@ -1,16 +1,16 @@
-import { ReactElement, useEffect, useState } from "react";
+import { t } from "i18next";
+import { ReactElement, useState } from "react";
 import { logos } from "../../../../assets/icons/icons";
 import { Cast } from "../../../../core/models/Credits";
-import { Cast as CombinedCast } from "../../../../core/models/CombinedCredits";
 import { Person } from "../../../../core/models/Person";
 import { PersonService } from "../../../../core/services/person.service";
 import { DateUtils } from "../../../../shared/utils/date";
-import { ItemCard } from "../../../Card/Card";
 import { Modal } from "../../../Modal/Modal";
 import './Cast.scss';
-import { CastUtils, ExternalLinkMap } from "./CastUtils";
-import { t } from "i18next";
+import { CastCrewList } from "./CastCrewList/CastCrewList";
 import { CastCrewPerson } from "./CastCrewPerson/CastCrewPerson";
+import { CastUtils, ExternalLinkMap } from "./CastUtils";
+import { ProfilePresentations } from "./ProfilePresentations/ProfilePresentations";
 
 export function CastDetails(props: { cast: Cast }): ReactElement {
   const [ viewDetails, setViewDetails ] = useState(false);
@@ -18,11 +18,12 @@ export function CastDetails(props: { cast: Cast }): ReactElement {
   const [ externals, setExternals ] = useState<ExternalLinkMap[]>([]);
   const service = new PersonService();
 
-  useEffect(() => {
-    findPerson(viewDetails);
-  }, [])
-
   function findPerson(view = true): void {
+    if (details) {
+      setDetails(details);
+      setViewDetails(view);
+      return undefined;
+    }
     service.getDetails(props.cast.id).subscribe((person): void => {
       setDetails(person);
       setViewDetails(view);
@@ -34,21 +35,15 @@ export function CastDetails(props: { cast: Cast }): ReactElement {
     <div className="cast-item" onClick={() => findPerson()}>
       <Modal open={viewDetails} onClose={() => setViewDetails(false)}>
         {details && <div className="details-modal">
-          <img src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${ details.profile_path }`} alt={`${ details.name } profile img`} />
+          <ProfilePresentations {...details} />
           <div className="info-wrapper">
             <div className="main-content-cast-modal">
               <h2>{details.name} - ({DateUtils.formatDate(details.birthday)}{details.deathday ? ` - ${ DateUtils.formatDate(details.deathday) }` : ''})</h2>
               <label htmlFor={details.biography || '-'}>{details.biography || '-'}</label>
             </div>
             <div className="footer">
-              {(details.combined_credits?.cast?.length || details.combined_credits?.crew?.length) && <div className="combined-credits">
-                {details.combined_credits.cast?.length && <>
-                  <h3>{t('CAST') as string}</h3>
-                  <div className="combined-credits-list">
-                    {details.combined_credits.cast.map((cast, icast) => <CastCrewPerson onclick={() => setViewDetails(false)} cast={cast} media_type={cast.media_type as any} subtitle={cast.character} key={icast} title={cast.media_type === 'movie' ? 'title' : 'name'} />)}
-                  </div>
-                </>}
-              </div>}
+              <CastCrewList data={details.combined_credits.cast} type="cast" setViewDetails={setViewDetails} />
+              <CastCrewList data={details.combined_credits.crew} type="crew" setViewDetails={setViewDetails} />
               {externals?.length ? <div className="externals">
                 {externals.map((external, i) => (
                   <div key={i} className={`external-id ${ external.type }`}>

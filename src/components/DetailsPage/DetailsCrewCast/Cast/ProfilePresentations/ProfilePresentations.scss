@@ -1,0 +1,31 @@
+.details-modal > .profile-images-wrapper {
+  .presentation-images-container {
+    display: flex;
+    overflow-x: hidden;
+
+    @media screen and (max-width: 768px) {
+
+      > div {
+        width: calc(100vw - 40px);
+        height: 80vw;
+        background-size: contain;
+        background-repeat: no-repeat;
+        display: flex;
+        background-position: center;
+        flex-shrink: 0;
+        flex-grow: 0;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      max-width: 300px;
+
+      img {
+        min-width: 300px;
+        max-height: 450px;
+        height: 100%;
+      }
+    }
+
+  }
+}
