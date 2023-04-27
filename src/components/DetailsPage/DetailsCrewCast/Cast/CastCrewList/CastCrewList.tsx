@@ -9,7 +9,7 @@ export function CastCrewList(props: { data: (Crew | Cast)[], type: 'crew' | 'cas
 
   const [ show, setShow ] = useState(false);
 
-  return (props.data?.length) && <div className={className({
+  return (props.data?.length) ? <div className={className({
     'combined-credits': true,
     show
   })}>
@@ -22,5 +22,5 @@ export function CastCrewList(props: { data: (Crew | Cast)[], type: 'crew' | 'cas
     })}>
       {props.data.map((cast, icast) => <CastCrewPerson onclick={() => props.setViewDetails(false)} cast={cast} media_type={cast.media_type as any} subtitle={props.type === 'cast' ? cast[ 'character' ] : cast[ 'department' ]} key={icast} title={cast.media_type === 'movie' ? 'title' : 'name'} />)}
     </div>
-  </div>
+  </div> : null
 }

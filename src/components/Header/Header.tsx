@@ -6,6 +6,7 @@ import { className } from '../../shared/utils/classname';
 import { Search } from '../Search/Search';
 import './Header.scss';
 import { t } from 'i18next';
+import { MobileNav } from './mobile-nav/MobileNav';
 
 export function Header(props: {
   children?: ReactElement | string;
@@ -17,16 +18,19 @@ export function Header(props: {
       icon: icons.home,
       text: t('HOME') as string,
       link: "/",
+      order: 1
     },
     {
       icon: icons.movie,
       text: t('MOVIES') as string,
       link: "/movies",
+      order: 0
     },
     {
       icon: icons.tvShow,
       text: t('TV_SHOW') as string,
       link: "/tvshow",
+      order: 2
     }
   ];
   const header = createRef<HTMLHeadElement>();
@@ -70,7 +74,7 @@ export function Header(props: {
               AtomFlix
             </label>
           </div>
-          {navigations.map((nav, i) => (
+          {window.innerWidth > 768 ? navigations.map((nav, i) => (
             <div className="item" key={i} onClick={() => router.next(nav.link)}>
               <div
                 className="icon"
@@ -78,7 +82,7 @@ export function Header(props: {
               />
               <label htmlFor={nav.text}>{nav.text}</label>
             </div>
-          ))}
+          )) : <MobileNav navigations={navigations} router={router} />}
         </div>
         <div className="right-container">
           <div className="search-wrapper">

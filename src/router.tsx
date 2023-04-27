@@ -26,12 +26,13 @@ export function Router(): ReactElement {
 
   useEffect(() => {
     linkRef?.current?.click();
+    const container = document.getElementById("root")!;
     if (cache?.url === url && cache?.anchor) {
+      !container.classList.contains('show') && container.classList.add("show");
       return undefined;
     }
     setCache({ url, anchor: linkRef?.current });
     setTimeout(() => {
-      const container = document.getElementById("root")!;
       container?.scrollTo({ top: 0 });
       container.classList.add("show");
     }, 500);

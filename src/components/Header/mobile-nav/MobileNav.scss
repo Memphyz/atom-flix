@@ -1,0 +1,126 @@
+$bottom-spacing: 30px;
+
+.mobile-component-wrapper {
+  position: fixed;
+  bottom: -$bottom-spacing *2.5;
+  height: 60px;
+  left: calc(50% - (290.77px / 2));
+  max-width: calc(100% - 60px);
+  background-color: var(--black-300);
+  border-radius: 100px;
+  border: 2px solid var(--brand-color-1);
+  transition: all 0.5s;
+
+  &.show {
+    bottom: $bottom-spacing;
+  }
+
+  .items-list-wrapper {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px;
+
+    .item-mobile {
+      gap: 5px;
+      height: 45px;
+      align-items: center;
+      padding: 0px 15px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &:first-child {
+        order: 1;
+        position: relative;
+        background-color: var(--black-300);
+        padding: 10px 10px;
+        height: 68px;
+        width: 68px;
+        border-radius: 100px;
+        border: 2px solid red;
+
+        &::after {
+          content: '';
+          position: absolute;
+          mask-image: url(./../../../assets/icons/circle-outline.svg);
+          mask-repeat: no-repeat;
+          mask-size: 85px;
+          mask-position: center;
+          background: linear-gradient(90deg, var(--brand-color-1) 0%, var(--brand-color-4) 90%);
+          width: 68px;
+          height: 68px;
+          animation: rotating 5s infinite;
+        }
+
+        @keyframes rotating {
+          from {
+            transform: rotate(0deg);
+          }
+
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .icon {
+          background-image: linear-gradient(90deg, var(--brand-color-1) 0%, var(--brand-color-4) 90%);
+          mask-image: url(./../../../assets/logo/logo-without-name.svg) !important;
+          width: 40px;
+          height: 40px;
+          position: relative;
+          left: 2px;
+        }
+
+        label {
+          display: none;
+        }
+      }
+
+      label {
+        overflow: hidden;
+        max-height: 0px;
+        display: flex;
+        transition: max-height 0.5s;
+        visibility: none;
+      }
+
+      * {
+        cursor: pointer;
+        transition: all 0.5;
+      }
+
+      &.show-details {
+        label {
+          max-height: 100px;
+          visibility: visible;
+        }
+      }
+
+      &:hover {
+        color: var(--black-100);
+
+        .icon {
+          background: linear-gradient(90deg, var(--brand-color-1) 0%, var(--brand-color-4) 90%);
+        }
+
+        label {
+          visibility: visible;
+          max-height: 100px;
+        }
+      }
+
+      .icon {
+        width: 20px;
+        height: 20px;
+        margin: 0 auto;
+        background-color: white;
+        mask-size: cover;
+        mask-repeat: no-repeat;
+        mask-position: center;
+      }
+    }
+  }
+}

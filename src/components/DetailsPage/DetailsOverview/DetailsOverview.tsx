@@ -60,7 +60,7 @@ export function DetailsOverview(props: {
         <h4 className="description-title">{t('DESCRIPTION') as string}</h4>
         <Skeleton classElements="overview">
           <span className="overview">
-            &nbsp;{props.commonDetails?.overview}
+            &nbsp;{props.commonDetails?.overview || '-'}
           </span>
         </Skeleton>
         <DetailsCrewCast {...props} />
