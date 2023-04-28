@@ -1,12 +1,10 @@
 import { ReactElement, useEffect, useState } from 'react';
-import './MobileNav.scss';
-import { Navigation } from '../../../core/models/Navigation';
 import { BehaviorSubject } from 'rxjs';
+import { Navigation } from '../../../core/models/Navigation';
 import { className } from '../../../shared/utils/classname';
-import { isMobile } from '../../..';
-import { isMobileBrowser } from '../../../shared/utils/regex';
+import './MobileNav.scss';
 
-const BOTTOM_TIMEOUT = 4000;
+const BOTTOM_TIMEOUT = 10000;
 
 export function MobileNav(props: {
   navigations: Navigation[],
@@ -16,19 +14,22 @@ export function MobileNav(props: {
   const [ timeoutId, setTimeoutId ] = useState(0);
 
   useEffect(() => {
-    const root = document.getElementById('main-container') as HTMLDivElement;
-    if (isMobileBrowser()) {
-      root.ontouchstart = showWrapper;
-      root.ontouchend = hideWrapper;
-      return undefined;
-    }
-    root.onmouseenter = showWrapper;
-    root.onmouseleave = hideWrapper;
-
+    const root = document.getElementById('root') as HTMLDivElement;
+    showWrapper();
+    root.onscroll = (): void => {
+      if (root.scrollTop <= (root.scrollHeight * 0.60)) {
+        showWrapper();
+      } else {
+        hideWrapper();
+      }
+    };
+    hideWrapper();
   }, []);
 
   function showWrapper(): void {
-    timeoutId && clearTimeout(timeoutId);
+    if (timeoutId) {
+      return undefined;
+    }
     setTimeoutId(0);
     setShow(true);
   }

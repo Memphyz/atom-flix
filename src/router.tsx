@@ -5,6 +5,7 @@ import { Details } from "./pages/details/details";
 import { Home } from "./pages/home/home";
 import { Movies } from "./pages/movies/movies";
 import { TvShow } from "./pages/tvshow/tvshow";
+import { isMobileBrowser } from "./shared/utils/regex";
 
 export function Router(): ReactElement {
   const linkRef = createRef<HTMLAnchorElement>();
@@ -17,7 +18,7 @@ export function Router(): ReactElement {
         return undefined;
       }
       const container = document.getElementById("root")!;
-      container.classList.remove("show");
+      !isMobileBrowser() && container.classList.remove("show");
       setTimeout(() => {
         setUrl(url);
       }, 500);
@@ -34,7 +35,7 @@ export function Router(): ReactElement {
     setCache({ url, anchor: linkRef?.current });
     setTimeout(() => {
       container?.scrollTo({ top: 0 });
-      container.classList.add("show");
+      !container.classList.contains('show') && container.classList.add("show");
     }, 500);
   }, [ url, linkRef ]);
 

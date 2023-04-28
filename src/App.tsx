@@ -4,6 +4,7 @@ import { loaderService } from ".";
 import "./App.scss";
 import { Main } from "./components/Main/Main";
 import { Router } from "./router";
+import { isMobileBrowser } from "./shared/utils/regex";
 
 export const router = new BehaviorSubject<string>(window.location.pathname);
 

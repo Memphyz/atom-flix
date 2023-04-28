@@ -26,16 +26,15 @@
     align-items: center;
     max-width: 420px;
     transition: all 0.5s;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
+
+    @media screen and (max-width: 1835px) {
+      max-width: unset;
+    }
 
     @media screen and (max-width: 1835px) and (min-width: 768px) {
       overflow-y: hidden;
       overflow-x: auto;
-      max-width: unset;
-    }
-
-    @media screen and (max-width: 768px) {
       max-width: unset;
     }
 
@@ -44,14 +43,6 @@
       flex-wrap: wrap;
       transition: all 0.5s;
       gap: 15px;
-
-      @media screen and (max-width: 768px) {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 194px);
-        width: 100% !important;
-        max-height: 600px;
-        justify-content: center;
-      }
 
       @media screen and (max-width: 1835px) {
         flex-wrap: nowrap;

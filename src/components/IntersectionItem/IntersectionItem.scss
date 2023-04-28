@@ -1,8 +1,14 @@
 .intersection {
   transition: all 0.5s;
+
   &.default {
     opacity: 0;
+
     &.visible {
+      opacity: 1;
+    }
+
+    @media screen and (max-width: 768px) {
       opacity: 1;
     }
   }

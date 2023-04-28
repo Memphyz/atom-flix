@@ -57,7 +57,6 @@ export function MoviesForYou(props: {
             {props.similar?.results.map((similar, index) => (
               <IntersectionItem
                 key={index}
-                animation={window.innerWidth < 1835 && window.innerWidth > 768 ? "to-left" : "to-top"}
               >
                 <Link to={`/details/${ props.getType() }/${ similar.id }`}>
                   <div

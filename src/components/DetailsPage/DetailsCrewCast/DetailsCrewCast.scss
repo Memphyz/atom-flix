@@ -1,19 +1,42 @@
 .credits {
   h3 {
     margin-bottom: 1.25rem;
+    position: relative;
+
+    &::after {
+      content: '';
+      transition: all 0.5s;
+      position: absolute;
+      mask-image: url(./../../../assets/icons/chevron-right.svg);
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      width: 30px;
+      height: 30px;
+      top: 3px;
+      left: 30%;
+      background-color: var(--black-100);
+      transform: rotate(90deg);
+    }
+  }
+
+  &.show {
+    h3::after {
+      transform: rotate(-90deg);
+    }
+
+    .cast {
+      max-height: 310px;
+      padding: 10px 0px;
+    }
   }
 
   .cast {
     display: flex;
     gap: 15px;
     overflow: auto;
-    padding: 10px 0px;
-
-    @media screen and (max-width: 768px) {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, 140px);
-      justify-content: center;
-      max-height: 600px;
-    }
+    transition: all 0.5s;
+    max-height: 0px;
+    padding: 0px;
   }
 }
