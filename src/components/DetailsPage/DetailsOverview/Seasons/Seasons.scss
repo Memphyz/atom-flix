@@ -1,0 +1,48 @@
+.seasons-wrapper {
+  position: relative;
+  margin-top: 8rem;
+
+  h3 {
+    margin: 0px 0px 20px 0px;
+    font-size: clamp(17px, 2vw, 25px);
+    font-weight: 700;
+    position: relative;
+
+    &:after {
+      content: '';
+      transition: all 0.5s;
+      position: absolute;
+      mask-image: url(./../../../../assets/icons/chevron-right.svg);
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      width: 30px;
+      height: 30px;
+      top: 3px;
+      left: 30%;
+      background-color: var(--black-100);
+      transform: rotate(90deg);
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 4rem);
+    border: 1px dashed var(--black-300);
+    width: 100%;
+  }
+
+  .seasons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all 0.5s;
+    overflow: auto;
+    max-height: 0px;
+
+    &.show {
+      max-height: 100vw;
+    }
+  }
+}

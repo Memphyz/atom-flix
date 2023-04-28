@@ -64,7 +64,7 @@ export function Details(): ReactElement {
   return (
     <div className="main-details-wrapper">
       <div className="movie-main-details">
-        <DetailsOverview commonDetails={commonDetails!} />
+        <DetailsOverview commonDetails={commonDetails!} type={getType() as any} />
         <MoviesForYou
           similar={similar!}
           getId={getId}

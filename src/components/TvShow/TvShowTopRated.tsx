@@ -5,6 +5,7 @@ import { CardList } from "../CardList/CardList";
 
 export function TvShowTopRated(props: {
   listContainerId: string;
+  type?: 'tv' | 'movie'
 }): ReactElement {
   const service = new TvShowService();
 
@@ -14,7 +15,7 @@ export function TvShowTopRated(props: {
       backgroundImageSuffix="poster_path"
       width={430}
       height={243}
-      type="movie"
+      type={props.type || 'movie'}
       widthDetailsMultiplier={1.2}
       backgroundImage="	https://www.themoviedb.org/t/p/w533_and_h300_bestv2/"
       getAll={service.getTopRated.bind(service)}

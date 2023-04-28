@@ -21,7 +21,7 @@ export function TvShow(): ReactElement {
         title: 'name'
       }} />
       <List component={TvShowPopular} id="lastest_tv-show" title={t('TOP_RATED') as string} />
-      <List component={TvShowTopRated} id="airing-today" title={t('TOP_RATED') as string} />
+      <List component={TvShowTopRated} id="airing-today" title={t('TOP_RATED') as string} customComponentProps={{ type: 'tv' }} />
       <List component={TvShowOnTheAir} id="on-the-air" title={t('ON_AIR') as string} />
     </div>
   )

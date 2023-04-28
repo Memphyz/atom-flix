@@ -8,9 +8,11 @@ import { Video } from "../../../core/models/ModelVideo";
 import { Backdrop } from "../../../core/models/ObjectImages";
 import { DetailsCrewCast } from "../DetailsCrewCast/DetailsCrewCast";
 import { t } from "i18next";
+import { Seasons } from "./Seasons/Seasons";
 
 export function DetailsOverview(props: {
   commonDetails: CommonDetails;
+  type: 'tv' | 'movie'
 }): ReactElement {
   const [ hoursMinutes, setHourMinute ] = useState({ hours: 0, minutes: 0 });
   const [ movieImageVideos, setMovieImageVideos ] = useState<
@@ -66,6 +68,9 @@ export function DetailsOverview(props: {
             &nbsp;{props.commonDetails?.overview || '-'}
           </span>
         </Skeleton>
+        {props.type === 'tv' ?
+          <Seasons {...props.commonDetails} />
+          : null}
         <DetailsCrewCast {...props} />
       </div>
     </div>

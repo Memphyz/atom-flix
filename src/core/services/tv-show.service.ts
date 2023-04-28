@@ -7,7 +7,7 @@ import { Images } from "../models/ObjectImages";
 import { Recomendations } from "../models/Recomendations";
 import { IResponse } from "../models/Response";
 import { ITvShow } from "../models/TvShow/TvShow";
-import { TvShowDetails, TvShowSimilar } from "../models/TvShow/TvShowDetails";
+import { EpisodesSeason, TvShowDetails, TvShowSimilar } from "../models/TvShow/TvShowDetails";
 import { Video } from "../models/Video";
 import { WatchProviders } from "../models/WatchProviders";
 import { BASE_URL } from "./../../index";
@@ -30,6 +30,9 @@ export class TvShowService extends AbstractService<ITvShow> {
     }) as Observable<TvShowDetails>;
   }
 
+  public getEpisodes(props: { tvId: number, seasonNumber: number }): Observable<EpisodesSeason> {
+    return this.get(this.prefixUrl() + `/${ props.tvId }/season/${ props.seasonNumber }`)
+  }
 
   public getLatest(): Observable<ITvShow> {
     return this.get(this.prefixUrl() + '/latest');

@@ -1,0 +1,92 @@
+.season {
+  display: flex;
+  gap: 10px;
+
+  .data-season-simple {
+    width: 120px;
+    height: 180px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-shrink: 0;
+    flex-grow: 0;
+    position: relative;
+    border-radius: 8px;
+
+    span {
+      z-index: 1;
+      position: relative;
+      bottom: 10px;
+      font-weight: 600;
+    }
+
+    &::after {
+      content: '';
+      bottom: 0px;
+      width: 100%;
+      height: 50%;
+      position: absolute;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.7803921569) 100%);
+    }
+  }
+
+  .overview {
+    max-height: 180px;
+    overflow: auto;
+
+    .date {
+      font-weight: 500;
+      color: var(--black-100);
+      margin-bottom: 1rem;
+    }
+
+    &.direct-eps {
+      max-height: unset;
+      width: 100%;
+    }
+
+    .episodes-wrapper {
+      width: 100%;
+
+      .episodes-container {
+        display: grid;
+        gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 286px));
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+
+        .default.visible.card {
+          justify-self: center;
+
+        }
+
+        .default.visible.card.details {
+          max-width: 270px;
+          min-height: 120px !important;
+        }
+      }
+    }
+
+    span {
+      color: var(--black-300);
+      margin-bottom: 1rem;
+    }
+  }
+
+  &:not(:last-child) {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: calc(100% + 10px);
+      width: 100%;
+      border: 1px solid var(--black-300);
+      left: 0;
+    }
+  }
+}
