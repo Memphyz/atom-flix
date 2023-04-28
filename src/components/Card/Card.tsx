@@ -15,6 +15,7 @@ import { noop } from "rxjs";
 import { Link } from "react-router-dom";
 import { router } from "../../App";
 import { t } from "i18next";
+import { isMobileBrowser } from "../../shared/utils/regex";
 
 const MAX_WIDTH = 1920;
 const CARD_WIDTH_SPACING = 70;
@@ -27,7 +28,7 @@ export function ItemCard<T extends { id: any }>(
   const [ minWidth, setMinWidth ] = useState(props.width || 150);
 
   const detailsListeners = () => {
-    if (window.innerWidth < (props.width || 0) * 3.5) {
+    if (isMobileBrowser() || window.innerWidth < (props.width || 0) * 1.5) {
       return undefined;
     }
     props.onMouseOver && props.onMouseOver(props.item?.id);

@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: 10px;
   justify-content: space-evenly;
+
   > * {
     position: relative;
     z-index: 1;
@@ -35,5 +36,6 @@
     overflow: auto;
     max-height: 90px;
     font-size: 13px;
+    min-width: 565px;
   }
 }

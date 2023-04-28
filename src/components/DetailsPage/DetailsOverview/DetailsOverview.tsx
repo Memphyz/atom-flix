@@ -56,6 +56,9 @@ export function DetailsOverview(props: {
           <Skeleton classElements="tagline">
             <span className="tagline">{props.commonDetails?.tagline}</span>
           </Skeleton>
+          <Skeleton classElements="status">
+            <span className="status">{props.commonDetails?.status}</span>
+          </Skeleton>
         </div>
         <h4 className="description-title">{t('DESCRIPTION') as string}</h4>
         <Skeleton classElements="overview">
