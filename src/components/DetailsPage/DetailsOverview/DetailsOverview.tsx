@@ -12,6 +12,7 @@ import { Seasons } from "./Seasons/Seasons";
 
 export function DetailsOverview(props: {
   commonDetails: CommonDetails;
+  children: ReactElement,
   type: 'tv' | 'movie'
 }): ReactElement {
   const [ hoursMinutes, setHourMinute ] = useState({ hours: 0, minutes: 0 });
@@ -43,7 +44,7 @@ export function DetailsOverview(props: {
         <Skeleton classElements="title">
           <h4 className="title">{props.commonDetails?.name || props.commonDetails?.original_name || props.commonDetails?.title || props.commonDetails?.original_title}</h4>
         </Skeleton>
-        <div className="year-time-detail">
+        {props.type === 'movie' && <div className="year-time-detail">
           <Skeleton classElements="duration">
             <div className="time">
               <span>
@@ -61,7 +62,7 @@ export function DetailsOverview(props: {
           <Skeleton classElements="status">
             <span className="status">{props.commonDetails?.status}</span>
           </Skeleton>
-        </div>
+        </div>}
         <h4 className="description-title">{t('DESCRIPTION') as string}</h4>
         <Skeleton classElements="overview">
           <span className="overview">
@@ -73,6 +74,7 @@ export function DetailsOverview(props: {
           : null}
         <DetailsCrewCast {...props} />
       </div>
+      {props.children}
     </div>
   );
 }

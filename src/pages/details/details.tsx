@@ -13,6 +13,7 @@ import {
 } from "../../shared/assemblers/to-common-details";
 import { getUrlPath } from "../../shared/utils/router";
 import "./details.scss";
+import { Comments } from "../../components/DetailsPage/Comments/Comments";
 
 const SERVICE_CONFIG = {
   tv: TvShowService,
@@ -64,7 +65,14 @@ export function Details(): ReactElement {
   return (
     <div className="main-details-wrapper">
       <div className="movie-main-details">
-        <DetailsOverview commonDetails={commonDetails!} type={getType() as any} />
+        <DetailsOverview commonDetails={commonDetails!} type={getType() as any} >
+          <>
+            <div className="tags">
+              {commonDetails?.keywords[ 'results' ]?.map(keyword => <div key={keyword.id}>{keyword.name}</div>)}
+            </div>
+            <Comments {...commonDetails?.reviews} />
+          </>
+        </DetailsOverview>
         <MoviesForYou
           similar={similar!}
           getId={getId}

@@ -1,0 +1,50 @@
+.reviews-wrapper {
+  .review {
+    display: flex;
+    gap: 10px;
+    border: 1px solid var(--black-100);
+    padding: 30px;
+    border-radius: 10px;
+
+    @media screen and (max-width: 568px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    img {
+      width: 64px;
+      height: 64px;
+      border-radius: 128px;
+
+      &:not([src]) {
+        background: var(--black-100);
+        padding: 15px;
+      }
+    }
+
+    .review-data {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+
+      @media screen and (max-width: 568px) {
+        align-items: center;
+      }
+
+      .author-name {
+        display: block;
+
+        span {
+          background-color: var(--black-100);
+          width: fit-content;
+          padding: 4px 10px;
+          border-radius: 1000px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

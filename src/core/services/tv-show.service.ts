@@ -11,6 +11,7 @@ import { EpisodesSeason, TvShowDetails, TvShowSimilar } from "../models/TvShow/T
 import { Video } from "../models/Video";
 import { WatchProviders } from "../models/WatchProviders";
 import { BASE_URL } from "./../../index";
+import { EpisodeDetails } from "../models/Episode";
 
 export class TvShowService extends AbstractService<ITvShow> {
   protected prefixUrl(): string {
@@ -48,6 +49,17 @@ export class TvShowService extends AbstractService<ITvShow> {
 
   public getTopRated(params: { page: number }): Observable<IResponse<ITvShow>> {
     return this.get(this.prefixUrl() + '/top_rated', params);
+  }
+
+  public getEpisodeDetails(props: {
+    tvId: number,
+    seasonNumber: number,
+    episodeNumber: number
+  }): Observable<EpisodeDetails> {
+    return this.get<EpisodeDetails>(this.prefixUrl() + `/${ props.tvId }/season/${ props.seasonNumber }/episode/${ props.episodeNumber }`, {
+      append_to_response:
+        "account_states,credits,external_ids,images,translations",
+    })
   }
 
   public getSimilar(

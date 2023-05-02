@@ -1,3 +1,5 @@
+import { Review } from "../Review";
+
 export interface CreatedBy {
   id: number;
   credit_id: string;
@@ -283,7 +285,7 @@ export interface Recommendations {
 
 export interface Reviews {
   page: number;
-  results: any[];
+  results: Review[];
   total_pages: number;
   total_results: number;
 }

@@ -7,22 +7,6 @@
     font-size: clamp(17px, 2vw, 25px);
     font-weight: 700;
     position: relative;
-
-    &:after {
-      content: '';
-      transition: all 0.5s;
-      position: absolute;
-      mask-image: url(./../../../../assets/icons/chevron-right.svg);
-      mask-size: contain;
-      mask-repeat: no-repeat;
-      mask-position: center;
-      width: 30px;
-      height: 30px;
-      top: 3px;
-      left: 30%;
-      background-color: var(--black-100);
-      transform: rotate(90deg);
-    }
   }
 
   &::before {
@@ -39,10 +23,36 @@
     gap: 20px;
     transition: all 0.5s;
     overflow: auto;
-    max-height: 0px;
 
-    &.show {
-      max-height: 100vw;
+    ul {
+      display: flex;
+      gap: 15px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      white-space: nowrap;
+      padding: 20px 0px;
+      overflow: auto;
+
+      span {
+        cursor: pointer;
+        position: relative;
+        padding: 8px 30px;
+
+        &:hover::after {
+          width: 100%;
+          left: 0%;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 0%;
+          transition: all 0.5s;
+          border-bottom: 1px solid var(--black-300);
+          bottom: 0px;
+          left: 50%;
+        }
+      }
     }
   }
 }

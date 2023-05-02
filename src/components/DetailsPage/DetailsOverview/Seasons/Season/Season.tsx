@@ -1,49 +1,69 @@
 import { ReactElement, useEffect, useState } from 'react';
+import { EpisodeDetails } from '../../../../../core/models/Episode';
+import { TvShowService } from '../../../../../core/services/tv-show.service';
+import { className } from '../../../../../shared/utils/classname';
+import { DateUtils } from '../../../../../shared/utils/date';
 import { Episode, Season as TvSeason } from './../../../../../core/models/TvShow/TvShowDetails';
 import './Season.scss';
-import { TvShowService } from '../../../../../core/services/tv-show.service';
-import { DateUtils } from '../../../../../shared/utils/date';
-import { ItemCard } from '../../../../Card/Card';
-import { className } from '../../../../../shared/utils/classname';
+import { Modal } from '../../../../Modal/Modal';
 
-export function Season(season: TvSeason & { tvId: number }): ReactElement {
+export function Season(season: TvSeason & { tvId: number, episodeMap: Map<number, (Episode & { details?: EpisodeDetails })[]>, onFindEpisodes: (episodes: Episode[]) => void }): ReactElement {
 
   const service = new TvShowService();
-  const [ episodes, setEpisodes ] = useState<Episode[]>([])
-
+  const [ details, setDetails ] = useState<EpisodeDetails>(null)
 
   useEffect(() => {
-    if (!season?.overview) {
-      console.log(season)
-      service.getEpisodes({
-        tvId: season.tvId,
-        seasonNumber: season.season_number
-      }).subscribe((group) => {
-        setEpisodes(group.episodes);
-        console.log(episodes)
-      })
+    if (season.episodeMap.has(season.id)) {
+      return undefined;
     }
-  }, [])
+    service.getEpisodes({
+      tvId: season.tvId,
+      seasonNumber: season.season_number
+    }).subscribe((group) => {
+      season.onFindEpisodes(group.episodes);
+    })
+  }, []);
+
+  function getEpisodeDetail(number: number): void {
+    const detailsEpisode = season.episodeMap.get(season.id).find(episodes => episodes.episode_number === number)?.details;
+    if (detailsEpisode) {
+      setDetails(detailsEpisode)
+      return undefined
+    }
+    service.getEpisodeDetails({
+      tvId: season.tvId,
+      seasonNumber: season.season_number,
+      episodeNumber: number
+    }).subscribe((episode) => {
+      const epsBkp = season.episodeMap.get(season.id);
+      epsBkp.find(ep => ep.episode_number === number).details = episode;
+      season.episodeMap.set(season.id, epsBkp);
+      setDetails(episode)
+    })
+  }
 
   return (<div className="season">
-    <div className="data-season-simple" style={{ backgroundImage: `url(	https://www.themoviedb.org/t/p/w220_and_h330_face${ season.poster_path })` }}>\
-      <span>
-        {season.name}
-      </span>
-    </div>
+
     <div className={className({
       overview: true,
-      'direct-eps': !season.overview
     })}>
-      <div className="date">{DateUtils.formatDate(season.air_date)}</div>
-      {season.overview ? <span>{season.overview}</span> :
-        <div className='episodes-wrapper'>
-          <div className="episodes-container">
-            {episodes?.length ?
-              episodes.map((episode) => <ItemCard<Episode> height={80} width={180} title='name' type='tv' backgroundImage='https://www.themoviedb.org/t/p/w355_and_h200_multi_faces' backgroundImageSuffix='still_path' item={episode} widthDetailsMultiplier={0.1} />)
-              : null}
-          </div>
-        </div>}
+      <div className="date">{season.air_date ? DateUtils.formatDate(season.air_date) : '-'}</div>
+      <span>{season.overview}</span>
+      <div className='episodes-wrapper'>
+        <div className="episodes-container">
+          {season.episodeMap.get(season.id)?.map((episode) => <div className='episode-wrapper' key={episode.id} onClick={() => getEpisodeDetail(episode.episode_number)}>
+            <div className='episode-container' style={{ backgroundImage: `url(https://www.themoviedb.org/t/p/w355_and_h200_multi_faces${ episode.still_path })` }}>
+            </div>
+            <div className="episode-data">
+              <label htmlFor={`${ episode.name } season ${ season.name }`}>{episode.name}</label>
+              <span>{episode.overview}</span>
+            </div>
+            <Modal open={!!details} onClose={() => setDetails(null)}>
+              <> {episode?.details?.name}</>
+            </Modal>
+          </div>)}
+        </div>
+      </div>
     </div>
   </div>)
 }
