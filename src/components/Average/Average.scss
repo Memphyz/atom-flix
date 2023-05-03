@@ -1,0 +1,39 @@
+.average-wrapper {
+  width: 60px;
+  height: 60px;
+  background-color: var(--black-200);
+  border-radius: 128px;
+  position: relative;
+  background-image: conic-gradient(var(--color) var(--percentage), transparent 17%, transparent);
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    top: 4px;
+    left: 4px;
+    background-color: var(--black-200);
+    border-radius: 128px;
+  }
+
+  &::after {
+    content: '73%';
+    position: absolute;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    top: 4px;
+    left: 4px;
+    background-color: var(--black-200);
+    border-radius: 128px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+
+}

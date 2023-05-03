@@ -31,7 +31,7 @@ export function Home(): ReactElement {
         <List component={TrendingWeek} id="trending-content-movie" title={t('MOVIES_TRENDING_WEEK') as string} customComponentProps={{ mediaType: 'movie', timeWindow: 'week' }} />
         <List component={UpcomingMovies} id="upcoming-movie" title={t('UPCOMING_MOVIE') as string} />
         <List component={TvShowOnTheAir} id="on-the-air" title={t('ON_AIR') as string} />
-        <List component={TvShowTopRated} id="airing-today" title={t('TOP_RATED_TV_SHOW') as string} />
+        <List component={TvShowTopRated} id="airing-today" customComponentProps={{ type: 'tv' }} title={t('TOP_RATED_TV_SHOW') as string} />
       </div>
     </div>
   );

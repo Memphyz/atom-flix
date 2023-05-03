@@ -58,7 +58,7 @@ export class TvShowService extends AbstractService<ITvShow> {
   }): Observable<EpisodeDetails> {
     return this.get<EpisodeDetails>(this.prefixUrl() + `/${ props.tvId }/season/${ props.seasonNumber }/episode/${ props.episodeNumber }`, {
       append_to_response:
-        "account_states,credits,external_ids,images,translations",
+        "account_states,credits,external_ids",
     })
   }
 

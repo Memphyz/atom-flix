@@ -1,4 +1,9 @@
 .reviews-wrapper {
+
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
   .review {
     display: flex;
     gap: 10px;
@@ -34,6 +39,7 @@
 
       .author-name {
         display: block;
+        margin-bottom: 1.25rem;
 
         span {
           background-color: var(--black-100);

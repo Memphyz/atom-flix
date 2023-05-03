@@ -3,9 +3,13 @@ import { EpisodeDetails } from '../../../../../core/models/Episode';
 import { TvShowService } from '../../../../../core/services/tv-show.service';
 import { className } from '../../../../../shared/utils/classname';
 import { DateUtils } from '../../../../../shared/utils/date';
-import { Episode, Season as TvSeason } from './../../../../../core/models/TvShow/TvShowDetails';
-import './Season.scss';
 import { Modal } from '../../../../Modal/Modal';
+import { Episode, Season as TvSeason } from './../../../../../core/models/TvShow/TvShowDetails';
+import { DetailsSeasonPresentation } from './DetailsSeasonPresentation/DetailsSeasonPresentation';
+import './Season.scss';
+import { toHoursAndMinutes } from '../../../../../shared/utils/commons';
+import { t } from 'i18next';
+import { Average } from '../../../../Average/Average';
 
 export function Season(season: TvSeason & { tvId: number, episodeMap: Map<number, (Episode & { details?: EpisodeDetails })[]>, onFindEpisodes: (episodes: Episode[]) => void }): ReactElement {
 
@@ -42,8 +46,12 @@ export function Season(season: TvSeason & { tvId: number, episodeMap: Map<number
     })
   }
 
-  return (<div className="season">
+  function getTime(runtime: number): string {
+    const { hours, minutes } = toHoursAndMinutes(runtime);
+    return hours ? `${ hours }h ● ${ minutes }m` : `${ minutes }m`;
+  }
 
+  return (<div className="season">
     <div className={className({
       overview: true,
     })}>
@@ -58,8 +66,30 @@ export function Season(season: TvSeason & { tvId: number, episodeMap: Map<number
               <label htmlFor={`${ episode.name } season ${ season.name }`}>{episode.name}</label>
               <span>{episode.overview}</span>
             </div>
-            <Modal open={!!details} onClose={() => setDetails(null)}>
-              <> {episode?.details?.name}</>
+            <Modal open={details?.id === episode.id} onClose={() => setDetails(null)}>
+              {details && <div className="episode-details-container">
+                <div className="average">
+                  <Average average={details.vote_average} />
+                </div>
+                <DetailsSeasonPresentation {...details} />
+                <div className="details-episode-overview-data">
+                  <h3>{details.name} <span>{getTime(details.runtime)}</span></h3>
+                  <div className="details-episode-overview-wrapper">
+                    <label htmlFor="overview" className='details-episode-overview'>{details.overview}</label>
+                  </div>
+                  <br />
+                  <h3>{t('CREW') as string}</h3>
+                  <div className="crew-episode-wrapper">
+                    {details.crew.map((crew) => <div className='crew-episode'>
+                      <img src={crew.profile_path ? `https://www.themoviedb.org/t/p/w138_and_h175_face${ crew.profile_path }` : null} alt={`${ crew.name } photo`} />
+                      <div className="crew-data">
+                        <label htmlFor={crew.name}>{crew.name}</label>
+                        <span>{crew.department}</span>
+                      </div>
+                    </div>)}
+                  </div>
+                </div>
+              </div>}
             </Modal>
           </div>)}
         </div>

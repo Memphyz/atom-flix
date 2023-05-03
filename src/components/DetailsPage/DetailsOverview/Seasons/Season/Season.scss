@@ -32,11 +32,16 @@
           transition: all 0.5s;
           cursor: pointer;
 
+          @media screen and (max-width: 768px) {
+            flex-direction: column;
+          }
+
           &:hover {
             background-color: var(--brand-color-1);
           }
 
-          * {
+          .episode-container,
+          .episode-data {
             z-index: 1;
           }
 
@@ -84,6 +89,117 @@
             flex-shrink: 0;
           }
         }
+      }
+
+      position: absolute;
+      right: 10px;
+      top: 10px;
+
+      .episode-details-container {
+        max-width: 533px;
+        max-height: 95vh;
+        background-color: var(--black-300);
+
+        .average {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+        }
+
+        .details-episode-overview-data {
+          padding: 20px;
+          overflow: auto;
+          max-height: calc(95vh - 300px);
+
+          .crew-episode-wrapper {
+            display: flex;
+            gap: 15px;
+            overflow: auto;
+            padding: 15px 0px;
+
+            .crew-episode {
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              width: 138px;
+              height: 100%;
+              border-radius: 10px;
+              border: 1px solid var(--black-100);
+
+              @media screen and (max-width: 568px) {
+                width: 93px;
+              }
+
+              img {
+                border-radius: 10px 10px 0px 0px;
+                width: 136px;
+                height: 172.45px;
+
+                @media screen and (max-width: 568px) {
+                  width: 90px;
+                  height: 100px;
+                }
+
+                &:not([src]) {
+                  background-color: var(--black-100);
+                  position: relative;
+
+                  &::before {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                    background-color: var(--black-100);
+                    z-index: 1;
+                  }
+
+                  &::after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                    mask-image: url(./../../../../../assets/icons/person.svg);
+                    mask-size: 50%;
+                    mask-position: center;
+                    mask-repeat: no-repeat;
+                    background-color: var(--black-400);
+                    z-index: 1;
+                  }
+                }
+              }
+
+              .crew-data {
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                label {
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+              }
+            }
+          }
+
+          .details-episode-overview-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+          }
+
+          h3 span {
+            font-size: 15px;
+            color: var(--black-100);
+          }
+        }
+
       }
     }
 
