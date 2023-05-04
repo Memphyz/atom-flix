@@ -87,9 +87,28 @@
             padding: 10px 5px;
             flex-grow: 0;
             flex-shrink: 0;
+
+            &.placeholder {
+              background-color: var(--black-200);
+              position: relative;
+
+              &::before {
+                content: '';
+                mask-image: url(./../../../../../assets/icons/tv-show.svg);
+                width: 50%;
+                height: 50%;
+                mask-position: center;
+                mask-repeat: no-repeat;
+                mask-size: contain;
+                background-color: var(--black-400);
+                position: absolute;
+                top: 25%;
+              }
+            }
           }
         }
       }
+
 
       .episode-details-container {
         max-width: 533px;
@@ -100,6 +119,7 @@
           position: absolute;
           right: 10px;
           top: 10px;
+          z-index: 2;
         }
 
         .details-episode-overview-data {

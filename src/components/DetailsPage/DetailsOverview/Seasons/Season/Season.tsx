@@ -60,11 +60,14 @@ export function Season(season: TvSeason & { tvId: number, episodeMap: Map<number
       <div className='episodes-wrapper'>
         <div className="episodes-container">
           {season.episodeMap.get(season.id)?.map((episode) => <div className='episode-wrapper' key={episode.id} onClick={() => getEpisodeDetail(episode.episode_number)}>
-            <div className='episode-container' style={{ backgroundImage: `url(https://www.themoviedb.org/t/p/w355_and_h200_multi_faces${ episode.still_path })` }}>
+            <div className={className({
+              'episode-container': true,
+              placeholder: !episode.still_path
+            })} style={{ backgroundImage: episode.still_path ? `url(https://www.themoviedb.org/t/p/w355_and_h200_multi_faces${ episode.still_path })` : null }}>
             </div>
             <div className="episode-data">
               <label htmlFor={`${ episode.name } season ${ season.name }`}>{episode.name}</label>
-              <span>{episode.overview}</span>
+              <span>{episode.overview || '-'}</span>
             </div>
             <Modal open={details?.id === episode.id} onClose={() => setDetails(null)}>
               {details && <div className="episode-details-container">

@@ -4,7 +4,8 @@
   background-color: var(--black-200);
   border-radius: 128px;
   position: relative;
-  background-image: conic-gradient(var(--color) var(--percentage), transparent 17%, transparent);
+  background-image: conic-gradient(var(--color) var(--percentage), var(--black-200) var(--percentage), transparent);
+  border: 2px solid var(--black-200);
 
   &::before {
     content: '';
