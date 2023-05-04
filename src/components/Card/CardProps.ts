@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-export interface ICardProps<T extends { id: unknown }> {
+export interface ICardProps<T extends { id: unknown, vote_average: number }> {
   items?: T[];
   width?: number;
   height?: number;

@@ -7,6 +7,7 @@ import i18next from "i18next";
 export function CardList<
   T extends {
     id: any;
+    vote_average: number;
     backdrop_path: string;
     name?: string;
     overview: string;

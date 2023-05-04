@@ -17,7 +17,7 @@ export function TrendingWeek(props: {
       backgroundImageSuffix="poster_path"
       width={190}
       height={280}
-      type="tv"
+      type={props.mediaType as any}
       otherRequestParams={{ media_type: props.mediaType, time_window: props.timeWindow }}
       backgroundImage="https://www.themoviedb.org/t/p/w220_and_h330_face/"
       getAll={service.getTrending.bind(service)}

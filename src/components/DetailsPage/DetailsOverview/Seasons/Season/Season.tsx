@@ -80,7 +80,7 @@ export function Season(season: TvSeason & { tvId: number, episodeMap: Map<number
                   <br />
                   <h3>{t('CREW') as string}</h3>
                   <div className="crew-episode-wrapper">
-                    {details.crew.map((crew) => <div className='crew-episode'>
+                    {details.crew.map((crew) => <div className='crew-episode' key={crew.id}>
                       <img src={crew.profile_path ? `https://www.themoviedb.org/t/p/w138_and_h175_face${ crew.profile_path }` : null} alt={`${ crew.name } photo`} />
                       <div className="crew-data">
                         <label htmlFor={crew.name}>{crew.name}</label>

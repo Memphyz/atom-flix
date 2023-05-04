@@ -9,6 +9,7 @@ import { Backdrop } from "../../../core/models/ObjectImages";
 import { DetailsCrewCast } from "../DetailsCrewCast/DetailsCrewCast";
 import { t } from "i18next";
 import { Seasons } from "./Seasons/Seasons";
+import { Average } from "../../Average/Average";
 
 export function DetailsOverview(props: {
   commonDetails: CommonDetails;
@@ -39,6 +40,9 @@ export function DetailsOverview(props: {
           data={movieImageVideos}
           placeholder={`https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces/${ props.commonDetails?.backdrop_path }`}
         />
+        <div className="average">
+          <Average average={props.commonDetails?.vote_average} />
+        </div>
       </div>
       <div className="title-overview">
         <Skeleton classElements="title">

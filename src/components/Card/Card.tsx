@@ -1,4 +1,5 @@
 import {
+  CSSProperties,
   ReactElement,
   SyntheticEvent,
   createRef,
@@ -21,7 +22,7 @@ const MAX_WIDTH = 1920;
 const CARD_WIDTH_SPACING = 70;
 const GAP = 20;
 
-export function ItemCard<T extends { id: any }>(
+export function ItemCard<T extends { id: any, vote_average: number }>(
   props: ICardProps<T> & { item?: T; seeMore?: boolean, subtitle?: string, pill?: string }
 ) {
   const [ showDetails, setDetails ] = useState(false);
@@ -69,7 +70,7 @@ export function ItemCard<T extends { id: any }>(
             </span>}
           </label>
         </div>
-        <div className="shadow" />
+        <div className="shadow" average-value={props.item.vote_average ? `${ Math.round(props.item.vote_average * 10) }%` : null} />
       </>
     );
   };
@@ -100,14 +101,14 @@ export function ItemCard<T extends { id: any }>(
             ? props.item![ (props.backgroundImageSuffix as any) || "" ]
             : null
           })`,
-      }}
+      } as CSSProperties}
     >
       {showDetails ? props.children : cardContent()}
     </IntersectionItem>
   );
 }
 
-export function Cards<T extends { id: any }>(
+export function Cards<T extends { id: any, vote_average: number }>(
   props: ICardProps<T>
 ): ReactElement {
   const [ SKELETON_SIZE, setSkeletonSize ] = useState(1);
